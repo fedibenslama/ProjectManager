@@ -4,6 +4,7 @@ import Footer from "./Layouts/Footer";
 import Login from "./Pages/login";
 import Menu from "./Layouts/Menu";
 import Projects from "./Componants/Projects/Projects";
+import ProjectAdd from './Componants/Projects/ProjectAdd';
 import { nanoid } from 'nanoid';
 
 
@@ -41,19 +42,19 @@ function App() {
     Status: '',
   }])
 
-  useEffect(()=> {
+  useEffect(() => {
     fetch('http://localhost:3001/projects')
-    .then(response => {
-      return response.json();
-    })
-    .then(projects => {
-      
-      setProjectsInfo(projects)
-    })
-    // console.log(count)
-  },[]) // if you add count, only run if count changes.
+      .then(response => {
+        return response.json();
+      })
+      .then(projects => {
 
-  
+        setProjectsInfo(projects)
+      })
+    // console.log(count)
+  }, []) // if you add count, only run if count changes.
+
+
   //----------------------Project ADD---------------------------------
   const onProjectAddChange = (event) => {
     event.preventDefault();
@@ -176,7 +177,7 @@ function App() {
     const NewProjects = [...ProjectsInfo]
     const index = ProjectsInfo.findIndex((ProjectInfo) => ProjectInfo.id === projectId);
     NewProjects.splice(index, 1);
-    
+
     setProjectsInfo(NewProjects)
 
     fetch('http://localhost:3001/DeleteProject', {
@@ -194,11 +195,13 @@ function App() {
   return (
     <div className="wrapper">
       {/* <Navbar /> */}
+      {/* <Menu/> */}
       <Projects ProjectsInfo={ProjectsInfo} EditProjectId={EditProjectId}
         onProjectEditClick={onProjectEditClick} EditProjectData={EditProjectData}
         onProjectEditChange={onProjectEditChange} onProjectEditSubmit={onProjectEditSubmit}
         onProjectCancelClick={onProjectCancelClick} onProjectDeleteClick={onProjectDeleteClick} />
-      {/* <Menu/> */}
+      <ProjectAdd onProjectAddChange={onProjectAddChange} onProjectAddSubmit={onProjectAddSubmit} />
+      
       {/* <Footer /> */}
     </div>
   );
