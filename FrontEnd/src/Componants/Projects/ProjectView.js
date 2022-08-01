@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 function ProjectView() {
-    const [ViewProjectId, setViewProjectId] = useState(null)
+    // const [ViewProjectId, setViewProjectId] = useState(null)
     const [ViewProjectData, setViewProjectData] = useState([{
         Name: '',
         Type: '',

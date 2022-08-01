@@ -1,39 +1,21 @@
 import React from "react";
-import { useState, useEffect } from "react";
 
-function ProjectEdit({ProjectsInfo,setProjectsInfo}) {
-    const [EditProjectId, setEditProjectId] = useState(null)
-    const [EditProjectData, setEditProjectData] = useState([{
-        Name: '',
-        Type: '',
-        UsedSolutions: '',
-        AssociatedServers: '',
-        AssociatedClient: '',
-        Status: '',
-        ProjectProgress: '',
-        StartDate: '',
-        FinishDate: '',
-        ProjectDescription: ''
-    }])
+
+function ProjectEdit({ProjectsInfo,setProjectsInfo,EditProjectData,setEditProjectData,EditProjectId,setEditProjectId}) {
+ 
     //----------------------Project Edit---------------------------------
-    const onProjectEditClick = (event, ProjectInfo) => {
-        event.preventDefault();
-        setEditProjectId(ProjectInfo.id)
-        const ProjectValue = {
-            Name: ProjectInfo.Name,
-            Type: ProjectInfo.Type,
-            UsedSolutions: ProjectInfo.UsedSolutions,
-            AssociatedServers: ProjectInfo.AssociatedServers,
-            AssociatedClient: ProjectInfo.AssociatedClient,
-            Status: ProjectInfo.Status,
-            ProjectProgress: ProjectInfo.ProjectProgress,
-            StartDate: ProjectInfo.StartDate,
-            FinishDate: ProjectInfo.FinishDate,
-            ProjectDescription: ProjectInfo.ProjectDescription
-        }
+    // useEffect(() => {
+    //     fetch('http://localhost:3001/projects')
+    //         .then(response => {
+    //             return response.json();
+    //         })
+    //         .then(projects => {
 
-        setEditProjectData(ProjectValue)
-    }
+    //             setEditProjectData(projects)
+    //         })
+
+    // }, []) //
+
     const onProjectEditChange = (event) => {
         event.preventDefault();
         const fieldName = event.target.getAttribute('name');

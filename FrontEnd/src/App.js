@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Footer from "./Layouts/Footer";
 // import Login from "./Pages/login";
 // import Menu from "./Layouts/Menu";
+
 import Projects from "./Componants/Projects/Projects";
 import ProjectAdd from './Componants/Projects/ProjectAdd';
 import ProjectEdit from './Componants/Projects/ProjectEdit';
@@ -27,12 +28,22 @@ function App() {
     FinishDate: '',
     ProjectDescription: ''
   }])
+  const [EditProjectId, setEditProjectId] = useState(null)
+  const [EditProjectData, setEditProjectData] = useState([{
+    Name: '',
+    Type: '',
+    UsedSolutions: '',
+    AssociatedServers: '',
+    AssociatedClient: '',
+    Status: '',
+    ProjectProgress: '',
+    StartDate: '',
+    FinishDate: '',
+    ProjectDescription: ''
+  }])
 
-  // ---------------------------HOOKS-------------------------------------
-   
 
 
-  //----------------------Project ADD---------------------------------
 
   //----------------------Project View---------------------------------
   // const onProjectViewClick = (event, ProjectInfo) => {
@@ -66,7 +77,7 @@ function App() {
   // }
 
 
-  
+
 
   //----------------------Project Cancel---------------------------------
 
@@ -74,7 +85,7 @@ function App() {
   //   setEditProjectId(null)
   // }
   //--------------------Project Delete ------------------------
- 
+
 
   return (
     // <div className="wrapper">
@@ -91,12 +102,18 @@ function App() {
 
     //   {/* <Footer /> */}
     // </div>
+
     <Router>
       <Routes>
         <Route path="/ViewProject/:id" element={<ProjectView />} />
         <Route path='/addProject' element={<ProjectAdd ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo} />} />
-        <Route path='/EditProject' element={<ProjectEdit ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo}/>}/>
-        <Route path='/projects' element={<Projects ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo}/>} />
+        <Route path='/EditProject' element={<ProjectEdit ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo}
+          EditProjectId={EditProjectId} setEditProjectId={setEditProjectId} EditProjectData={EditProjectData}
+          setEditProjectData={setEditProjectData} />} />
+        <Route path='/projects' element={<Projects ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo}
+          EditProjectId={EditProjectId} setEditProjectId={setEditProjectId} EditProjectData={EditProjectData}
+          setEditProjectData={setEditProjectData}
+        />} />
       </Routes>
     </Router >
   );
