@@ -39,20 +39,34 @@ const ProjectAdd = ({ onProjectAddChange, onProjectAddSubmit }) => {
                     <label htmlFor="inputName">Project Name</label>
                     <input
                       type="text"
-                      id="inputName"
+                      id="Name"
                       name="Name"
                       className="form-control"
                       onChange={onProjectAddChange}
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="inputDescription">Project Description</label>
-                    <textarea id="inputDescription" className="form-control" rows={4} defaultValue={""} />
+                    <label htmlFor="Type">Type</label>
+                    <input
+                      type="text"
+                      id="Type"
+                      className="form-control"
+                      name="Type"
+                      onChange={onProjectAddChange} />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="ProjectDescription">Project Description</label>
+                    <textarea id="ProjectDescription" 
+                    className="form-control" 
+                    rows={4} 
+                    defaultValue={""} 
+                    name="ProjectDescription"
+                    onChange={onProjectAddChange}/>
                   </div>
                   <div className="form-group">
                     <label htmlFor="inputStatus">Status</label>
                     <select
-                      id="inputStatus"
+                      id="Status"
                       className="form-control custom-select"
                       onChange={onProjectAddChange}
                       name="Status">
@@ -73,9 +87,22 @@ const ProjectAdd = ({ onProjectAddChange, onProjectAddSubmit }) => {
                       onChange={onProjectAddChange} />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="inputProjectLeader">Project Leader</label>
-                    <input type="text" id="inputProjectLeader" className="form-control" />
+                    <label htmlFor="AssociatedServers">Associated Servers</label>
+                    <input type="text"
+                      id="AssociatedServers"
+                      className="form-control"
+                      name="AssociatedServers"
+                      onChange={onProjectAddChange} />
                   </div>
+                  <div className="form-group">
+                    <label htmlFor="UsedSolutions">Used Solutions</label>
+                    <input type="text"
+                      id="UsedSolutions"
+                      className="form-control"
+                      name="UsedSolutions"
+                      onChange={onProjectAddChange} />
+                  </div>
+                  
                 </div>
                 {/* /.card-body */}
               </div>
@@ -84,7 +111,7 @@ const ProjectAdd = ({ onProjectAddChange, onProjectAddSubmit }) => {
             <div className="col-md-6">
               <div className="card card-secondary">
                 <div className="card-header">
-                  <h3 className="card-title">Budget</h3>
+                  <h3 className="card-title">Progress</h3>
                   <div className="card-tools">
                     <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
                       <i className="fas fa-minus" />
@@ -93,16 +120,28 @@ const ProjectAdd = ({ onProjectAddChange, onProjectAddSubmit }) => {
                 </div>
                 <div className="card-body">
                   <div className="form-group">
-                    <label htmlFor="inputEstimatedBudget">Estimated budget</label>
-                    <input type="number" id="inputEstimatedBudget" className="form-control" />
+                    <label htmlFor="ProjectProgress">Project Progress</label>
+                    <input type="number" min={0} max={100}
+                      id="ProjectProgress"
+                      className="form-control"
+                      name="ProjectProgress"
+                      onChange={onProjectAddChange} />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="inputSpentBudget">Total amount spent</label>
-                    <input type="number" id="inputSpentBudget" className="form-control" />
+                    <label htmlFor="StartDate">Start Date</label>
+                    <input type="date"
+                      id="StartDate"
+                      className="form-control"
+                      name="StartDate"
+                      onChange={onProjectAddChange} />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="inputEstimatedDuration">Estimated project duration</label>
-                    <input type="number" id="inputEstimatedDuration" className="form-control" />
+                    <label htmlFor="FinishDate">Finish Date</label>
+                    <input type="date" 
+                    id="FinishDate" 
+                    className="form-control"
+                    name="FinishDate"
+                      onChange={onProjectAddChange} />
                   </div>
                 </div>
                 {/* /.card-body */}
