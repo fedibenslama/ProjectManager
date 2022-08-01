@@ -1,8 +1,43 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment } from "react";
+import { useEffect,useState } from "react";
 
-const Projects = ({ ProjectsInfo, EditProjectId, onProjectEditClick, onProjectEditChange, EditProjectData, onProjectEditSubmit, onProjectCancelClick, onProjectDeleteClick,onProjectViewClick }) => {
+function Projects ({ProjectsInfo,setProjectsInfo,EditProjectId, onProjectEditClick, onProjectEditChange, EditProjectData, onProjectEditSubmit, onProjectCancelClick ,onProjectViewClick }){
+  
+    
+      
+    
+    
+      useEffect(() => {
+        fetch('http://localhost:3001/projects')
+          .then(response => {
+            return response.json();
+          })
+          .then(projects => {
+    
+            setProjectsInfo(projects)
+          })
+    
+      }, []) //
 
+      const onProjectDeleteClick = (projectId) => {
+        const NewProjects = [...ProjectsInfo]
+        const index = ProjectsInfo.findIndex((ProjectInfo) => ProjectInfo.id === projectId);
+        NewProjects.splice(index, 1);
+    
+        setProjectsInfo(NewProjects)
+    
+        fetch('http://localhost:3001/DeleteProject', {
+          method: 'put',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: projectId
+    
+          })
+        })
+          .then(response => response.json())
+      }
+    
     return (
         <div className="content-wrapper">
             {/* Content Header (Page header) */}
@@ -14,7 +49,7 @@ const Projects = ({ ProjectsInfo, EditProjectId, onProjectEditClick, onProjectEd
                         </div>
                         <div className="col-sm-6">
                             <ol className="breadcrumb float-sm-right">
-                                <li className="breadcrumb-item"><a href="#">Home</a></li>
+                                <li className="breadcrumb-item"><a href="/#">Home</a></li>
                                 <li className="breadcrumb-item active">Projects</li>
                             </ol>
                         </div>

@@ -1,6 +1,80 @@
 import React from "react";
+import { useState } from "react";
+import { nanoid } from 'nanoid';
+function ProjectAdd ({setProjectsInfo,ProjectsInfo}) {
 
-const ProjectAdd = ({ onProjectAddChange, onProjectAddSubmit }) => {
+  const [AddProjectData, setAddProjectData] = useState({
+    Name: '',
+    Type: '',
+    UsedSolutions: '',
+    AssociatedServers: '',
+    AssociatedClient: '',
+    Status: '',
+    ProjectProgress: '',
+    StartDate: '',
+    FinishDate: '',
+    ProjectDescription: ''
+  })
+
+  const onProjectAddChange = (event) => {
+    event.preventDefault();
+
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
+
+    const NewProjectData = { ...AddProjectData }
+
+    NewProjectData[fieldName] = fieldValue;
+    setAddProjectData(NewProjectData);
+
+  }
+  const onProjectAddSubmit = (event) => {
+    event.preventDefault();
+
+    const newProject = {
+      id: nanoid(),
+      Name: AddProjectData.Name,
+      Type: AddProjectData.Type,
+      UsedSolutions: AddProjectData.UsedSolutions,
+      AssociatedServers: AddProjectData.AssociatedServers,
+      AssociatedClient: AddProjectData.AssociatedClient,
+      Status: AddProjectData.Status,
+      ProjectProgress: AddProjectData.ProjectProgress,
+      StartDate: AddProjectData.StartDate,
+      FinishDate: AddProjectData.FinishDate,
+      ProjectDescription: AddProjectData.ProjectDescription
+
+    };
+    const NewProjects = [...ProjectsInfo, newProject];
+    setProjectsInfo(NewProjects)
+
+
+    fetch('http://localhost:3001/addProject', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        Name: AddProjectData.Name,
+        Type: AddProjectData.Type,
+        UsedSolutions: AddProjectData.UsedSolutions,
+        AssociatedServers: AddProjectData.AssociatedServers,
+        AssociatedClient: AddProjectData.AssociatedClient,
+        Status: AddProjectData.Status,
+        ProjectProgress: AddProjectData.ProjectProgress,
+        StartDate: AddProjectData.StartDate,
+        FinishDate: AddProjectData.FinishDate,
+        ProjectDescription: AddProjectData.ProjectDescription
+
+      })
+    })
+      .then(response => response.json())
+    // .then(Project => {
+    //   if (Project) {
+    //     // this.props.loadProject(Project)
+    //     console.log(response)
+    //   }
+    // })
+
+  }
   return (
     <div>
       {/* Content Wrapper. Contains page content */}
@@ -161,19 +235,7 @@ const ProjectAdd = ({ onProjectAddChange, onProjectAddSubmit }) => {
         </section>
         {/* /.content */}
       </div>
-      {/* /.content-wrapper */}
-      <footer className="main-footer">
-        <div className="float-right d-none d-sm-block">
-          <b>Version</b> 3.2.0
-        </div>
-        <strong>Copyright © 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-      </footer>
-      {/* Control Sidebar */}
-      <aside className="control-sidebar control-sidebar-dark">
-        {/* Control sidebar content goes here */}
-      </aside>
-      {/* /.control-sidebar */}
-      {/* ./wrapper */}
+     
     </div>
 
   )

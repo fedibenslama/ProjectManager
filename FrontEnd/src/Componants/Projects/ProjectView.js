@@ -1,20 +1,34 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-function ProjectView({ProjectsInfo,setProjectsInfo,ViewProjectId,setViewProjectId}) {
-    
-
+function ProjectView() {
+    const [ViewProjectId, setViewProjectId] = useState(null)
+    const [ViewProjectData, setViewProjectData] = useState([{
+        Name: '',
+        Type: '',
+        UsedSolutions: '',
+        AssociatedServers: '',
+        AssociatedClient: '',
+        Status: '',
+        ProjectProgress: '',
+        StartDate: '',
+        FinishDate: '',
+        ProjectDescription: ''
+    }])
+    let { id } = useParams()
     useEffect(() => {
-        fetch('http://localhost:3001/ViewProject/70')
-          .then(response => {
-            return response.json();
-          })
-          .then(project => {  
-            
-            setProjectsInfo(project)
-          })
-    
-      }, []) //
+        fetch(`http://localhost:3001/ViewProject/${id}`)
+            .then(response => {
+                return response.json();
+            })
+            .then(project => {
+
+                setViewProjectData(project)
+
+            })
+
+    }, [id]) //
 
 
 
@@ -39,10 +53,10 @@ function ProjectView({ProjectsInfo,setProjectsInfo,ViewProjectId,setViewProjectI
                 </div>{/* /.container-fluid */}
             </section>
             {/* Main content */}
-            
+
             <section className="content">
                 {/* Default box */}
-                
+
                 <div className="card">
                     <div className="card-header">
                         <h3 className="card-title">Project Details</h3>
@@ -55,7 +69,7 @@ function ProjectView({ProjectsInfo,setProjectsInfo,ViewProjectId,setViewProjectI
                             </button>
                         </div>
                     </div>
-                    
+
                     <div className="card-body">
                         <div className="row">
                             <div className="col-12 col-md-12 col-lg-8 order-2 order-md-1">
@@ -65,16 +79,16 @@ function ProjectView({ProjectsInfo,setProjectsInfo,ViewProjectId,setViewProjectI
                                             <div className="info-box-content">
                                                 <span className="info-box-text text-center text-muted">Project Progress</span>
                                                 <div className="progress progress-sm">
-                                            <div className="progress-bar bg-green" role="progressbar"
-                                                aria-valuenow={ProjectsInfo.projectprogress}
-                                                aria-valuemin={0} aria-valuemax={100}
-                                                style={{ width: `${ProjectsInfo.projectprogress}%` }}>
-                                            </div>
-                                            
-                                        </div>
-                                        <small>
-                                            {`${ProjectsInfo.projectprogress}% Complete`}
-                                        </small>
+                                                    <div className="progress-bar bg-green" role="progressbar"
+                                                        aria-valuenow={ViewProjectData.projectprogress}
+                                                        aria-valuemin={0} aria-valuemax={100}
+                                                        style={{ width: `${ViewProjectData.projectprogress}%` }}>
+                                                    </div>
+
+                                                </div>
+                                                <small>
+                                                    {`${ViewProjectData.projectprogress}% Complete`}
+                                                </small>
                                             </div>
                                         </div>
                                     </div>
@@ -82,10 +96,10 @@ function ProjectView({ProjectsInfo,setProjectsInfo,ViewProjectId,setViewProjectI
                                         <div className="info-box bg-light">
                                             <div className="info-box-content">
                                                 <span className="info-box-text text-center text-muted">Start Date</span>
-                                                <span 
-                                                className="info-box-number text-center text-muted mb-0"
-                                                
-                                                >{ProjectsInfo.startdate}</span>
+                                                <span
+                                                    className="info-box-number text-center text-muted mb-0"
+
+                                                >{ViewProjectData.startdate}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -94,7 +108,7 @@ function ProjectView({ProjectsInfo,setProjectsInfo,ViewProjectId,setViewProjectI
                                             <div className="info-box-content">
                                                 <span className="info-box-text text-center text-muted">Finish Date</span>
                                                 <span className="info-box-number text-center text-muted mb-0">
-                                                {ProjectsInfo.finishdate}</span>
+                                                    {ViewProjectData.finishdate}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +121,7 @@ function ProjectView({ProjectsInfo,setProjectsInfo,ViewProjectId,setViewProjectI
                                         <div className="col-md-6">
                                             <div className="card">
                                                 <div className="card-header">
-                                                    <h3 className="card-title">{ProjectsInfo.name}</h3>
+                                                    <h3 className="card-title">{ViewProjectData.name}</h3>
                                                 </div>
                                                 {/* /.card-header */}
                                                 <div className="card-body">
@@ -123,7 +137,7 @@ function ProjectView({ProjectsInfo,setProjectsInfo,ViewProjectId,setViewProjectI
                                                             </div>
                                                             <div id="collapseOne" className="collapse show" data-parent="#accordion">
                                                                 <div className="card-body">
-                                                                {ProjectsInfo.usedsolutions}
+                                                                    {ViewProjectData.usedsolutions}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -137,7 +151,7 @@ function ProjectView({ProjectsInfo,setProjectsInfo,ViewProjectId,setViewProjectI
                                                             </div>
                                                             <div id="collapseTwo" className="collapse" data-parent="#accordion">
                                                                 <div className="card-body">
-                                                                {ProjectsInfo.associatedservers}
+                                                                    {ViewProjectData.associatedservers}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -151,7 +165,7 @@ function ProjectView({ProjectsInfo,setProjectsInfo,ViewProjectId,setViewProjectI
                                                             </div>
                                                             <div id="collapseThree" className="collapse" data-parent="#accordion">
                                                                 <div className="card-body">
-                                                                {ProjectsInfo.associatedclient}
+                                                                    {ViewProjectData.associatedclient}
                                                                 </div>
                                                             </div>
 
@@ -177,14 +191,14 @@ function ProjectView({ProjectsInfo,setProjectsInfo,ViewProjectId,setViewProjectI
                             </div>
                             <div className="col-12 col-md-12 col-lg-4 order-1 order-md-2">
                                 <h3 className="text-primary"><i className="fas fa-paint-brush" /> Project Name</h3>
-                                <p className="text-muted">{ProjectsInfo.projectdescription}</p>
+                                <p className="text-muted">{ViewProjectData.projectdescription}</p>
                                 <br />
                                 <div className="text-muted">
                                     <p className="text-sm">Status
-                                        <b className="d-block">{ProjectsInfo.status}</b>
+                                        <b className="d-block">{ViewProjectData.status}</b>
                                     </p>
                                     <p className="text-sm">Type
-                                        <b className="d-block">{ProjectsInfo.type}</b>
+                                        <b className="d-block">{ViewProjectData.type}</b>
                                     </p>
                                 </div>
                                 <h5 className="mt-5 text-muted">Project files</h5>
@@ -211,7 +225,7 @@ function ProjectView({ProjectsInfo,setProjectsInfo,ViewProjectId,setViewProjectI
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     )
 
