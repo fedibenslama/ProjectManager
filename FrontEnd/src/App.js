@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Navbar from "./Layouts/Navbar";
-// import Footer from "./Layouts/Footer";
-// import Login from "./Pages/login";
-// import Menu from "./Layouts/Menu";
-
+import Register from './Componants/Authentification/Register';
+import Login from './Componants/Authentification/Login';
 import Projects from "./Componants/Projects/Projects";
 import ProjectAdd from './Componants/Projects/ProjectAdd';
 import ProjectEdit from './Componants/Projects/ProjectEdit';
@@ -44,66 +41,11 @@ function App() {
 
 
 
-
-  //----------------------Project View---------------------------------
-  // const onProjectViewClick = (event, ProjectInfo) => {
-  //   event.preventDefault();
-  //   setViewProjectId(ProjectInfo.id)
-  //   const ProjectValue = {
-  //     Name: ProjectInfo.Name,
-  //     Type: ProjectInfo.Type,
-  //     UsedSolutions: ProjectInfo.UsedSolutions,
-  //     AssociatedServers: ProjectInfo.AssociatedServers,
-  //     AssociatedClient: ProjectInfo.AssociatedClient,
-  //     Status: ProjectInfo.Status,
-  //     ProjectProgress: ProjectInfo.ProjectProgress,
-  //     StartDate: ProjectInfo.StartDate,
-  //     FinishDate: ProjectInfo.FinishDate,
-  //     ProjectDescription: ProjectInfo.ProjectDescription
-  //   }
-
-  //   setViewProjectData(ProjectValue)
-  //   fetch('http://localhost:3001/ViewProject', {
-  //     method: 'get',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({
-  //       id: ViewProjectId,
-
-
-  //     })
-  //   })
-  //     .then(response => response.json())
-
-  // }
-
-
-
-
-  //----------------------Project Cancel---------------------------------
-
-  // const onProjectCancelClick = () => {
-  //   setEditProjectId(null)
-  // }
-  //--------------------Project Delete ------------------------
-
-
   return (
-    // <div className="wrapper">
-    //   {/* <Navbar /> */}
-    //   {/* <Menu/> */}
-    //   {/* <Projects ProjectsInfo={ProjectsInfo} EditProjectId={EditProjectId}
-    //     onProjectEditClick={onProjectEditClick} EditProjectData={EditProjectData}
-    //     onProjectEditChange={onProjectEditChange} onProjectEditSubmit={onProjectEditSubmit}
-    //     onProjectCancelClick={onProjectCancelClick} onProjectDeleteClick={onProjectDeleteClick}
-    //     onProjectViewClick={onProjectViewClick} /> */}
-    //   {/* <ProjectAdd onProjectAddChange={onProjectAddChange} onProjectAddSubmit={onProjectAddSubmit} /> */}
-    //   <ProjectView ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo}
-    //   ViewProjectId={ViewProjectId} setViewProjectId={setViewProjectId}/>
-
-    //   {/* <Footer /> */}
-    // </div>
+   
 
     <Router>
+
       <Routes>
         <Route path="/ViewProject/:id" element={<ProjectView />} />
         <Route path='/addProject' element={<ProjectAdd ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo} />} />
@@ -112,9 +54,11 @@ function App() {
           setEditProjectData={setEditProjectData} />} />
         <Route path='/projects' element={<Projects ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo}
           EditProjectId={EditProjectId} setEditProjectId={setEditProjectId} EditProjectData={EditProjectData}
-          setEditProjectData={setEditProjectData}
-        />} />
+          setEditProjectData={setEditProjectData} />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
+
     </Router >
   );
 }

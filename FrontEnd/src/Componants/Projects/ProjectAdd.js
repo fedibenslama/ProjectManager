@@ -1,7 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { nanoid } from 'nanoid';
-function ProjectAdd ({setProjectsInfo,ProjectsInfo}) {
+import { useNavigate } from "react-router-dom";
+function ProjectAdd({ setProjectsInfo, ProjectsInfo }) {
+
+  let navigate = useNavigate()
 
   const [AddProjectData, setAddProjectData] = useState({
     Name: '',
@@ -15,7 +18,9 @@ function ProjectAdd ({setProjectsInfo,ProjectsInfo}) {
     FinishDate: '',
     ProjectDescription: ''
   })
-
+  const onCancelClick = () => {
+    navigate("/projects")
+  }
   const onProjectAddChange = (event) => {
     event.preventDefault();
 
@@ -30,7 +35,7 @@ function ProjectAdd ({setProjectsInfo,ProjectsInfo}) {
   }
   const onProjectAddSubmit = (event) => {
     event.preventDefault();
-
+    navigate("/projects")
     const newProject = {
       id: nanoid(),
       Name: AddProjectData.Name,
@@ -130,12 +135,12 @@ function ProjectAdd ({setProjectsInfo,ProjectsInfo}) {
                   </div>
                   <div className="form-group">
                     <label htmlFor="ProjectDescription">Project Description</label>
-                    <textarea id="ProjectDescription" 
-                    className="form-control" 
-                    rows={4} 
-                    defaultValue={""} 
-                    name="ProjectDescription"
-                    onChange={onProjectAddChange}/>
+                    <textarea id="ProjectDescription"
+                      className="form-control"
+                      rows={4}
+                      defaultValue={""}
+                      name="ProjectDescription"
+                      onChange={onProjectAddChange} />
                   </div>
                   <div className="form-group">
                     <label htmlFor="inputStatus">Status</label>
@@ -176,7 +181,7 @@ function ProjectAdd ({setProjectsInfo,ProjectsInfo}) {
                       name="UsedSolutions"
                       onChange={onProjectAddChange} />
                   </div>
-                  
+
                 </div>
                 {/* /.card-body */}
               </div>
@@ -211,10 +216,10 @@ function ProjectAdd ({setProjectsInfo,ProjectsInfo}) {
                   </div>
                   <div className="form-group">
                     <label htmlFor="FinishDate">Finish Date</label>
-                    <input type="date" 
-                    id="FinishDate" 
-                    className="form-control"
-                    name="FinishDate"
+                    <input type="date"
+                      id="FinishDate"
+                      className="form-control"
+                      name="FinishDate"
                       onChange={onProjectAddChange} />
                   </div>
                 </div>
@@ -225,7 +230,7 @@ function ProjectAdd ({setProjectsInfo,ProjectsInfo}) {
           </div>
           <div className="row">
             <div className="col-12">
-              <a href="/#" className="btn btn-secondary">Cancel</a>
+              <button onClick={onCancelClick} className="btn btn-secondary">Cancel</button>
               <input type="submit"
                 defaultValue="Create new Project"
                 className="btn btn-success float-right"
@@ -235,7 +240,7 @@ function ProjectAdd ({setProjectsInfo,ProjectsInfo}) {
         </section>
         {/* /.content */}
       </div>
-     
+
     </div>
 
   )

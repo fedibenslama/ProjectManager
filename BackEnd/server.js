@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require('cors');
 const app = express();
 const knex = require('knex');
+const bcrypt = require('bcrypt-nodejs');
 const { response } = require("express");
 
 db = knex({
@@ -22,6 +23,61 @@ app.use(cors());
 app.use(express.json());
 
 
+
+//------------------SignIn--------------------
+app.post('/signin', (req, res) => {
+    db.select('email', 'hash').from('login')
+        .where('email', '=', req.body.email)
+        .then(data => {
+            const isValid = bcrypt.compareSync(req.body.password, data[0].hash);
+            if (isValid) {
+
+                return db.select('*').from('users')
+                    .where('email', '=', req.body.email)
+                    .then(user => {
+                        res.json(user[0])
+                    })
+                    .catch(err => res.status(400).json('unable to get user'))
+            }else{
+                res.status(400).json('Wrong Credntials')
+            }
+        })
+        .catch(err => res.status(400).json('Wrong Credentials'))
+
+    
+})
+
+// -------------Register -------------------
+
+app.post('/register', (req, res) => {
+    const { email, name, password,role } = req.body;
+    const hash = bcrypt.hashSync(password);
+    db.transaction(trx => {               //we create a transaction when we want to do more thant 2 things at once
+        trx.insert({
+            hash: hash,
+            email: email,
+            role : role
+        })
+            .into('login')
+            .returning('email')
+            .then(loginemail => {
+                return trx('users')
+                    .returning('*')
+                    .insert({
+                        email: loginemail[0].email,
+                        name: name,
+                        role: role
+                    }).then(response => {
+                        res.json(response)
+                    })
+            })  //we can do the same syntax also the same syntax as below
+            .then(trx.commit)
+            .catch(trx.rollback)
+    })
+
+        .catch(err => res.status(400).json('Unable To Register :('))
+  
+})
 
 // -------------Get All Projects-------------------
 app.get('/projects', (req, res) => {

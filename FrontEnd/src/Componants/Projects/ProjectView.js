@@ -1,9 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function ProjectView() {
-    // const [ViewProjectId, setViewProjectId] = useState(null)
+
+    let navigate = useNavigate()
+    const onButtonClick = () => {
+        navigate('/projects')
+    }
     const [ViewProjectData, setViewProjectData] = useState([{
         Name: '',
         Type: '',
@@ -79,7 +83,7 @@ function ProjectView() {
                                             <div className="info-box-content">
                                                 <span className="info-box-text text-center text-muted">Project Progress</span>
                                                 <div className="progress progress-sm">
-                                                    <div className="progress-bar bg-green" role="progressbar"
+                                                    <div className="progress-bar bg-blue" role="progressbar"
                                                         aria-valuenow={ViewProjectData.projectprogress}
                                                         aria-valuemin={0} aria-valuemax={100}
                                                         style={{ width: `${ViewProjectData.projectprogress}%` }}>
@@ -121,7 +125,7 @@ function ProjectView() {
                                         <div className="col-md-6">
                                             <div className="card">
                                                 <div className="card-header">
-                                                    <h3 className="card-title">{ViewProjectData.name}</h3>
+                                                    <h3 className="card-title " >{ViewProjectData.name}</h3>
                                                 </div>
                                                 {/* /.card-header */}
                                                 <div className="card-body">
@@ -190,38 +194,40 @@ function ProjectView() {
                                 {/* --------------------------------------------- */}
                             </div>
                             <div className="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-                                <h3 className="text-primary"><i className="fas fa-paint-brush" /> Project Name</h3>
-                                <p className="text-muted">{ViewProjectData.projectdescription}</p>
+                                <div>
+                                    <h3 className="text-primary"><i className="fas fa-paint-brush " /> {ViewProjectData.name}</h3></div>
+
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h3 className="card-title">
+                                            <i className="fas fa-text-width" />
+                                            Project Description
+                                        </h3>
+                                    </div>
+                                    {/* /.card-header */}
+                                    <div className="card-body">
+                                        <blockquote>
+                                            <p>{ViewProjectData.projectdescription}</p>
+                                            <small>Type: <cite>{ViewProjectData.type}</cite></small>
+                                        </blockquote>
+                                    </div>
+                                    {/* /.card-body */}
+                                </div>
+
+
                                 <br />
                                 <div className="text-muted">
-                                    <p className="text-sm">Status
+                                    <p className="text-lg">Status
                                         <b className="d-block">{ViewProjectData.status}</b>
                                     </p>
-                                    <p className="text-sm">Type
+                                    <p className="text-lg">Type
                                         <b className="d-block">{ViewProjectData.type}</b>
                                     </p>
                                 </div>
-                                <h5 className="mt-5 text-muted">Project files</h5>
-                                <ul className="list-unstyled">
-                                    <li>
-                                        <a href className="btn-link text-secondary"><i className="far fa-fw fa-file-word" /> Functional-requirements.docx</a>
-                                    </li>
-                                    <li>
-                                        <a href className="btn-link text-secondary"><i className="far fa-fw fa-file-pdf" /> UAT.pdf</a>
-                                    </li>
-                                    <li>
-                                        <a href className="btn-link text-secondary"><i className="far fa-fw fa-envelope" /> Email-from-flatbal.mln</a>
-                                    </li>
-                                    <li>
-                                        <a href className="btn-link text-secondary"><i className="far fa-fw fa-image " /> Logo.png</a>
-                                    </li>
-                                    <li>
-                                        <a href className="btn-link text-secondary"><i className="far fa-fw fa-file-word" /> Contract-10_12_2014.docx</a>
-                                    </li>
-                                </ul>
+
                                 <div className="text-center mt-5 mb-3">
-                                    <a href="/#" className="btn btn-sm btn-primary">Add files</a>
-                                    <a href="/#" className="btn btn-sm btn-warning">Report contact</a>
+                                    <button className="btn btn-sm btn-primary"
+                                        onClick={onButtonClick}>View All Projects</button>
                                 </div>
                             </div>
                         </div>

@@ -1,12 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../Layouts/Navbar";
 
-function Projects({ ProjectsInfo, setProjectsInfo,setEditProjectData,setEditProjectId, EditProjectId, onProjectEditChange, EditProjectData, onProjectEditSubmit, onProjectCancelClick, onProjectViewClick, }) {
+function Projects({ ProjectsInfo, setProjectsInfo, setEditProjectData, setEditProjectId, EditProjectId, onProjectEditChange, EditProjectData, onProjectEditSubmit, onProjectCancelClick }) {
 
 
-let navigatee = useNavigate()
+    <Navbar/>
+    // eslint-disable-next-line no-unused-vars
+    const [ViewProjectId, setViewProjectId] = useState(null)
+
+    let navigatee = useNavigate()
 
     useEffect(() => {
         fetch('http://localhost:3001/projects')
@@ -19,7 +24,19 @@ let navigatee = useNavigate()
             })
 
     }, [setProjectsInfo]) //
-    
+
+
+    const onAddProjectClick = () => {
+        navigatee('/addProject')
+    }
+
+    const onProjectViewClick = (event, ProjectInfo) => {
+        event.preventDefault();
+        setViewProjectId(ProjectInfo.id)
+        navigatee(`/ViewProject/${ProjectInfo.id}`)
+
+    }
+
     const onProjectEditClick = (event, ProjectInfo) => {
         event.preventDefault();
         setEditProjectId(ProjectInfo.id)
@@ -36,7 +53,7 @@ let navigatee = useNavigate()
             FinishDate: ProjectInfo.finishdate,
             ProjectDescription: ProjectInfo.projectdescription
         }
-    
+
         setEditProjectData(ProjectValue)
     }
     const onProjectDeleteClick = (projectId) => {
@@ -191,14 +208,14 @@ let navigatee = useNavigate()
                                         </td>
                                         <td className="project-actions text-right ">
                                             <a className="btn btn-primary btn-sm"
-                                                href="/#"
+                                                onClick={(event) => onProjectViewClick(event, ProjectInfo)}
                                             >
                                                 <i className="fas fa-folder">
                                                 </i>
                                                 View
                                             </a>
-                                            <a className="btn btn-info btn-sm" 
-                                            onClick={(event) => onProjectEditClick(event, ProjectInfo)}>
+                                            <a className="btn btn-info btn-sm"
+                                                onClick={(event) => onProjectEditClick(event, ProjectInfo)}>
                                                 <i className="fas fa-pencil-alt">
                                                 </i>
                                                 Edit
@@ -219,19 +236,13 @@ let navigatee = useNavigate()
                         </tbody>
                     </table>
                 </div>
-                {/* <div>
-                    <footer className="main-footer">
-                        <div className="float-right d-none d-sm-block">
-                            <b>Version</b> 3.2.0
-                        </div>
-                        <strong>Copyright © 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-                    </footer>
 
-                    <aside className="control-sidebar control-sidebar-dark">
-
-                    </aside>
-
-                </div> */}
+            </div>
+            <div>
+                <button type="button"
+                    className="btn btn-block btn-outline-info btn-lg"
+                    onClick={onAddProjectClick}
+                    style={{ width: "20%" }}>Add a Project</button>
             </div>
         </div >
 

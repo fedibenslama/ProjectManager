@@ -1,20 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 
 function ProjectEdit({ProjectsInfo,setProjectsInfo,EditProjectData,setEditProjectData,EditProjectId,setEditProjectId}) {
  
     //----------------------Project Edit---------------------------------
-    // useEffect(() => {
-    //     fetch('http://localhost:3001/projects')
-    //         .then(response => {
-    //             return response.json();
-    //         })
-    //         .then(projects => {
+   
+    let navigate = useNavigate()
 
-    //             setEditProjectData(projects)
-    //         })
-
-    // }, []) //
+    const onCancelClick =() =>{
+        navigate('/projects')
+    }
 
     const onProjectEditChange = (event) => {
         event.preventDefault();
@@ -231,7 +227,7 @@ function ProjectEdit({ProjectsInfo,setProjectsInfo,EditProjectData,setEditProjec
                     </div>
                     <div className="row">
                         <div className="col-12">
-                            <a href="/#" className="btn btn-secondary">Cancel</a>
+                            <button className="btn btn-secondary" onClick={onCancelClick}>Cancel</button>
                             <input type="submit"
                                 defaultValue="Create new Project"
                                 className="btn btn-success float-right"
