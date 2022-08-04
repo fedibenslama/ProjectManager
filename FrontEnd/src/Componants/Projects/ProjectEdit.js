@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../Layouts/Navbar";
+import Menu from "../../Layouts/Menu";
 
 
 function ProjectEdit({ProjectsInfo,setProjectsInfo,EditProjectData,setEditProjectData,EditProjectId,setEditProjectId}) {
@@ -68,6 +70,8 @@ function ProjectEdit({ProjectsInfo,setProjectsInfo,EditProjectData,setEditProjec
     return (
 
         <div>
+            <Navbar/>
+            <Menu/>
             {/* Content Wrapper. Contains page content */}
             <div className="content-wrapper">
                 {/* Content Header (Page header) */}

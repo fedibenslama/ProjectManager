@@ -64,12 +64,16 @@ function Login() {
     <div className="login-page ">
       <div className="login-box ">
         <div className="login-logo">
-          <a href="/#"><b>Project</b>Manager</a>
+          
+          <a href="/#"><b>Project</b> Manager</a>
+      
         </div>
         {/* /.login-logo */}
         <div className="card">
           <div className="card-body login-card-body">
-            <p className="login-box-msg">Sign In To Start Your Session</p>
+            <h5 className="login-box-msg">Sign In To Start Your Session</h5>
+            
+            
             <form >
               <div className="input-group mb-3">
                 <input type="email"
@@ -95,35 +99,38 @@ function Login() {
                   </div>
                 </div>
               </div>
+              <div>
+              <div className="">
+                  <button type="submit"
+                    className="btn btn-primary btn-block text-center " style={{width:"40%"}}
+                    onClick={onLoginSubmit}>Sign In</button>
+                </div>
+              </div>
               <div className="row">
                 <div className="col-8">
 
                 </div>
                 {/* /.col */}
-                <div className="col-4">
-                  <button type="submit"
-                    className="btn btn-primary btn-block"
-                    onClick={onLoginSubmit}>Sign In</button>
-                </div>
+               
                 {/* /.col */}
               </div>
             </form>
             <div className="social-auth-links text-center mb-3">
               <p>- OR -</p>
-              <a href="/#" className="btn btn-block btn-primary">
-                <i className="fab fa-facebook mr-2" /> Sign in using Facebook
-              </a>
-              <a href="/#" className="btn btn-block btn-danger">
-                <i className="fab fa-google-plus mr-2" /> Sign in using Google+
-              </a>
+              <button  className="btn btn-block btn-info">
+                <i className="fab  mr-2" /> I Forgot My Password
+              </button>
+              <button onClick={onRegisterNewUserChange} className="btn btn-block btn-danger">
+                <i className="fab  mr-2" /> Register a New Membership
+              </button>
             </div>
 
-            <p className="mb-1">
+            {/* <p className="mb-1">
               <button className="text-center btn btn-link">I forgot my password</button>
             </p>
             <p className="mb-0">
               <button onClick={onRegisterNewUserChange} className="text-center btn btn-link">Register a New Membership</button>
-            </p>
+            </p> */}
           </div>
           {/* /.login-card-body */}
         </div>

@@ -52,7 +52,7 @@ function Register() {
                 </div>
                 <div className="card">
                     <div className="card-body register-card-body">
-                        <p className="login-box-msg">Register a New User</p>
+                        <h5 className="login-box-msg">Register a New User</h5>
                         <form>
                             <div className="input-group mb-3">
                                 <input type="text"
@@ -116,18 +116,14 @@ function Register() {
                                 {/* /.col */}
                             </div>
                         </form>
-                        <div className="social-auth-links text-center">
+                        <div className="social-auth-links text-center mb-3">
                             <p>- OR -</p>
-                            <a href="/#" className="btn btn-block btn-primary">
-                                <i className="fab fa-facebook mr-2" />
-                                Sign up using Facebook
-                            </a>
-                            <a href="/#" className="btn btn-block btn-danger">
-                                <i className="fab fa-google-plus mr-2" />
-                                Sign up using Google+
-                            </a>
+                           
+                            <button onClick={onCancelClick} className="btn btn-block btn-danger">
+                                <i className="fab  mr-2" /> I Already Have a Membership
+                            </button>
                         </div>
-                        <button onClick={onCancelClick} className="text-center btn btn-link ">I already have a membership</button>
+                       
                     </div>
                     {/* /.form-box */}
                 </div>{/* /.card */}

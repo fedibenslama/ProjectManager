@@ -2,6 +2,9 @@ import React from "react";
 import { useState } from "react";
 import { nanoid } from 'nanoid';
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../Layouts/Navbar";
+import Menu from "../../Layouts/Menu";
+
 function ProjectAdd({ setProjectsInfo, ProjectsInfo }) {
 
   let navigate = useNavigate()
@@ -82,6 +85,8 @@ function ProjectAdd({ setProjectsInfo, ProjectsInfo }) {
   }
   return (
     <div>
+      <Navbar/>
+      <Menu/>
       {/* Content Wrapper. Contains page content */}
       <div className="content-wrapper">
         {/* Content Header (Page header) */}
