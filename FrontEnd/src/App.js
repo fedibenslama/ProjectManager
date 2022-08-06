@@ -6,6 +6,7 @@ import Projects from "./Componants/Projects/Projects";
 import ProjectAdd from './Componants/Projects/ProjectAdd';
 import ProjectEdit from './Componants/Projects/ProjectEdit';
 import ProjectView from './Componants/Projects/ProjectView';
+import ProtectedRoutes from './Componants/ProtectedRoutes';
 
 
 
@@ -58,6 +59,7 @@ function App() {
           setEditProjectData={setEditProjectData} />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+      
       </Routes>
 
     </Router >

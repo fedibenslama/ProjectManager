@@ -39,6 +39,7 @@ function Register() {
             })
         })
             .then(response => response.json())
+            .catch(console.log)
 
     }
 

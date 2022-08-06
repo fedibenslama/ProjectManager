@@ -56,7 +56,9 @@ function Login() {
           navigate('/projects')
 
         }
+
       })
+      .catch(console.log)
 
   }
 
@@ -64,16 +66,16 @@ function Login() {
     <div className="login-page ">
       <div className="login-box ">
         <div className="login-logo">
-          
+
           <a href="/#"><b>Project</b> Manager</a>
-      
+
         </div>
         {/* /.login-logo */}
         <div className="card">
           <div className="card-body login-card-body">
             <h5 className="login-box-msg">Sign In To Start Your Session</h5>
-            
-            
+
+
             <form >
               <div className="input-group mb-3">
                 <input type="email"
@@ -100,9 +102,9 @@ function Login() {
                 </div>
               </div>
               <div>
-              <div className="">
+                <div className="">
                   <button type="submit"
-                    className="btn btn-primary btn-block text-center " style={{width:"40%"}}
+                    className="btn btn-primary btn-block text-center " style={{ width: "40%" }}
                     onClick={onLoginSubmit}>Sign In</button>
                 </div>
               </div>
@@ -111,13 +113,13 @@ function Login() {
 
                 </div>
                 {/* /.col */}
-               
+
                 {/* /.col */}
               </div>
             </form>
             <div className="social-auth-links text-center mb-3">
               <p>- OR -</p>
-              <button  className="btn btn-block btn-info">
+              <button className="btn btn-block btn-info">
                 <i className="fab  mr-2" /> I Forgot My Password
               </button>
               <button onClick={onRegisterNewUserChange} className="btn btn-block btn-danger">

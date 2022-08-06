@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../Layouts/Navbar";
 import Menu from "../../Layouts/Menu";
 // import Footer from "../../Layouts/Footer";
-function Projects({ ProjectsInfo, setProjectsInfo, setEditProjectData, setEditProjectId, EditProjectId, onProjectEditChange, EditProjectData, onProjectEditSubmit, onProjectCancelClick }) {
+function Projects({ ProjectsInfo, setProjectsInfo, setEditProjectData, setEditProjectId}) {
 
 
 
@@ -74,6 +74,7 @@ function Projects({ ProjectsInfo, setProjectsInfo, setEditProjectData, setEditPr
             })
         })
             .then(response => response.json())
+            .catch(console.log)
     }
 
     return (
