@@ -17,7 +17,7 @@ const DeleteProject = require('./controllers/deleteproject')
 
 db = knex({
     client: 'pg',
-    connection: 'postgres://admin:password@localhost:5432/project-manager'
+    connection: process.env.POSTGRES_URI
 });
 
 console.log(process.env.NODE_ENV)
