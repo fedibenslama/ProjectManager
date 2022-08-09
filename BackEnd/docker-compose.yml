@@ -1,8 +1,7 @@
 version: "3.9"
 
 services:
-
-#BackEnd API
+  #BackEnd API
   project-manager-api:
     container_name: backend
     #image: node:16.15.1
@@ -10,15 +9,15 @@ services:
     command: npm start
     working_dir: /usr/src/projectmanager-api
     environment:
-        POSTGRES_URI: postgres://sally:secret@postgres:5432/project-manager-docker
-    
+      POSTGRES_URI: postgres://sally:secret@postgres:5432/project-manager-docker
+      REDIS_URI: redis://redis:6379
 
     ports:
       - "3001:3001"
     volumes:
       - ./:/usr/src/projectmanager-api
 
-#Postgres
+  #Postgres
   postgres:
     environment:
       POSTGRES_USER: sally
@@ -29,7 +28,12 @@ services:
     build: ./postgres
     ports:
       - "5432:5432"
-
+  # Redis
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6379:6379"
 #######################################################
 # version: '3.9'
 # services:
@@ -47,11 +51,10 @@ services:
 #     ports:
 #       - "5432:5432"
 
- 
 #   # Backend
 #   project-manager-api:
 #     # env_file:
-#     #   - ./.private/api-keys.env "Another way to insert env variables" 
+#     #   - ./.private/api-keys.env "Another way to insert env variables"
 #     container_name: backend
 #     build: ./
 #     volumes:
@@ -62,7 +65,7 @@ services:
 #       - "3001:3001"
 #     environment:
 #       POSTGRES_URI: postgres://admin:password@postgres:5432/project-manager
-      
+
 #     # Heads up! Docker has updated this feature and now you don't need to define the links property in order for things to work - https://docs.docker.com/compose/networking/
 #     # links:
 #     #   - postgres

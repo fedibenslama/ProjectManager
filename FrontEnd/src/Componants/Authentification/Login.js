@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+
 function Login() {
 
 
@@ -27,6 +28,9 @@ function Login() {
       role: dataa.role
     })
   }
+
+
+  
   const onRegisterNewUserChange = () => {
     navigate('/register')
   }
@@ -39,6 +43,11 @@ function Login() {
     NewLoginData[fieldName] = fieldValue;
     setLoginData(NewLoginData);
   }
+
+  const saveAuthTokenInSessions = (token) => {
+    window.sessionStorage.setItem('token', token);
+  }
+
   const onLoginSubmit = (event) => {
     event.preventDefault()   //to prevent data from showing in query
     fetch('http://localhost:3001/signin', {
@@ -50,9 +59,10 @@ function Login() {
       })
     })
       .then(response => response.json())
-      .then(user => {
-        if (user.id) {
-          loadUser(user)
+      .then(data => {
+        if (data && data.success === "true") {
+          saveAuthTokenInSessions(data.token)
+          loadUser(data)
           navigate('/projects')
 
         }
