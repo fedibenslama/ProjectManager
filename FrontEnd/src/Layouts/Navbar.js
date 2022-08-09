@@ -1,8 +1,60 @@
 import React from 'react'
+import { useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 function Navbar() {
 
+  const [User, setUser] = useState({
+    id: '',
+    name: '',
+    email: '',
+    role: ''
+  })
+  // const loadUser = (dataa) => {
+  //   setUser({
+  //     id: dataa.id,
+  //     name: dataa.name,
+  //     email: dataa.email,
+  //     role: dataa.role
+  //   })
+  // }
+  
+  
+  useEffect(() => {
+    const token = window.sessionStorage.getItem('token');
+    if (token) {
+      fetch('http://localhost:3001/signin', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.id) {
+            fetch(`http://localhost:3001/profile/${data.id}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+              }
+            })
+              .then(response => response.json())
+              .then(user => {
+                if (user && user.email) {
+                  console.log(user)
+                  setUser(user)
+
+                }
+              })
+          }
+        })
+
+    }
+  }, [])
+
+  
   const Navigate = useNavigate()
 
   const onProjectsClick = () => {
@@ -59,7 +111,7 @@ function Navbar() {
           <li className="nav-item dropdown user-menu">
             <a href="/#" className="nav-link dropdown-toggle" data-toggle="dropdown">
               <img src="../../dist/img/user2-160x160.jpg" className="user-image img-circle elevation-2" alt="User" />
-              <span className="d-none d-md-inline">Fedi Ben Slama</span>
+              <span className="d-none d-md-inline">{User.name}</span>
             </a>
             <ul className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               {/* User image */}
