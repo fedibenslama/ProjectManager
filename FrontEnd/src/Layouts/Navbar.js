@@ -10,14 +10,7 @@ function Navbar() {
     email: '',
     role: ''
   })
-  // const loadUser = (dataa) => {
-  //   setUser({
-  //     id: dataa.id,
-  //     name: dataa.name,
-  //     email: dataa.email,
-  //     role: dataa.role
-  //   })
-  // }
+  
   
   
   useEffect(() => {
@@ -62,6 +55,7 @@ function Navbar() {
   }
   const onSignOutClient = () => {
     Navigate('/login')
+    window.sessionStorage.removeItem('token');
   }
 
   return (

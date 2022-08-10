@@ -2,8 +2,13 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from 'react';
 
 
+
+
+
 const useAuth = () => { 
   const [isAuth, setIsAuth] = useState(null);
+  
+  
   
 
   useEffect(() => {
@@ -37,11 +42,15 @@ const useAuth = () => {
               setIsAuth(false)
             })
           }
+        
         })
 
     }
+    else{
+      setIsAuth(false)
+    }
   },[])    
-
+  
   return isAuth;
 };
 
@@ -51,11 +60,17 @@ const ProtectedRoutes = () => {
  
 
   if (isAuth === null) 
-    return null
+   return null
+
+   
+    
   
 
-  return isAuth ? <Outlet /> : <Navigate to="/login" />;
-};
+    return isAuth ? <Outlet /> : <Navigate to="/login" />;
+
+   
+  
+   };
 
 
 export default ProtectedRoutes;
