@@ -57,6 +57,9 @@ function Navbar() {
     Navigate('/login')
     window.sessionStorage.removeItem('token');
   }
+  const onProfileClick=()=>{
+    Navigate("/profile")
+  }
 
   return (
     <div>
@@ -68,13 +71,13 @@ function Navbar() {
             <a className="nav-link" data-widget="pushmenu" href="/#" role="button"><i className="fas fa-bars" /></a>
           </li>
           <li className="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" className="nav-link">Home</a>
+            <button onClick={onProjectsClick} className="nav-link btn btn-link">Home</button>
           </li>
           <li className="nav-item d-none d-sm-inline-block">
             <button onClick={onProjectsClick} className="nav-link btn btn-link">Projects</button>
           </li>
           <li className="nav-item d-none d-sm-inline-block">
-            <a href="/#" className="nav-link">Contact</a>
+            <button  className="nav-link btn btn-link">Members</button>
           </li>
         </ul>
         {/* Right navbar links */}
@@ -112,15 +115,15 @@ function Navbar() {
               <li className="user-header bg-primary">
                 <img src="../../dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User" />
                 <p>
-                  Fedi Ben Slama
-                  <small>Web Developer</small>
+                {User.name}
+                  <small>{User.role}</small>
                 </p>
               </li>
               {/* Menu Body */}
 
               {/* Menu Footer*/}
               <li className="user-footer">
-                <button className="btn btn-default btn-flat btn btn-link">Profile</button>
+                <button onClick={onProfileClick} className="btn btn-default btn-flat btn btn-link">Profile</button>
                 <button className="btn btn-default btn-flat float-right btn btn-link"
                   onClick={onSignOutClient}>Sign out</button>
               </li>

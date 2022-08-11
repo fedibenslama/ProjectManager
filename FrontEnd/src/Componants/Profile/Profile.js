@@ -2,29 +2,70 @@ import React from "react";
 import Navbar from "../../Layouts/Navbar";
 import Menu from "../../Layouts/Menu";
 import { useState,useEffect } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
-function Profile({User}) {
- const [ViewProfileData, setViewProfileData] = useState([{
-        Name: '',
-        Email: '',
-        Role: '',
+function Profile() {
+//  const [User, setUser] = useState([{
+//         Name: '',
+//         Email: '',
+//         Role: '',
         
-    }])
-    let { id } = useParams()
-    useEffect(() => {
-        fetch(`http://localhost:3001/profile/${id}`)
-            .then(response => {
-                return response.json();
+//     }])
+//     let { id } = useParams()
+//     useEffect(() => {
+//         fetch(`http://localhost:3001/profile/${id}`)
+//             .then(response => {
+//                 return response.json();
+//             })
+//             .then(profile => {
+
+//                 setUser(profile)
+
+//             })
+
+//     }, [id]) //
+const [User, setUser] = useState({
+  id: '',
+  name: '',
+  email: '',
+  role: ''
+})
+
+
+
+useEffect(() => {
+  const token = window.sessionStorage.getItem('token');
+  if (token) {
+    fetch('http://localhost:3001/signin', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data && data.id) {
+          fetch(`http://localhost:3001/profile/${data.id}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': token
+            }
+          })
+            .then(response => response.json())
+            .then(user => {
+              if (user && user.email) {
+                
+                setUser(user)
+
+              }
             })
-            .then(profile => {
+        }
+      })
 
-                setViewProfileData(profile)
-
-            })
-
-    }, [id]) //
-
+  }
+}, [])
 
   return (
     <div>
@@ -58,8 +99,8 @@ function Profile({User}) {
                     <div className="text-center">
                       <img className="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile" />
                     </div>
-                    <h3 className="profile-username text-center">{ViewProfileData.name}</h3>
-                    <h5 className="text-muted text-center">{ViewProfileData.role}</h5>
+                    <h3 className="profile-username text-center">{User.name}</h3>
+                    <h5 className="text-muted text-center">{User.role}</h5>
 
                   </div>
                   {/* /.card-body */}
