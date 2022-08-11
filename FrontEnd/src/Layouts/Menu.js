@@ -1,7 +1,51 @@
-import React from 'react'
+import {React,useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function Menu () {
+
+
+  const [User, setUser] = useState({
+    id: '',
+    name: '',
+    email: '',
+    role: ''
+  })
+  
+  
+  
+  useEffect(() => {
+    const token = window.sessionStorage.getItem('token');
+    if (token) {
+      fetch('http://localhost:3001/signin', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.id) {
+            fetch(`http://localhost:3001/profile/${data.id}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+              }
+            })
+              .then(response => response.json())
+              .then(user => {
+                if (user && user.email) {
+                  console.log(user)
+                  setUser(user)
+
+                }
+              })
+          }
+        })
+
+    }
+  }, [])
 
   const Navigate = useNavigate()
   const onViewAllProjectsClick = () => {
@@ -21,8 +65,8 @@ function Menu () {
 
       {/* Main Sidebar Container */}
       <aside className="main-sidebar sidebar-dark-primary elevation-4">
-        {/* Brand Logo */}
-        <a href="index3.html" className="brand-link">
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <a className="brand-link">
           <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{ opacity: '.8' }} />
           <span className="brand-text font-weight-light">Project Manager</span>
         </a>
@@ -34,7 +78,9 @@ function Menu () {
               <img src="dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User" />
             </div>
             <div className="info">
-              <a href="/#" className="d-block">Fedi Ben Slama</a>
+               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a className="d-block">{User.name}</a>
+              
             </div>
           </div>
           {/* SidebarSearch Form */}
@@ -53,16 +99,16 @@ function Menu () {
             <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               {/* Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library */}
-              <li className="nav-item menu-open">
-                {/* <a href="/#" className="nav-link active">
+              {/* <li className="nav-item menu-open">
+                <a className="nav-link active">
                   <i className="nav-icon fas fa-tachometer-alt" />
                   <p>
                     Dashboard
                     <i className="right fas fa-angle-left" />
                   </p>
-                </a> */}
+                </a>
                 <ul className="nav nav-treeview">
-                  {/* <li className="nav-item">
+                  <li className="nav-item">
                     <a href="./index.html" className="nav-link active">
                       <i className="far fa-circle nav-icon" />
                       <p>Dashboard v1</p>
@@ -79,215 +125,19 @@ function Menu () {
                       <i className="far fa-circle nav-icon" />
                       <p>Dashboard v3</p>
                     </a>
-                  </li> */}
-                </ul>
-              </li>
-              {/* <li className="nav-item">
-                <a href="pages/widgets.html" className="nav-link">
-                  <i className="nav-icon fas fa-th" />
-                  <p>
-                    Widgets
-                    <span className="right badge badge-danger">New</span>
-                  </p>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="/#" className="nav-link">
-                  <i className="nav-icon fas fa-copy" />
-                  <p>
-                    Layout Options
-                    <i className="fas fa-angle-left right" />
-                    <span className="badge badge-info right">6</span>
-                  </p>
-                </a>
-                <ul className="nav nav-treeview">
-                  <li className="nav-item">
-                    <a href="pages/layout/top-nav.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Top Navigation</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/layout/top-nav-sidebar.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Top Navigation + Sidebar</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/layout/boxed.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Boxed</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/layout/fixed-sidebar.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Fixed Sidebar</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/layout/fixed-sidebar-custom.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Fixed Sidebar <small>+ Custom Area</small></p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/layout/fixed-topnav.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Fixed Navbar</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/layout/fixed-footer.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Fixed Footer</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/layout/collapsed-sidebar.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Collapsed Sidebar</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li className="nav-item">
-                <a href="/#" className="nav-link">
-                  <i className="nav-icon fas fa-chart-pie" />
-                  <p>
-                    Charts
-                    <i className="right fas fa-angle-left" />
-                  </p>
-                </a>
-                <ul className="nav nav-treeview">
-                  <li className="nav-item">
-                    <a href="pages/charts/chartjs.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>ChartJS</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/charts/flot.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Flot</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/charts/inline.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Inline</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/charts/uplot.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>uPlot</p>
-                    </a>
                   </li>
                 </ul>
               </li> */}
-              {/* <li className="nav-item">
-                <a href="/#" className="nav-link">
-                  <i className="nav-icon fas fa-tree" />
-                  <p>
-                    UI Elements
-                    <i className="fas fa-angle-left right" />
-                  </p>
-                </a>
-                <ul className="nav nav-treeview">
-                  <li className="nav-item">
-                    <a href="pages/UI/general.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>General</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/UI/icons.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Icons</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/UI/buttons.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Buttons</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/UI/sliders.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Sliders</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/UI/modals.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Modals &amp; Alerts</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/UI/navbar.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Navbar &amp; Tabs</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/UI/timeline.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Timeline</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/UI/ribbons.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Ribbons</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li className="nav-item">
-                <a href="/#" className="nav-link">
-                  <i className="nav-icon fas fa-edit" />
-                  <p>
-                    Forms
-                    <i className="fas fa-angle-left right" />
-                  </p>
-                </a>
-                <ul className="nav nav-treeview">
-                  <li className="nav-item">
-                    <a href="pages/forms/general.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>General Elements</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/forms/advanced.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Advanced Elements</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/forms/editors.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Editors</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/forms/validation.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Validation</p>
-                    </a>
-                  </li>
-                </ul>
-              </li> */}
-              <li className="nav-item">
-                <a href="/#" className="nav-link">
+           
+
+              <li className="nav-item menu-open">
+                <button className="nav-link btn btn-link text-left">
                   <i className="nav-icon fas fa-table" />
                   <p>
                     Projects
                     <i className="fas fa-angle-left right" />
                   </p>
-                </a>
+                </button>
                 <ul className="nav nav-treeview">
                   <li className="nav-item">
                     <button onClick={onViewAllProjectsClick} className="nav-link btn btn-link text-left ">
@@ -299,6 +149,35 @@ function Menu () {
                     <button onClick={onAddAProjectClick} className="nav-link btn btn-link text-left">
                       <i className="far fa-circle nav-icon" />
                       <p>Add a New Project</p>
+                    </button>
+                  </li>
+                  {/* <li className="nav-item">
+                    <a href="pages/tables/jsgrid.html" className="nav-link">
+                      <i className="far fa-circle nav-icon" />
+                      <p>jsGrid</p>
+                    </a>
+                  </li> */}
+                </ul>
+              </li>
+              <li className="nav-item menu-open">
+                <button className="nav-link btn btn-link text-left">
+                  <i className="nav-icon fas fa-table" />
+                  <p>
+                    Members
+                    <i className="fas fa-angle-left right" />
+                  </p>
+                </button>
+                <ul className="nav nav-treeview">
+                  <li className="nav-item">
+                    <button onClick={onViewAllProjectsClick} className="nav-link btn btn-link text-left ">
+                      <i className="far fa-circle nav-icon" />
+                      <p>View Members</p>
+                    </button>
+                  </li>
+                  <li className="nav-item">
+                    <button onClick={onAddAProjectClick} className="nav-link btn btn-link text-left">
+                      <i className="far fa-circle nav-icon" />
+                      <p>Add a New Member</p>
                     </button>
                   </li>
                   {/* <li className="nav-item">

@@ -45,39 +45,6 @@ function App() {
   }])
  
 
-  // useEffect(() => {
-  //   const token = window.sessionStorage.getItem('token');
-  //   if (token) {
-  //     fetch('http://localhost:3001/signin', {
-  //       method: 'post',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': token
-  //       }
-  //     })
-  //       .then(response => response.json())
-  //       .then(data => {
-  //         if (data && data.id) {
-  //           fetch(`http://localhost:3001/profile/${data.id}`, {
-  //             method: 'GET',
-  //             headers: {
-  //               'Content-Type': 'application/json',
-  //               'Authorization': token
-  //             }
-  //           })
-  //             .then(response => response.json())
-  //             .then(user => {
-  //               if (user && user.email) {
-  //                 console.log(user)
-
-  //               }
-  //             })
-  //         }
-  //       })
-
-  //   }
-  // }, [])
-
 
   return (
 
@@ -97,7 +64,7 @@ function App() {
           <Route path='/projects' element={<Projects ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo}
             EditProjectId={EditProjectId} setEditProjectId={setEditProjectId} EditProjectData={EditProjectData}
             setEditProjectData={setEditProjectData} />} />
-          <Route path='/profile/:id' element={<Profile />} />
+          <Route path='/profile' element={<Profile />} />
         </Route>
 
 
