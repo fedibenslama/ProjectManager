@@ -63,7 +63,7 @@ function Login() {
         if (data && data.success === "true") {
           saveAuthTokenInSessions(data.token)
           loadUser(data)
-          navigate('/projects')
+          navigate('/')
 
         }
 

@@ -6,15 +6,21 @@ const bcrypt = require('bcrypt-nodejs');
 const { response } = require("express");
 const morgan = require("morgan")
 
-const register = require('./controllers/register')
-const signin = require('./controllers/signin')
-const projects = require('./controllers/projects')
-const ViewProject = require('./controllers/viewproject')
-const addProject = require('./controllers/addproject')
-const EditProject = require('./controllers/editproject')
-const DeleteProject = require('./controllers/deleteproject')
-const profile = require('./controllers/profile')
-const auth = require('./controllers/authorization');
+const register = require('./controllers/Authentification/register')
+const signin = require('./controllers/Authentification/signin')
+const projects = require('./controllers/Projects/projects')
+const ViewProject = require('./controllers/Projects/viewproject')
+const addProject = require('./controllers/Projects/addproject')
+const EditProject = require('./controllers/Projects/editproject')
+const DeleteProject = require('./controllers/Projects/deleteproject')
+const profile = require('./controllers/Profile/profile')
+const auth = require('./controllers/Authentification/authorization');
+const clients = require('./controllers/Clients/clients')
+const addClient = require('./controllers/Clients/addclient')
+const ViewClient = require('./controllers/Clients/viewclient')
+const DeleteClient = require('./controllers/Clients/deleteclient')
+const EditClient = require('./controllers/Clients/editclient')
+
 
 
 db = knex({
@@ -41,6 +47,11 @@ app.get('/ViewProject/:id', (req, res) => { ViewProject.handleViewProject(req, r
 app.post('/addProject', (req, res) => { addProject.handleAddProject(req, res, db) })
 app.put('/EditProject', (req, res) => { EditProject.handleEditProject(req, res, db) })
 app.put('/DeleteProject', (req, res) => { DeleteProject.handleDeleteProject(req, res, db) })
+app.get('/clients', (req, res) => { clients.handleClients(req, res, db) })
+app.post('/addClient', (req, res) => { addClient.handleAddClient(req, res, db) })
+app.get('/ViewClient/:id', (req, res) => { ViewClient.handleViewClient(req, res, db) })
+app.put('/DeleteClient', (req, res) => { DeleteClient.handleDeleteClient(req, res, db) })
+app.put('/EditClient', (req, res) => { EditClient.handleEditClient(req, res, db) })
 
 
 

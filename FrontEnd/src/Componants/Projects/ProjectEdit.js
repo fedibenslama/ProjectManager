@@ -4,14 +4,14 @@ import Navbar from "../../Layouts/Navbar";
 import Menu from "../../Layouts/Menu";
 
 
-function ProjectEdit({ProjectsInfo,setProjectsInfo,EditProjectData,setEditProjectData,EditProjectId,setEditProjectId}) {
- 
+function ProjectEdit({ ProjectsInfo, setProjectsInfo, EditProjectData, setEditProjectData, EditProjectId, setEditProjectId }) {
+
     //----------------------Project Edit---------------------------------
-   
+
     let navigate = useNavigate()
 
-    const onCancelClick =() =>{
-        navigate('/projects')
+    const onCancelClick = () => {
+        navigate('/')
     }
 
     const onProjectEditChange = (event) => {
@@ -26,6 +26,7 @@ function ProjectEdit({ProjectsInfo,setProjectsInfo,EditProjectData,setEditProjec
     }
     const onProjectEditSubmit = (event) => {
         event.preventDefault();
+        
         const editedProject = {
             id: EditProjectId,
             Name: EditProjectData.Name,
@@ -67,11 +68,63 @@ function ProjectEdit({ProjectsInfo,setProjectsInfo,EditProjectData,setEditProjec
 
     }
 
+/////////////////////////////////////////
+
+    const onProjectEditSubmitAndClose = (event) => {
+        event.preventDefault();
+        const editedProject = {
+            id: EditProjectId,
+            Name: EditProjectData.Name,
+            Type: EditProjectData.Type,
+            UsedSolutions: EditProjectData.UsedSolutions,
+            AssociatedServers: EditProjectData.AssociatedServers,
+            AssociatedClient: EditProjectData.AssociatedClient,
+            Status: EditProjectData.Status,
+            ProjectProgress: EditProjectData.ProjectProgress,
+            StartDate: EditProjectData.StartDate,
+            FinishDate: EditProjectData.FinishDate,
+            ProjectDescription: EditProjectData.ProjectDescription
+        }
+        const NewProjects = [...ProjectsInfo]
+        const index = ProjectsInfo.findIndex((ProjectInfo) => ProjectInfo.id === EditProjectId);
+        NewProjects[index] = editedProject;
+        setProjectsInfo(NewProjects)
+        setEditProjectId(null)
+
+        fetch('http://localhost:3001/EditProject', {
+            method: 'put',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: EditProjectId,
+                Name: EditProjectData.Name,
+                Type: EditProjectData.Type,
+                UsedSolutions: EditProjectData.UsedSolutions,
+                AssociatedServers: EditProjectData.AssociatedServers,
+                AssociatedClient: EditProjectData.AssociatedClient,
+                Status: EditProjectData.Status,
+                ProjectProgress: EditProjectData.ProjectProgress,
+                StartDate: EditProjectData.StartDate,
+                FinishDate: EditProjectData.FinishDate,
+                ProjectDescription: EditProjectData.ProjectDescription
+
+            })
+        })
+            .then(response => response.json())
+            .then(edit =>{
+                navigate('/')
+            })
+            
+            
+            
+
+    }
+
+
     return (
 
         <div>
-            <Navbar/>
-            <Menu/>
+            <Navbar />
+            <Menu />
             {/* Content Wrapper. Contains page content */}
             <div className="content-wrapper">
                 {/* Content Header (Page header) */}
@@ -143,7 +196,7 @@ function ProjectEdit({ProjectsInfo,setProjectsInfo,EditProjectData,setEditProjec
                                             onChange={onProjectEditChange}
                                             name="Status"
                                             value={EditProjectData.Status}>
-                                                
+
                                             <option selected disabled>Select one</option>
                                             <option>On Hold</option>
                                             <option>Canceled</option>
@@ -222,8 +275,16 @@ function ProjectEdit({ProjectsInfo,setProjectsInfo,EditProjectData,setEditProjec
                                             name="FinishDate"
                                             onChange={onProjectEditChange}
                                             value={EditProjectData.FinishDate} />
+                                            
                                     </div>
+                                    <button type="submit"
+                                defaultValue="Create new Project"
+                                className="btn btn-info "
+                                onClick={onProjectEditSubmit} > 
+                                Save And Continue
+                                 </button>
                                 </div>
+                               
                                 {/* /.card-body */}
                             </div>
                             {/* /.card */}
@@ -232,10 +293,15 @@ function ProjectEdit({ProjectsInfo,setProjectsInfo,EditProjectData,setEditProjec
                     <div className="row">
                         <div className="col-12">
                             <button className="btn btn-secondary" onClick={onCancelClick}>Cancel</button>
-                            <input type="submit"
+                           
+                                 <button type="submit"
                                 defaultValue="Create new Project"
                                 className="btn btn-success float-right"
-                                onClick={onProjectEditSubmit} />
+                                onClick={onProjectEditSubmitAndClose} > 
+                                Save And Go Back
+                                
+                                 </button>
+                               
                         </div>
                     </div>
                 </section>

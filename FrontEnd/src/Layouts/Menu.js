@@ -1,7 +1,7 @@
-import {React,useState,useEffect} from 'react'
+import { React, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function Menu () {
+function Menu() {
 
 
   const [User, setUser] = useState({
@@ -10,9 +10,9 @@ function Menu () {
     email: '',
     role: ''
   })
-  
-  
-  
+
+
+
   useEffect(() => {
     const token = window.sessionStorage.getItem('token');
     if (token) {
@@ -49,10 +49,16 @@ function Menu () {
 
   const Navigate = useNavigate()
   const onViewAllProjectsClick = () => {
-    Navigate('/projects')
+    Navigate('/')
   }
   const onAddAProjectClick = () => {
     Navigate('/addProject')
+  }
+  const onViewAllClientsClick = () => {
+    Navigate('/clients')
+  }
+  const onAddAClientClick = () => {
+    Navigate('/addClient')
   }
 
   return (
@@ -78,9 +84,9 @@ function Menu () {
               <img src="dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User" />
             </div>
             <div className="info">
-               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a className="d-block">{User.name}</a>
-              
+
             </div>
           </div>
           {/* SidebarSearch Form */}
@@ -128,9 +134,9 @@ function Menu () {
                   </li>
                 </ul>
               </li> */}
-           
 
-              <li className="nav-item menu-open">
+
+              {/* <li className="nav-item menu-open">
                 <button className="nav-link btn btn-link text-left">
                   <i className="nav-icon fas fa-table" />
                   <p>
@@ -151,169 +157,63 @@ function Menu () {
                       <p>Add a New Project</p>
                     </button>
                   </li>
-                  {/* <li className="nav-item">
-                    <a href="pages/tables/jsgrid.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>jsGrid</p>
-                    </a>
-                  </li> */}
                 </ul>
-              </li>
-              <li className="nav-item menu-open">
-                <button className="nav-link btn btn-link text-left">
-                  <i className="nav-icon fas fa-table" />
-                  <p>
-                    Members
-                    <i className="fas fa-angle-left right" />
-                  </p>
+              </li> */}
+              <li className="nav-header"><h4>Projects</h4></li>
+              <li className="nav-item">
+                <button onClick={onViewAllProjectsClick} className="nav-link btn btn-link text-left ">
+                  <i className="nav-icon fas fa-list" />
+                  <b>
+                    Projects List
+                  </b>
                 </button>
-                <ul className="nav nav-treeview">
-                  <li className="nav-item">
-                    <button onClick={onViewAllProjectsClick} className="nav-link btn btn-link text-left ">
-                      <i className="far fa-circle nav-icon" />
-                      <p>View Members</p>
-                    </button>
-                  </li>
-                  <li className="nav-item">
-                    <button onClick={onAddAProjectClick} className="nav-link btn btn-link text-left">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Add a New Member</p>
-                    </button>
-                  </li>
-                  {/* <li className="nav-item">
-                    <a href="pages/tables/jsgrid.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>jsGrid</p>
-                    </a>
-                  </li> */}
-                </ul>
-              </li>
-              {/* <li className="nav-header">EXAMPLES</li>
-              <li className="nav-item">
-                <a href="pages/calendar.html" className="nav-link">
-                  <i className="nav-icon far fa-calendar-alt" />
-                  <p>
-                    Calendar
-                    <span className="badge badge-info right">2</span>
-                  </p>
-                </a>
               </li>
               <li className="nav-item">
-                <a href="pages/gallery.html" className="nav-link">
-                  <i className="nav-icon far fa-image" />
-                  <p>
-                    Gallery
-                  </p>
-                </a>
+                <button onClick={onAddAProjectClick} className="nav-link btn btn-link text-left">
+                  <i className="nav-icon fas fa-plus" />
+                  <b>
+                    Add a New Project
+                  </b>
+                </button>
               </li>
+
+              <li className="nav-header"><h4>Clients</h4></li>
               <li className="nav-item">
-                <a href="pages/kanban.html" className="nav-link">
+                <button onClick={onViewAllClientsClick} className="nav-link btn btn-link text-left ">
                   <i className="nav-icon fas fa-columns" />
-                  <p>
-                    Kanban Board
-                  </p>
-                </a>
+                  <b>
+                    Clients List
+                  </b>
+                </button>
               </li>
               <li className="nav-item">
-                <a href="/#" className="nav-link">
-                  <i className="nav-icon far fa-envelope" />
-                  <p>
-                    Mailbox
-                    <i className="fas fa-angle-left right" />
-                  </p>
-                </a>
-                <ul className="nav nav-treeview">
-                  <li className="nav-item">
-                    <a href="pages/mailbox/mailbox.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Inbox</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/mailbox/compose.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Compose</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/mailbox/read-mail.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Read</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li className="nav-item">
-                <a href="/#" className="nav-link">
+                <button onClick={onAddAClientClick} className="nav-link btn btn-link text-left">
                   <i className="nav-icon fas fa-book" />
-                  <p>
-                    Pages
-                    <i className="fas fa-angle-left right" />
-                  </p>
-                </a>
-                <ul className="nav nav-treeview">
-                  <li className="nav-item">
-                    <a href="pages/examples/invoice.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Invoice</p>
-                    </a>
+                  <b>
+                    Add a New Client
+                  </b>
+                  <li className="nav-item " >
+                    <div>
+                    <button className="nav-link btn btn-link text-left">
+                      <i className="nav-icon fas fa-plus" />
+                      <p>
+                      Corporate Client
+                      </p>
+                    </button>
+                    <button className="nav-link btn btn-link text-left">
+                      <i className="nav-icon fas fa-plus" />
+                      <p>
+                      Physical Client
+                      </p>
+                    </button>
+                    </div>
                   </li>
-                  <li className="nav-item">
-                    <a href="pages/examples/profile.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Profile</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/examples/e-commerce.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>E-commerce</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/examples/projects.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Projects</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/examples/project-add.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Project Add</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/examples/project-edit.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Project Edit</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/examples/project-detail.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Project Detail</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/examples/contacts.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Contacts</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/examples/faq.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>FAQ</p>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="pages/examples/contact-us.html" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Contact us</p>
-                    </a>
-                  </li>
-                </ul>
+                </button>
+
               </li>
+
+
+              {/* 
               <li className="nav-item">
                 <a href="/#" className="nav-link">
                   <i className="nav-icon far fa-plus-square" />

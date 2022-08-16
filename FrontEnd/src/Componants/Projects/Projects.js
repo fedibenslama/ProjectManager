@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../Layouts/Navbar";
 import Menu from "../../Layouts/Menu";
 // import Footer from "../../Layouts/Footer";
-function Projects({ ProjectsInfo, setProjectsInfo, setEditProjectData, setEditProjectId}) {
+function Projects({ ProjectsInfo, setProjectsInfo, setEditProjectData, setEditProjectId }) {
 
 
 
@@ -62,7 +62,7 @@ function Projects({ ProjectsInfo, setProjectsInfo, setEditProjectData, setEditPr
         const NewProjects = [...ProjectsInfo]
         const index = ProjectsInfo.findIndex((ProjectInfo) => ProjectInfo.id === projectId);
         NewProjects.splice(index, 1);
-        navigatee("/projects")
+        navigatee("/")
         setProjectsInfo(NewProjects)
 
         fetch('http://localhost:3001/DeleteProject', {
@@ -80,7 +80,7 @@ function Projects({ ProjectsInfo, setProjectsInfo, setEditProjectData, setEditPr
     return (
         <div>
             <Navbar />
-            <Menu/>
+            <Menu />
             <div className="content-wrapper">
 
                 {/* Content Header (Page header) */}
@@ -99,157 +99,163 @@ function Projects({ ProjectsInfo, setProjectsInfo, setEditProjectData, setEditPr
                         </div>
                     </div>{/* /.container-fluid */}
                 </section>
+                <section className="content">
+                    <div className="container-fluid">
+                        <div className="row mb-2">
+                            <div className="col-md-12">
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h3 className="card-title">Projects</h3>
+                                        
+                                        <div className="card-tools">
+                                            <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                <i className="fas fa-minus" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="card-body">
+                                        <div className="dt-buttons btn-group flex-wrap">
+                                            <button type="button"
+                                            className="btn btn-block btn-outline-info "
+                                            onClick={onAddProjectClick}
+                                            tabindex="0">Add a Project</button>
+                                        </div>
+                                        <table className="table table-striped projects">
+                                            <thead>
+                                                <tr>
+                                                    <th style={{ width: '1%' }}>
+                                                        #
+                                                    </th>
+                                                    <th style={{ width: '8%' }} className="text-center" >
+                                                        Project Name
+                                                    </th>
+                                                    <th style={{ width: '8%' }} className="text-center">
+                                                        Type
+                                                    </th>
+                                                    <th style={{ width: '8%' }} className="text-center">
+                                                        Used Solutions
+                                                    </th>
+                                                    <th style={{ width: '8%' }} className="text-center">
+                                                        Associated Servers
+                                                    </th>
+                                                    <th style={{ width: '8%' }} className="text-center" >
+                                                        Associated Client
+                                                    </th>
+                                                    <th style={{ width: '8%' }} className="text-center" >
+                                                        Project Progress
+                                                    </th>
+                                                    <th style={{ width: '8%' }} className="text-center">
+                                                        Start Date
+                                                    </th>
+                                                    <th style={{ width: '8%' }} className="text-center">
+                                                        Finish Date
+                                                    </th>
+                                                    <th style={{ width: '8%' }} className="text-center">
+                                                        Status
+                                                    </th>
+                                                    <th style={{ width: '20%' }}>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {ProjectsInfo.map((ProjectInfo, i) => (
+                                                    <Fragment>
+                                                        <tr>
+                                                            <td>
+                                                                #
+                                                            </td>
+                                                            <td style={{ width: '8%' }}>
+                                                                <a>
+                                                                    {ProjectInfo.name}
+                                                                </a>
+                                                                <br />
 
+                                                            </td>
 
-                <div className="card">
-                    <div className="card-header">
-                        <h3 className="card-title">Projects</h3>
-                        <div className="card-tools">
-                            <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                <i className="fas fa-minus" />
-                            </button>
-                            <button type="button" className="btn btn-tool" data-card-widget="remove" title="Remove">
-                                <i className="fas fa-times" />
-                            </button>
+                                                            <td style={{ width: '8%' }} className="Type">
+                                                                <a>
+                                                                    {ProjectInfo.type}
+                                                                </a>
+                                                            </td>
+                                                            <td style={{ width: '8%' }} className="Used Solutions">
+                                                                <a>
+                                                                    {ProjectInfo.usedsolutions}
+                                                                </a>
+                                                            </td>
+                                                            <td style={{ width: '8%' }} className="Associated Servers">
+                                                                <a>
+                                                                    {ProjectInfo.associatedservers}
+                                                                </a>
+                                                            </td>
+                                                            <td className="Associated Client text-center" style={{ width: '8%' }}>
+                                                                <a>
+                                                                    {ProjectInfo.associatedclient}
+                                                                </a>
+                                                            </td>
+                                                            <td style={{ width: '8%' }} className="project_progress text-center">
+                                                                <div className="progress progress-sm">
+                                                                    <div className="progress-bar bg-green" role="progressbar"
+                                                                        aria-valuenow={ProjectInfo.projectprogress}
+                                                                        aria-valuemin={0} aria-valuemax={100}
+                                                                        style={{ width: `${ProjectInfo.projectprogress}%` }}>
+                                                                    </div>
+                                                                </div>
+                                                                <small>
+                                                                    {`${ProjectInfo.projectprogress}% Complete`}
+                                                                </small>
+                                                            </td>
+                                                            <td style={{ width: '8%' }} className="Start Date">
+                                                                <a>
+                                                                    {ProjectInfo.startdate}
+                                                                </a>
+
+                                                            </td>
+                                                            <td style={{ width: '8%' }} className="Finish Date">
+                                                                <a>
+                                                                    {ProjectInfo.finishdate}
+                                                                </a>
+                                                            </td>
+                                                            <td style={{ width: '8%' }} className="project-state">
+                                                                <span className="badge badge-info">{ProjectInfo.status}</span>
+                                                            </td>
+                                                            <td className="project-actions text-right">
+                                                                <a className="btn btn-primary btn-sm"
+                                                                    onClick={(event) => onProjectViewClick(event, ProjectInfo)}
+                                                                >
+                                                                    <i className="fas fa-folder">
+                                                                    </i>
+                                                                    View
+                                                                </a>
+                                                                <a className="btn btn-info btn-sm"
+                                                                    onClick={(event) => onProjectEditClick(event, ProjectInfo)}>
+                                                                    <i className="fas fa-pencil-alt">
+                                                                    </i>
+                                                                    Edit
+                                                                </a>
+                                                                <a
+                                                                    className="btn btn-danger btn-sm"
+
+                                                                    onClick={() => onProjectDeleteClick(ProjectInfo.id)}
+                                                                >
+                                                                    <i className="fas fa-trash">
+                                                                    </i>
+                                                                    Delete
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </Fragment>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="card-body p-0">
-                        <table className="table table-striped projects">
-                            <thead>
-                                <tr>
-                                    <th style={{ width: '1%' }}>
-                                        #
-                                    </th>
-                                    <th style={{ width: '8%' }} className="text-center" >
-                                        Project Name
-                                    </th>
-                                    <th style={{ width: '8%' }} className="text-center">
-                                        Type
-                                    </th>
-                                    <th style={{ width: '8%' }} className="text-center">
-                                        Used Solutions
-                                    </th>
-                                    <th style={{ width: '8%' }} className="text-center">
-                                        Associated Servers
-                                    </th>
-                                    <th style={{ width: '8%' }} className="text-center" >
-                                        Associated Client
-                                    </th>
-                                    <th style={{ width: '8%' }} className="text-center" >
-                                        Project Progress
-                                    </th>
-                                    <th style={{ width: '8%' }} className="text-center">
-                                        Start Date
-                                    </th>
-                                    <th style={{ width: '8%' }} className="text-center">
-                                        Finish Date
-                                    </th>
-                                    <th style={{ width: '8%' }} className="text-center">
-                                        Status
-                                    </th>
-                                    <th style={{ width: '20%' }}>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {ProjectsInfo.map((ProjectInfo, i) => (
-                                    <Fragment>
-                                        <tr>
-                                            <td>
-                                                #
-                                            </td>
-                                            <td style={{ width: '8%' }}>
-                                                <a>
-                                                    {ProjectInfo.name}
-                                                </a>
-                                                <br />
+                </section>
 
-                                            </td>
 
-                                            <td style={{ width: '8%' }} className="Type">
-                                                <a>
-                                                    {ProjectInfo.type}
-                                                </a>
-                                            </td>
-                                            <td style={{ width: '8%' }} className="Used Solutions">
-                                                <a>
-                                                    {ProjectInfo.usedsolutions}
-                                                </a>
-                                            </td>
-                                            <td style={{ width: '8%' }} className="Associated Servers">
-                                                <a>
-                                                    {ProjectInfo.associatedservers}
-                                                </a>
-                                            </td>
-                                            <td className="Associated Client text-center" style={{ width: '8%' }}>
-                                                <a>
-                                                    {ProjectInfo.associatedclient}
-                                                </a>
-                                            </td>
-                                            <td style={{ width: '8%' }} className="project_progress text-center">
-                                                <div className="progress progress-sm">
-                                                    <div className="progress-bar bg-green" role="progressbar"
-                                                        aria-valuenow={ProjectInfo.projectprogress}
-                                                        aria-valuemin={0} aria-valuemax={100}
-                                                        style={{ width: `${ProjectInfo.projectprogress}%` }}>
-                                                    </div>
-                                                </div>
-                                                <small>
-                                                    {`${ProjectInfo.projectprogress}% Complete`}
-                                                </small>
-                                            </td>
-                                            <td style={{ width: '8%' }} className="Start Date">
-                                                <a>
-                                                    {ProjectInfo.startdate}
-                                                </a>
-
-                                            </td>
-                                            <td style={{ width: '8%' }} className="Finish Date">
-                                                <a>
-                                                    {ProjectInfo.finishdate}
-                                                </a>
-                                            </td>
-                                            <td style={{ width: '8%' }} className="project-state">
-                                                <span className="badge badge-info">{ProjectInfo.status}</span>
-                                            </td>
-                                            <td className="project-actions text-right ">
-                                                <a className="btn btn-primary btn-sm"
-                                                    onClick={(event) => onProjectViewClick(event, ProjectInfo)}
-                                                >
-                                                    <i className="fas fa-folder">
-                                                    </i>
-                                                    View
-                                                </a>
-                                                <a className="btn btn-info btn-sm"
-                                                    onClick={(event) => onProjectEditClick(event, ProjectInfo)}>
-                                                    <i className="fas fa-pencil-alt">
-                                                    </i>
-                                                    Edit
-                                                </a>
-                                                <a
-                                                    className="btn btn-danger btn-sm"
-
-                                                    onClick={() => onProjectDeleteClick(ProjectInfo.id)}
-                                                >
-                                                    <i className="fas fa-trash">
-                                                    </i>
-                                                    Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </Fragment>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-                <div>
-                    <button type="button"
-                        className="btn btn-block btn-outline-info btn-lg"
-                        onClick={onAddProjectClick}
-                        style={{ width: "20%" }}>Add a Project</button>
-                </div>
             </div >
             {/* <Footer /> */}
         </div>

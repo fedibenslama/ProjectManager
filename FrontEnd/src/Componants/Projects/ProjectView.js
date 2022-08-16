@@ -8,7 +8,7 @@ function ProjectView() {
 
     let navigate = useNavigate()
     const onButtonClick = () => {
-        navigate('/projects')
+        navigate('/')
     }
     const [ViewProjectData, setViewProjectData] = useState([{
         Name: '',

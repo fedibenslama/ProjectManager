@@ -51,7 +51,7 @@ function Navbar() {
   const Navigate = useNavigate()
 
   const onProjectsClick = () => {
-    Navigate('/projects')
+    Navigate('/')
   }
   const onSignOutClient = () => {
     Navigate('/login')

@@ -34,7 +34,7 @@ const useAuth = () => {
             .then(response => response.json())
             .then(user => {
               if (user && user.email) {
-                console.log(user)
+                console.log("LoeggedIn")
                 setIsAuth(true)
               }
             })

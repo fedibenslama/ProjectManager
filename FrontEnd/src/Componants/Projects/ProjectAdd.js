@@ -22,7 +22,7 @@ function ProjectAdd({ setProjectsInfo, ProjectsInfo }) {
     ProjectDescription: ''
   })
   const onCancelClick = () => {
-    navigate("/projects")
+    navigate("/")
   }
   const onProjectAddChange = (event) => {
     event.preventDefault();
@@ -38,7 +38,7 @@ function ProjectAdd({ setProjectsInfo, ProjectsInfo }) {
   }
   const onProjectAddSubmit = (event) => {
     event.preventDefault();
-    navigate("/projects")
+    navigate("/")
     const newProject = {
       id: nanoid(),
       Name: AddProjectData.Name,
