@@ -20,6 +20,11 @@ const addClient = require('./controllers/Clients/addclient')
 const ViewClient = require('./controllers/Clients/viewclient')
 const DeleteClient = require('./controllers/Clients/deleteclient')
 const EditClient = require('./controllers/Clients/editclient')
+const requirements = require('./controllers/Requirements/requirements')
+const ViewRequirement = require('./controllers/Requirements/viewrequirement')
+const addRequirement = require('./controllers/Requirements/addrequirement')
+const EditRequirement = require('./controllers/Requirements/editrequirement')
+const DeleteRequirement = require('./controllers/Requirements/deleterequirement')
 
 
 
@@ -52,9 +57,11 @@ app.post('/addClient', (req, res) => { addClient.handleAddClient(req, res, db) }
 app.get('/ViewClient/:id', (req, res) => { ViewClient.handleViewClient(req, res, db) })
 app.put('/DeleteClient', (req, res) => { DeleteClient.handleDeleteClient(req, res, db) })
 app.put('/EditClient', (req, res) => { EditClient.handleEditClient(req, res, db) })
-
-
-
+app.get('/requirements', (req, res) => { requirements.handleRequirements(req, res, db) })
+app.get('/ViewRequirement/:id', (req, res) => { ViewRequirement.handleViewRequirement(req, res, db) })
+app.post('/addRequirement', (req, res) => { addRequirement.handleAddRequirement(req, res, db) })
+app.put('/EditRequirement', (req, res) => { EditRequirement.handleEditRequirement(req, res, db) })
+app.put('/DeleteRequirement', (req, res) => { DeleteRequirement.handleDeleteRequirement(req, res, db) })
 
 app.listen(3001, () => {
     console.log('App Is Running On Port 3001')
