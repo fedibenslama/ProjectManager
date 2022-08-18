@@ -195,21 +195,21 @@ function Clients ({ ClientsInfo, setClientsInfo, setEditClientData, setEditClien
                                                         </td>
                                                         
                                                         <td className="Client-actions text-right">
-                                                            <a className="btn btn-primary btn-sm"
+                                                            <a className="btn btn-primary btn-sm mr-1"
                                                                 onClick={(event) => onClientViewClick(event, ClientInfo)}
                                                             >
                                                                 <i className="fas fa-folder">
                                                                 </i>
                                                                 View
                                                             </a>
-                                                            <a className="btn btn-info btn-sm"
+                                                            <a className="btn btn-info btn-sm mr-1"
                                                                 onClick={(event) => onClientEditClick(event, ClientInfo)}>
                                                                 <i className="fas fa-pencil-alt">
                                                                 </i>
                                                                 Edit
                                                             </a>
                                                             <a
-                                                                className="btn btn-danger btn-sm"
+                                                                className="btn btn-danger btn-sm mr-1"
 
                                                                 onClick={() => onClientDeleteClick(ClientInfo.id)}
                                                             >

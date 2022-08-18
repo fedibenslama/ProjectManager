@@ -12,9 +12,10 @@ import Clients from './Componants/Clients/Clients';
 import ClientAdd from './Componants/Clients/ClientAdd';
 import ClientView from './Componants/Clients/ClientView';
 import ClientEdit from './Componants/Clients/ClientEdit';
-
-
-
+import Requirements from './Componants/Requirements/Requirements';
+import RequirementAdd from './Componants/Requirements/RequirementAdd';
+import RequirementView from './Componants/Requirements/RequirementView';
+import RequirementEdit from './Componants/Requirements/RequirementEdit';
 
 
 
@@ -68,7 +69,27 @@ function App() {
     ClientJoined: '',
   }])
 
+  ///////////////////////////////////////////////////////////
+  const [RequirementsInfo, setRequirementsInfo] = useState([{
+    RequirementTitle: '',
+    RequirementIdCode: '',
+    RequirementDescription: '',
+    RequirementStatus: '',
+    RequirementCreatedBy: '',
+    RequirementAssociatedProject: '',
+    RequirementMainRequirement: ''
+  }])
 
+  const [EditRequirementId, setEditRequirementId] = useState(null)
+  const [EditRequirementData, setEditRequirementData] = useState([{
+    RequirementTitle: '',
+    RequirementIdCode: '',
+    RequirementDescription: '',
+    RequirementStatus: '',
+    RequirementCreatedBy: '',
+    RequirementAssociatedProject: '',
+    RequirementMainRequirement: ''
+  }])
 
   return (
 
@@ -80,6 +101,9 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route element={<ProtectedRoutes />}>
+          <Route path='/EditRequirement' element={<RequirementEdit RequirementsInfo={RequirementsInfo} setRequirementsInfo={setRequirementsInfo}
+            EditRequirementId={EditRequirementId} setEditRequirementId={setEditRequirementId} EditRequirementData={EditRequirementData}
+            setEditRequirementData={setEditRequirementData} />} />
           <Route path="/ViewProject/:id" element={<ProjectView />} />
           <Route path='/addProject' element={<ProjectAdd ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo} />} />
           <Route path='/EditProject' element={<ProjectEdit ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo}
@@ -97,6 +121,11 @@ function App() {
           <Route path='/EditClient' element={<ClientEdit ClientsInfo={ClientsInfo} setClientsInfo={setClientsInfo}
             EditClientId={EditClientId} setEditClientId={setEditClientId} EditClientData={EditClientData}
             setEditClientData={setEditClientData} />} />
+          <Route path='/Requirements' element={<Requirements RequirementsInfo={RequirementsInfo} setRequirementsInfo={setRequirementsInfo}
+            EditRequirementId={EditRequirementId} setEditRequirementId={setEditRequirementId} EditRequirementData={EditRequirementData}
+            setEditRequirementData={setEditRequirementData} />} />
+          <Route path="/ViewRequirement/:id" element={<RequirementView />} />
+          <Route path='/addRequirement' element={<RequirementAdd RequirementsInfo={RequirementsInfo} setRequirementsInfo={setRequirementsInfo} />} />
 
         </Route>
 

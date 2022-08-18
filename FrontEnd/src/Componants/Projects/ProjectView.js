@@ -200,12 +200,12 @@ function ProjectView() {
                                 </div>
                                 <div className="col-12 col-md-12 col-lg-4 order-1 order-md-2">
                                     <div>
-                                        <h3 className="text-primary"><i className="fas fa-paint-brush " /> {ViewProjectData.name}</h3></div>
+                                        <h3 className="text-primary"><i className="fas fa-book " /> {ViewProjectData.name}</h3></div>
 
                                     <div className="card">
                                         <div className="card-header">
                                             <h3 className="card-title">
-                                                <i className="fas fa-text-width" />
+                                                <i className="fas" />
                                                 Project Description
                                             </h3>
                                         </div>

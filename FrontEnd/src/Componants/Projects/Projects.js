@@ -120,7 +120,7 @@ function Projects({ ProjectsInfo, setProjectsInfo, setEditProjectData, setEditPr
                                             onClick={onAddProjectClick}
                                             tabindex="0">Add a Project</button>
                                         </div>
-                                        <table className="table table-striped projects">
+                                        <table className="table table-striped projects margin-top: 50px">
                                             <thead>
                                                 <tr>
                                                     <th style={{ width: '1%' }}>
@@ -219,21 +219,21 @@ function Projects({ ProjectsInfo, setProjectsInfo, setEditProjectData, setEditPr
                                                                 <span className="badge badge-info">{ProjectInfo.status}</span>
                                                             </td>
                                                             <td className="project-actions text-right">
-                                                                <a className="btn btn-primary btn-sm"
+                                                                <a className="btn btn-primary btn-sm mr-1"
                                                                     onClick={(event) => onProjectViewClick(event, ProjectInfo)}
                                                                 >
                                                                     <i className="fas fa-folder">
                                                                     </i>
                                                                     View
                                                                 </a>
-                                                                <a className="btn btn-info btn-sm"
+                                                                <a className="btn btn-info btn-sm mr-1"
                                                                     onClick={(event) => onProjectEditClick(event, ProjectInfo)}>
                                                                     <i className="fas fa-pencil-alt">
                                                                     </i>
                                                                     Edit
                                                                 </a>
                                                                 <a
-                                                                    className="btn btn-danger btn-sm"
+                                                                    className="btn btn-danger btn-sm mr-1"
 
                                                                     onClick={() => onProjectDeleteClick(ProjectInfo.id)}
                                                                 >

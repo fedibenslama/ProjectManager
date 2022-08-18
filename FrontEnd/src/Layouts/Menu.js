@@ -60,6 +60,12 @@ function Menu() {
   const onAddAClientClick = () => {
     Navigate('/addClient')
   }
+  const onViewAllRequirementsClick = () => {
+    Navigate('/requirements')
+  }
+  const onAddARequirementClick = () => {
+    Navigate('/addRequirement')
+  }
 
   return (
 
@@ -73,7 +79,7 @@ function Menu() {
       <aside className="main-sidebar sidebar-dark-primary elevation-4">
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a className="brand-link">
-          <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{ opacity: '.8' }} />
+          <img src={`https://robohash.org/${4}?200x200`} alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{ opacity: '.8' }} />
           <span className="brand-text font-weight-light">Project Manager</span>
         </a>
         {/* Sidebar */}
@@ -81,7 +87,7 @@ function Menu() {
           {/* Sidebar user panel (optional) */}
           <div className="user-panel mt-3 pb-3 mb-3 d-flex">
             <div className="image">
-              <img src="dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User" />
+              <img src={`https://robohash.org/${5}?200x200`} className="img-circle elevation-2" alt="User" />
             </div>
             <div className="info">
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -210,6 +216,23 @@ function Menu() {
                   </li>
                 </button>
 
+              </li>
+              <li className="nav-header"><h4>Requirements</h4></li>
+              <li className="nav-item">
+                <button onClick={onViewAllRequirementsClick} className="nav-link btn btn-link text-left ">
+                  <i className="nav-icon fas fa-list" />
+                  <b>
+                    Requirements List
+                  </b>
+                </button>
+              </li>
+              <li className="nav-item">
+                <button onClick={onAddARequirementClick} className="nav-link btn btn-link text-left">
+                  <i className="nav-icon fas fa-plus" />
+                  <b>
+                    Add a New Requirement
+                  </b>
+                </button>
               </li>
 
 
