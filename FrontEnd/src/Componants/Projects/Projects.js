@@ -118,7 +118,7 @@ function Projects({ ProjectsInfo, setProjectsInfo, setEditProjectData, setEditPr
                                             <button type="button"
                                             className="btn btn-block btn-outline-info "
                                             onClick={onAddProjectClick}
-                                            tabindex="0">Add a Project</button>
+                                            tabindex="0">Add a New Project</button>
                                         </div>
                                         <table className="table table-striped projects margin-top: 50px">
                                             <thead>

@@ -4,33 +4,34 @@ import { useNavigate, useParams } from "react-router-dom";
 import Menu from "../../Layouts/Menu";
 import Navbar from "../../Layouts/Navbar";
 
-function ProjectView() {
+function TaskView() {
 
     let navigate = useNavigate()
     const onButtonClick = () => {
         navigate('/')
     }
-    const [ViewProjectData, setViewProjectData] = useState([{
-        Name: '',
-        Type: '',
-        UsedSolutions: '',
-        AssociatedServers: '',
-        AssociatedClient: '',
-        Status: '',
-        ProjectProgress: '',
-        StartDate: '',
-        FinishDate: '',
-        ProjectDescription: ''
+    const [ViewTaskData, setViewTaskData] = useState([{
+        TaskTitle: '',
+        TaskIdCode: '',
+        TaskDescription: '',
+        TaskMainTask: '',
+        TaskSpecification: '',
+        TaskNature: '',
+        TaskStatus: '',
+        TaskPriority: '',
+        TaskExpectedDuration: '',
+        TaskCompletionTime: '',
+        TaskMembInCharge: ''
     }])
     let { id } = useParams()
     useEffect(() => {
-        fetch(`http://localhost:3001/ViewProject/${id}`)
+        fetch(`http://localhost:3001/ViewTask/${id}`)
             .then(response => {
                 return response.json();
             })
-            .then(project => {
+            .then(Task => {
 
-                setViewProjectData(project)
+                setViewTaskData(Task)
 
             })
 
@@ -50,12 +51,12 @@ function ProjectView() {
                     <div className="container-fluid">
                         <div className="row mb-2">
                             <div className="col-sm-6">
-                                <h1>Projects Details</h1>
+                                <h1>Tasks Details</h1>
                             </div>
                             <div className="col-sm-6">
                                 <ol className="breadcrumb float-sm-right">
                                     <li className="breadcrumb-item"><a href="/#">Home</a></li>
-                                    <li className="breadcrumb-item active">Project Detail</li>
+                                    <li className="breadcrumb-item active">Task Detail</li>
                                 </ol>
                             </div>
                         </div>
@@ -68,14 +69,12 @@ function ProjectView() {
 
                     <div className="card">
                         <div className="card-header">
-                            <h3 className="card-title">{ViewProjectData.name}</h3>
+                            <h3 className="card-title">{ViewTaskData.tasktitle}</h3>
                             <div className="card-tools">
                                 <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                     <i className="fas fa-minus" />
                                 </button>
-                                <button type="button" className="btn btn-tool" data-card-widget="remove" title="Remove">
-                                    <i className="fas fa-times" />
-                                </button>
+                               
                             </div>
                         </div>
 
@@ -83,41 +82,34 @@ function ProjectView() {
                             <div className="row">
                                 <div className="col-12 col-md-12 col-lg-8 order-2 order-md-1">
                                     <div className="row">
-                                        <div className="col-12 col-sm-4">
+                                    <div className="col-12 col-sm-4">
                                             <div className="info-box bg-light">
                                                 <div className="info-box-content">
-                                                    <span className="info-box-text text-center text-muted">Project Progress</span>
-                                                    <div className="progress progress-sm">
-                                                        <div className="progress-bar bg-blue" role="progressbar"
-                                                            aria-valuenow={ViewProjectData.projectprogress}
-                                                            aria-valuemin={0} aria-valuemax={100}
-                                                            style={{ width: `${ViewProjectData.projectprogress}%` }}>
-                                                        </div>
-
-                                                    </div>
-                                                    <small>
-                                                        {`${ViewProjectData.projectprogress}% Complete`}
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-12 col-sm-4">
-                                            <div className="info-box bg-light">
-                                                <div className="info-box-content">
-                                                    <span className="info-box-text text-center text-muted">Start Date</span>
+                                                    <span className="info-box-text text-center text-muted">Title</span>
                                                     <span
                                                         className="info-box-number text-center text-muted mb-0"
 
-                                                    >{ViewProjectData.startdate}</span>
+                                                    >{ViewTaskData.tasktitle}</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="col-12 col-sm-4">
                                             <div className="info-box bg-light">
                                                 <div className="info-box-content">
-                                                    <span className="info-box-text text-center text-muted">Finish Date</span>
+                                                    <span className="info-box-text text-center text-muted">Member In Charge</span>
+                                                    <span
+                                                        className="info-box-number text-center text-muted mb-0"
+
+                                                    >{ViewTaskData.taskmembincharge}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-12 col-sm-4">
+                                            <div className="info-box bg-light">
+                                                <div className="info-box-content">
+                                                    <span className="info-box-text text-center text-muted">ID Code</span>
                                                     <span className="info-box-number text-center text-muted mb-0">
-                                                        {ViewProjectData.finishdate}</span>
+                                                        {ViewTaskData.taskidcode}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -125,12 +117,12 @@ function ProjectView() {
                                     {/* -------------------------------------------- */}
                                     {/* <div className="row"> */}
                                     <div>
-                                        <h5 className="mt-4 mb-2">Specifications</h5>
+                                        <h5 className="mt-4 mb-2">Specifications &amp; Client</h5>
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <div className="card">
                                                     <div className="card-header">
-                                                        <h3 className="card-title" >{ViewProjectData.name}</h3>
+                                                        <h3 className="card-title " >{ViewTaskData.tasktitle}</h3>
                                                     </div>
                                                     {/* /.card-header */}
                                                     <div className="card-body">
@@ -140,13 +132,13 @@ function ProjectView() {
                                                                 <div className="card-header">
                                                                     <h4 className="card-title w-100">
                                                                         <a className="d-block w-100" data-toggle="collapse" href="#collapseOne">
-                                                                            Used Solutions
+                                                                            Main Task
                                                                         </a>
                                                                     </h4>
                                                                 </div>
                                                                 <div id="collapseOne" className="collapse show" data-parent="#accordion">
                                                                     <div className="card-body">
-                                                                        {ViewProjectData.usedsolutions}
+                                                                        {ViewTaskData.taskmaintask}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -154,13 +146,13 @@ function ProjectView() {
                                                                 <div className="card-header">
                                                                     <h4 className="card-title w-100">
                                                                         <a className="d-block w-100" data-toggle="collapse" href="#collapseTwo">
-                                                                            Associated Servers
+                                                                            Task Nature
                                                                         </a>
                                                                     </h4>
                                                                 </div>
                                                                 <div id="collapseTwo" className="collapse" data-parent="#accordion">
                                                                     <div className="card-body">
-                                                                        {ViewProjectData.associatedservers}
+                                                                        {ViewTaskData.tasknature}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -168,13 +160,13 @@ function ProjectView() {
                                                                 <div className="card-header">
                                                                     <h4 className="card-title w-100">
                                                                         <a className="d-block w-100" data-toggle="collapse" href="#collapseThree">
-                                                                            Associated Client
+                                                                            Priority
                                                                         </a>
                                                                     </h4>
                                                                 </div>
                                                                 <div id="collapseThree" className="collapse" data-parent="#accordion">
                                                                     <div className="card-body">
-                                                                        {ViewProjectData.associatedclient}
+                                                                        {ViewTaskData.taskpriority}
                                                                     </div>
                                                                 </div>
 
@@ -200,20 +192,20 @@ function ProjectView() {
                                 </div>
                                 <div className="col-12 col-md-12 col-lg-4 order-1 order-md-2">
                                     {/* <div>
-                                        <h3 className="text-primary"><i className="fas fa-folder " /> {ViewProjectData.name}</h3></div> */}
+                                        <h3 className="text-primary"><i className="fas fa-book " /> {ViewTaskData.tasktitle}</h3></div> */}
 
                                     <div className="card">
                                         <div className="card-header">
                                             <h3 className="card-title">
                                                 <i className="fas" />
-                                                Project Description
+                                                Task Description
                                             </h3>
                                         </div>
                                         {/* /.card-header */}
                                         <div className="card-body">
                                             <blockquote>
-                                                <p>{ViewProjectData.projectdescription}</p>
-                                                <small>Type: <cite>{ViewProjectData.type}</cite></small>
+                                                <p>{ViewTaskData.taskdescription}</p>
+                                                <small>Specification: <cite>{ViewTaskData.taskspecification}</cite></small>
                                             </blockquote>
                                         </div>
                                         {/* /.card-body */}
@@ -223,16 +215,19 @@ function ProjectView() {
                                     <br />
                                     <div className="text-muted">
                                         <p className="text-lg">Status
-                                            <b className="d-block">{ViewProjectData.status}</b>
+                                            <b className="d-block">{ViewTaskData.taskstatus}</b>
                                         </p>
-                                        <p className="text-lg">Type
-                                            <b className="d-block">{ViewProjectData.type}</b>
+                                        <p className="text-lg">Expected Duration
+                                            <b className="d-block">{ViewTaskData.taskexpectedduration}</b>
+                                        </p>
+                                        <p className="text-lg">Completion Time
+                                            <b className="d-block">{ViewTaskData.taskcompletiontime}</b>
                                         </p>
                                     </div>
 
                                     <div className="text-center mt-5 mb-3">
                                         <button className="btn btn-sm btn-primary"
-                                            onClick={onButtonClick}>View All Projects</button>
+                                            onClick={onButtonClick}>View All Tasks</button>
                                     </div>
                                 </div>
                             </div>
@@ -251,4 +246,4 @@ function ProjectView() {
     )
 }
 
-export default ProjectView
+export default TaskView

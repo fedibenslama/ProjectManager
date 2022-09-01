@@ -6,79 +6,69 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 
-function Requirements({ RequirementsInfo, setRequirementsInfo, setEditRequirementData, setEditRequirementId }) {
+function Tasks({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) {
     // eslint-disable-next-line no-unused-vars
-    const [ViewRequirementId, setViewRequirementId] = useState(null)
+    const [ViewTaskId, setViewTaskId] = useState(null)
 
     let navigatee = useNavigate()
 
     useEffect(() => {
-        fetch('http://localhost:3001/requirements')
+        fetch('http://localhost:3001/Tasks')
             .then(response => {
                 return response.json();
             })
-            .then(requirements => {
+            .then(Tasks => {
 
-                setRequirementsInfo(requirements)
+                setTasksInfo(Tasks)
             })
 
-    }, [setRequirementsInfo])
-
-    //
-    // let wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const response = await fetch('http://localhost:3001/requirements')
-    //         const data = await response.json();
-    //         await wait(2000);
-    //         setRequirementsInfo(data)
-    //     }
-    //     fetchData()
+    }, [setTasksInfo])
 
 
-    // }, [setRequirementsInfo]) //
-
-
-    const onAddRequirementClick = () => {
-        navigatee('/addRequirement')
+    const onAddTaskClick = () => {
+        navigatee('/addTask')
     }
 
-    const onRequirementViewClick = (event, RequirementInfo) => {
+    const onTaskViewClick = (event, TaskInfo) => {
         event.preventDefault();
-        setViewRequirementId(RequirementInfo.id)
-        navigatee(`/ViewRequirement/${RequirementInfo.id}`)
+        setViewTaskId(TaskInfo.id)
+        navigatee(`/ViewTask/${TaskInfo.id}`)
 
     }
 
-    const onRequirementEditClick = (event, RequirementInfo) => {
+    const onTaskEditClick = (event, TaskInfo) => {
         event.preventDefault();
-        setEditRequirementId(RequirementInfo.id)
-        navigatee("/EditRequirement")
-        const RequirementValue = {
-            RequirementTitle: RequirementInfo.requirementtitle,
-            RequirementIdCode: RequirementInfo.requirementidcode,
-            RequirementDescription: RequirementInfo.requirementdescription,
-            RequirementStatus: RequirementInfo.requirementstatus,
-            RequirementCreatedBy: RequirementInfo.requirementcreatedby,
-            RequirementAssociatedProject: RequirementInfo.requirementassociatedproject,
-            RequirementMainRequirement: RequirementInfo.requirementmainrequirement
+        setEditTaskId(TaskInfo.id)
+        navigatee("/EditTask")
+        const TaskValue = {
+            TaskTitle: TaskInfo.tasktitle,
+            TaskIdCode: TaskInfo.taskidcode,
+            TaskDescription: TaskInfo.taskdescription,
+            TaskMainTask: TaskInfo.taskmaintask,
+            TaskSpecification: TaskInfo.taskspecification,
+            TaskNature: TaskInfo.tasknature,
+            TaskStatus: TaskInfo.taskstatus,
+            TaskPriority: TaskInfo.taskpriority,
+            TaskExpectedDuration: TaskInfo.taskexpectedduration,
+            TaskCompletionTime: TaskInfo.taskcompletiontime,
+            TaskMembInCharge: TaskInfo.taskmembincharge
         }
 
-        setEditRequirementData(RequirementValue)
+        setEditTaskData(TaskValue)
     }
-    const onRequirementDeleteClick = (requirementId) => {
+    const onTaskDeleteClick = (TaskId) => {
 
-        const Newrequirements = [...RequirementsInfo]
-        const index = RequirementsInfo.findIndex((RequirementInfo) => RequirementInfo.id === requirementId);
-        Newrequirements.splice(index, 1);
-        navigatee("/requirements")
-        setRequirementsInfo(Newrequirements)
+        const NewTasks = [...TasksInfo]
+        const index = TasksInfo.findIndex((TaskInfo) => TaskInfo.id === TaskId);
+        NewTasks.splice(index, 1);
+        navigatee("/Tasks")
+        setTasksInfo(NewTasks)
 
-        fetch('http://localhost:3001/DeleteRequirement', {
+        fetch('http://localhost:3001/DeleteTask', {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                id: requirementId
+                id: TaskId
 
             })
         })
@@ -100,12 +90,12 @@ function Requirements({ RequirementsInfo, setRequirementsInfo, setEditRequiremen
                     <div className="container-fluid">
                         <div className="row mb-2">
                             <div className="col-sm-6">
-                                <h1>Requirements</h1>
+                                <h1>Tasks</h1>
                             </div>
                             <div className="col-sm-6">
                                 <ol className="breadcrumb float-sm-right">
                                     <li className="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li className="breadcrumb-item active">Requirements</li>
+                                    <li className="breadcrumb-item active">Tasks</li>
                                 </ol>
                             </div>
                         </div>
@@ -115,7 +105,7 @@ function Requirements({ RequirementsInfo, setRequirementsInfo, setEditRequiremen
                 <section className="content">
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="col-12">
+                            <div className="col-13">
                                 <div className="card">
 
 
@@ -124,15 +114,15 @@ function Requirements({ RequirementsInfo, setRequirementsInfo, setEditRequiremen
                                 <div className="card">
 
                                     <div className="card-header">
-                                        <h3 className="card-title">List Of Requirements</h3>
+                                        <h3 className="card-title">List Of Tasks</h3>
                                     </div>
                                     {/* /.card-header */}
                                     <div className="card-body">
                                         <div className="dt-buttons btn-group flex-wrap">
                                             <button type="button"
-                                                className="btn btn-block btn-outline-danger mb-3 " //mr,ml,mt,mb
-                                                onClick={onAddRequirementClick}
-                                                tabindex="0">Add a Requirement</button>
+                                                className="btn btn-block btn-outline-dark mb-3 " //mr,ml,mt,mb
+                                                onClick={onAddTaskClick}
+                                                tabindex="0">Add a Task</button>
                                         </div>
                                         <table id="example2" className="table table-bordered table-striped">
                                             <thead>
@@ -140,9 +130,13 @@ function Requirements({ RequirementsInfo, setRequirementsInfo, setEditRequiremen
                                                     <th>Title</th>
                                                     <th>ID Code</th>
                                                     {/* <th>Description</th> */}
-                                                    <th>Created By</th>
-                                                    <th>Associated Project</th>
-                                                    <th>Main Requirement</th>
+                                                    <th>Main Task</th>
+                                                    {/* <th>Task Specification</th> */}
+                                                    <th>Task Nature</th>
+                                                    <th>Priority</th>
+                                                    <th>Expected Duration</th>
+                                                    <th>Completion Time</th>
+                                                    <th>Member in Charge</th>
                                                     <th>Status</th>
                                                     <th></th>
 
@@ -150,63 +144,53 @@ function Requirements({ RequirementsInfo, setRequirementsInfo, setEditRequiremen
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {RequirementsInfo.map((RequirementInfo, i) => (
+                                                {TasksInfo.map((TaskInfo, i) => (
                                                     <Fragment>
                                                         <tr>
-                                                            <td>{RequirementInfo.requirementtitle}</td>
-                                                            <td>{RequirementInfo.requirementidcode} </td>
-                                                            {/* <td>{RequirementInfo.requirementdescription}</td> */}
-                                                            {/* <td >{RequirementInfo.requirementstatus}</td> */}
-
-                                                            <td>{RequirementInfo.requirementcreatedby}</td>
-                                                            <td>{RequirementInfo.requirementassociatedproject}</td>
-                                                            <td>{RequirementInfo.requirementmainrequirement}</td>
+                                                            <td>{TaskInfo.tasktitle}</td>
+                                                            <td>{TaskInfo.taskidcode} </td>
+                                                            {/* <td>{TaskInfo.taskdescription}</td> */}
+                                                            <td>{TaskInfo.taskmaintask}</td>
+                                                            {/* <td>{TaskInfo.taskspecification}</td> */}
+                                                            <td>{TaskInfo.tasknature}</td>
+                                                            <td>{TaskInfo.taskpriority}</td>
+                                                            <td>{TaskInfo.taskexpectedduration}</td>
+                                                            <td>{TaskInfo.taskcompletiontime}</td>
+                                                            <td>{TaskInfo.taskmembincharge}</td>
                                                             <td className="project-state">
-                                                                <span className="badge badge-info">{RequirementInfo.requirementstatus}</span>
+                                                                <span className="badge badge-dark">{TaskInfo.taskstatus}</span>
                                                             </td>
-                                                            <td className="project-actions text-right " >
+                                                            <td className="project-actions text-left btn-group " >
                                                                 <button className="btn btn-primary btn-sm mr-1"
-                                                                    onClick={(event) => onRequirementViewClick(event, RequirementInfo)}
+                                                                    onClick={(event) => onTaskViewClick(event, TaskInfo)}
                                                                 >
                                                                     <i className="fas fa-folder">
                                                                     </i>
                                                                     View
                                                                 </button>
-                                                                <button className="btn btn-info btn-sm mr-1"
-                                                                    onClick={(event) => onRequirementEditClick(event, RequirementInfo)}
+                                                                <button className="btn btn-info btn-sm ml-1"
+                                                                    onClick={(event) => onTaskEditClick(event, TaskInfo)}
                                                                 >
                                                                     <i className="fas fa-pencil-alt">
                                                                     </i>
                                                                     Edit
                                                                 </button>
                                                                 <button
-                                                                    className="btn btn-danger btn-sm mr-1"
+                                                                    className="btn btn-danger btn-sm ml-1"
 
-                                                                    onClick={() => onRequirementDeleteClick(RequirementInfo.id)}
+                                                                    onClick={() => onTaskDeleteClick(TaskInfo.id)}
                                                                 >
                                                                     <i className="fas fa-trash">
                                                                     </i>
                                                                     Delete
                                                                 </button>
                                                             </td>
-
                                                         </tr>
                                                     </Fragment>
 
                                                 ))}
                                             </tbody>
-                                            {/* <tfoot>
-                                                <tr>
-                                                    <th>Title</th>
-                                                    <th>ID</th>
-                                                    <th>Description</th>
-                                                    <th>Status</th>
-                                                    <th>Created By</th>
-                                                    <th>Associated Project</th>
-                                                    <th>Main Requirement</th>
-                                                    <th></th>
-                                                </tr>
-                                            </tfoot> */}
+                                  
                                         </table>
                                     </div>
                                     {/* /.card-body */}
@@ -228,4 +212,4 @@ function Requirements({ RequirementsInfo, setRequirementsInfo, setEditRequiremen
 
 }
 
-export default Requirements
+export default Tasks

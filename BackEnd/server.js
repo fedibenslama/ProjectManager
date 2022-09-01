@@ -25,8 +25,21 @@ const ViewRequirement = require('./controllers/Requirements/viewrequirement')
 const addRequirement = require('./controllers/Requirements/addrequirement')
 const EditRequirement = require('./controllers/Requirements/editrequirement')
 const DeleteRequirement = require('./controllers/Requirements/deleterequirement')
-
-
+const addFunctionality = require('./controllers/Functionalities/addfunctionality')
+const DeleteFunctionality = require('./controllers/Functionalities/deletefunctionality')
+const EditFunctionality = require('./controllers/Functionalities/editfunctionality')
+const functionalities = require('./controllers/Functionalities/functionalities')
+const ViewFunctionality = require('./controllers/Functionalities/viewfunctionality')
+const addMember = require('./controllers/Members/addmember')
+const DeleteMember = require('./controllers/Members/deletemember')
+const EditMember = require('./controllers/Members/editmember')
+const members = require('./controllers/Members/members')
+const ViewMember = require('./controllers/Members/viewmember')
+const addTask = require('./controllers/Tasks/addtask')
+const DeleteTask = require('./controllers/Tasks/deletetask')
+const EditTask = require('./controllers/Tasks/edittask')
+const tasks = require('./controllers/Tasks/tasks')
+const ViewTask = require('./controllers/Tasks/viewtask')
 
 db = knex({
     client: 'pg',
@@ -62,6 +75,25 @@ app.get('/ViewRequirement/:id', (req, res) => { ViewRequirement.handleViewRequir
 app.post('/addRequirement', (req, res) => { addRequirement.handleAddRequirement(req, res, db) })
 app.put('/EditRequirement', (req, res) => { EditRequirement.handleEditRequirement(req, res, db) })
 app.put('/DeleteRequirement', (req, res) => { DeleteRequirement.handleDeleteRequirement(req, res, db) })
+app.post('/addFunctionality', (req, res) => { addFunctionality.handleAddFunctionality(req, res, db) })
+app.put('/DeleteFunctionality', (req, res) => { DeleteFunctionality.handleDeleteFunctionality(req, res, db) })
+app.put('/EditFunctionality', (req, res) => { EditFunctionality.handleEditFunctionality(req, res, db) })
+app.get('/functionalities', (req, res) => { functionalities.handleFunctionalities(req, res, db) })
+app.get('/ViewFunctionality/:id', (req, res) => { ViewFunctionality.handleViewFunctionality(req, res, db) })
+
+app.post('/addMember', (req, res) => { addMember.handleAddMember(req, res, db) })
+app.put('/DeleteMember', (req, res) => { DeleteMember.handleDeleteMember(req, res, db) })
+app.put('/EditMember', (req, res) => { EditMember.handleEditMember(req, res, db) })
+app.get('/members', (req, res) => { members.handleMembers(req, res, db) })
+app.get('/ViewMember/:id', (req, res) => { ViewMember.handleViewMember(req, res, db) })
+
+app.post('/addTask', (req, res) => { addTask.handleAddTask(req, res, db) })
+app.put('/DeleteTask', (req, res) => { DeleteTask.handleDeleteTask(req, res, db) })
+app.put('/EditTask', (req, res) => { EditTask.handleEditTask(req, res, db) })
+app.get('/tasks', (req, res) => { tasks.handleTasks(req, res, db) })
+app.get('/ViewTask/:id', (req, res) => { ViewTask.handleViewTask(req, res, db) })
+
+
 
 app.listen(3001, () => {
     console.log('App Is Running On Port 3001')

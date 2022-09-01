@@ -5,25 +5,7 @@ import { useState,useEffect } from "react";
 // import { useParams } from "react-router-dom";
 
 function Profile() {
-//  const [User, setUser] = useState([{
-//         Name: '',
-//         Email: '',
-//         Role: '',
-        
-//     }])
-//     let { id } = useParams()
-//     useEffect(() => {
-//         fetch(`http://localhost:3001/profile/${id}`)
-//             .then(response => {
-//                 return response.json();
-//             })
-//             .then(profile => {
 
-//                 setUser(profile)
-
-//             })
-
-//     }, [id]) //
 const [User, setUser] = useState({
   id: '',
   name: '',
@@ -109,7 +91,7 @@ useEffect(() => {
                 {/* About Me Box */}
                 <div className="card card-primary">
                   <div className="card-header">
-                    <h3 className="card-title">About Me</h3>
+                    <h3 className="card-title">About {User.name}</h3>
                   </div>
                   {/* /.card-header */}
                   <div className="card-body">

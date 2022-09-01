@@ -16,6 +16,19 @@ import Requirements from './Componants/Requirements/Requirements';
 import RequirementAdd from './Componants/Requirements/RequirementAdd';
 import RequirementView from './Componants/Requirements/RequirementView';
 import RequirementEdit from './Componants/Requirements/RequirementEdit';
+import Functionalities from './Componants/Functionalities/Functionalities';
+import FunctionalityAdd from './Componants/Functionalities/FunctionalityAdd';
+import FunctionalityEdit from './Componants/Functionalities/FunctionalityEdit';
+import FunctionalityView from './Componants/Functionalities/FunctionalityView';
+import Members from './Componants/Members/Members';
+import MemberAdd from './Componants/Members/MemberAdd';
+import MembersList from './Componants/Members/MembersList';
+import MemberEdit from './Componants/Members/MemberEdit';
+import MemberView from './Componants/Members/MemberView';
+import Tasks from './Componants/Tasks/Tasks';
+import TaskAdd from './Componants/Tasks/TaskAdd';
+import TaskEdit from './Componants/Tasks/TaskEdit';
+import TaskView from './Componants/Tasks/TaskView';
 
 
 
@@ -91,6 +104,88 @@ function App() {
     RequirementMainRequirement: ''
   }])
 
+  //////////////////////////////////////////////
+  const [FunctionalitiesInfo, setFunctionalitiesInfo] = useState([{
+    FuncTitle: '',
+    FuncIdCode: '',
+    FuncDescription: '',
+    FuncStatus: '',
+    FuncAssociatedReq: '',
+    FuncAssociatedTasks: '',
+    FuncAssociatedMemb: '',
+    FuncStartDate: '',
+    FuncFinishDate: '',
+    FuncDuration: ''
+  }])
+
+  const [EditFunctionalityId, setEditFunctionalityId] = useState(null)
+  const [EditFunctionalityData, setEditFunctionalityData] = useState([{
+    FuncTitle: '',
+    FuncIdCode: '',
+    FuncDescription: '',
+    FuncStatus: '',
+    FuncAssociatedReq: '',
+    FuncAssociatedTasks: '',
+    FuncAssociatedMemb: '',
+    FuncStartDate: '',
+    FuncFinishDate: '',
+    FuncDuration: ''
+  }])
+
+  //////////////////////////////////////////////////////////
+  const [MembersInfo, setMembersInfo] = useState([{
+    MemberName: '',
+    MemberId: '',
+    MemberTelephoneNumber: '',
+    MemberEmail: '',
+    MemberAddress: '',
+    MemberAssociatedRoles: '',
+    MemberAccumulatedExp: ''
+  }])
+
+  const [EditMemberId, setEditMemberId] = useState(null)
+  const [EditMemberData, setEditMemberData] = useState([{
+    MemberName: '',
+    MemberId: '',
+    MemberTelephoneNumber: '',
+    MemberEmail: '',
+    MemberAddress: '',
+    MemberAssociatedRoles: '',
+    MemberAccumulatedExp: ''
+  }])
+  //////////////////////////////////////////////////////////
+  const [TasksInfo, setTasksInfo] = useState([{
+    TaskTitle: '',
+    TaskIdCode: '',
+    TaskDescription: '',
+    TaskMainTask: '',
+    TaskSpecification: '',
+    TaskNature: '',
+    TaskStatus: '',
+    TaskPriority: '',
+    TaskExpectedDuration: '',
+    TaskCompletionTime: '',
+    TaskMemberInCharge: ''
+  }])
+
+  const [EditTaskId, setEditTaskId] = useState(null)
+  const [EditTaskData, setEditTaskData] = useState([{
+    TaskTitle: '',
+    TaskIdCode: '',
+    TaskDescription: '',
+    TaskMainTask: '',
+    TaskSpecification: '',
+    TaskNature: '',
+    TaskStatus: '',
+    TaskPriority: '',
+    TaskExpectedDuration: '',
+    TaskCompletionTime: '',
+    TaskMembInCharge: ''
+  }])
+
+
+
+
   return (
 
 
@@ -100,6 +195,7 @@ function App() {
 
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+
         <Route element={<ProtectedRoutes />}>
           <Route path='/EditRequirement' element={<RequirementEdit RequirementsInfo={RequirementsInfo} setRequirementsInfo={setRequirementsInfo}
             EditRequirementId={EditRequirementId} setEditRequirementId={setEditRequirementId} EditRequirementData={EditRequirementData}
@@ -125,7 +221,46 @@ function App() {
             EditRequirementId={EditRequirementId} setEditRequirementId={setEditRequirementId} EditRequirementData={EditRequirementData}
             setEditRequirementData={setEditRequirementData} />} />
           <Route path="/ViewRequirement/:id" element={<RequirementView />} />
-          <Route path='/addRequirement' element={<RequirementAdd RequirementsInfo={RequirementsInfo} setRequirementsInfo={setRequirementsInfo} />} />
+          <Route path='/addRequirement' element={<RequirementAdd RequirementsInfo={RequirementsInfo}
+            setRequirementsInfo={setRequirementsInfo} />} />
+          <Route path='/Functionalities' element={<Functionalities FunctionalitiesInfo={FunctionalitiesInfo}
+            setFunctionalitiesInfo={setFunctionalitiesInfo}
+            EditFunctionalityId={EditFunctionalityId} setEditFunctionalityId={setEditFunctionalityId}
+            EditFunctionalityData={EditFunctionalityData}
+            setEditFunctionalityData={setEditFunctionalityData} />} />
+          <Route path='/addFunctionality' element={<FunctionalityAdd FunctionalitiesInfo={FunctionalitiesInfo}
+            setFunctionalitiesInfo={setFunctionalitiesInfo} />} />
+          <Route path='/EditFunctionality' element={<FunctionalityEdit FunctionalitiesInfo={FunctionalitiesInfo} setFunctionalitiesInfo={setFunctionalitiesInfo}
+            EditFunctionalityId={EditFunctionalityId} setEditFunctionalityId={setEditFunctionalityId}
+            EditFunctionalityData={EditFunctionalityData} setEditFunctionalityData={setEditFunctionalityData} />} />
+          <Route path="/ViewFunctionality/:id" element={<FunctionalityView />} />
+          <Route path='/Members' element={<Members MembersInfo={MembersInfo}
+            setMembersInfo={setMembersInfo}
+            EditMemberId={EditMemberId} setEditMemberId={setEditMemberId}
+            EditMemberData={EditMemberData}
+            setEditMemberData={setEditMemberData} />} />
+          <Route path='/MembersList' element={<MembersList MembersInfo={MembersInfo}
+            setMembersInfo={setMembersInfo}
+            EditMemberId={EditMemberId} setEditMemberId={setEditMemberId}
+            EditMemberData={EditMemberData}
+            setEditMemberData={setEditMemberData} />} />
+          <Route path='/addMember' element={<MemberAdd MembersInfo={MembersInfo}
+            setMembersInfo={setMembersInfo} />} />
+          <Route path='/EditMember' element={<MemberEdit MembersInfo={MembersInfo} setMembersInfo={setMembersInfo}
+            EditMemberId={EditMemberId} setEditMemberId={setEditMemberId}
+            EditMemberData={EditMemberData} setEditMemberData={setEditMemberData} />} />
+          <Route path="/ViewMember/:id" element={<MemberView />} />
+          <Route path='/Tasks' element={<Tasks TasksInfo={TasksInfo}
+            setTasksInfo={setTasksInfo}
+            EditTaskId={EditTaskId} setEditTaskId={setEditTaskId}
+            EditTaskData={EditTaskData}
+            setEditTaskData={setEditTaskData} />} />
+          <Route path='/addTask' element={<TaskAdd TasksInfo={TasksInfo}
+            setTasksInfo={setTasksInfo} />} />
+          <Route path='/EditTask' element={<TaskEdit TasksInfo={TasksInfo} setTasksInfo={setTasksInfo}
+            EditTaskId={EditTaskId} setEditTaskId={setEditTaskId}
+            EditTaskData={EditTaskData} setEditTaskData={setEditTaskData} />} />
+          <Route path="/ViewTask/:id" element={<TaskView />} />
 
         </Route>
 

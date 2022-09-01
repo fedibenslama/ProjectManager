@@ -3,6 +3,7 @@ import { useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 function Navbar() {
+  //to get blue , replace dark with primary
 
   const [User, setUser] = useState({
     id: '',
@@ -36,7 +37,6 @@ function Navbar() {
               .then(response => response.json())
               .then(user => {
                 if (user && user.email) {
-                  console.log(user)
                   setUser(user)
 
                 }
@@ -53,6 +53,9 @@ function Navbar() {
   const onProjectsClick = () => {
     Navigate('/')
   }
+  const onMembersClick = () => {
+    Navigate('/Members')
+  }
   const onSignOutClient = () => {
     Navigate('/login')
     window.sessionStorage.removeItem('token');
@@ -64,7 +67,7 @@ function Navbar() {
   return (
     <div>
       {/* Navbar */}
-      <nav className="main-header navbar navbar-expand navbar-primary navbar-dark">
+      <nav className="main-header navbar navbar-expand navbar-dark navbar-dark">
         {/* Left navbar links */}
         <ul className="navbar-nav">
           <li className="nav-item">
@@ -73,11 +76,9 @@ function Navbar() {
           <li className="nav-item d-none d-sm-inline-block">
             <button onClick={onProjectsClick} className="nav-link btn btn-link">Home</button>
           </li>
+         
           <li className="nav-item d-none d-sm-inline-block">
-            <button onClick={onProjectsClick} className="nav-link btn btn-link">Projects</button>
-          </li>
-          <li className="nav-item d-none d-sm-inline-block">
-            <button  className="nav-link btn btn-link">Members</button>
+            <button onClick={onMembersClick}  className="nav-link btn btn-link">Members</button>
           </li>
         </ul>
         {/* Right navbar links */}
@@ -112,7 +113,7 @@ function Navbar() {
             </a>
             <ul className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               {/* User image */}
-              <li className="user-header bg-primary">
+              <li className="user-header bg-dark">
                 <img src="../../dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User" />
                 <p>
                 {User.name}

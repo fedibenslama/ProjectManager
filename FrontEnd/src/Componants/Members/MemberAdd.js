@@ -5,62 +5,62 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../Layouts/Navbar";
 import Menu from "../../Layouts/Menu";
 
-function ClientAdd({ setClientsInfo, ClientsInfo }) {
+function MemberAdd({ setMembersInfo, MembersInfo }) {
 
     let navigate = useNavigate()
 
-    const [AddClientData, setAddClientData] = useState({
-        ClientName: '',
-        ClientType: '',
-        ClientActivitySector: '',
-        ClientTelephoneNumber: '',
-        ClientEmail: '',
-        ClientWebsite: '',
-        ClientJoined: '',
+    const [AddMemberData, setAddMemberData] = useState({
+        MemberName: '',
+        MemberId: '',
+        MemberTelephoneNumber: '',
+        MemberEmail: '',
+        MemberAddress: '',
+        MemberAssociatedRoles: '',
+        MemberAccumulatedExp: ''
     })
     const onCancelClick = () => {
         navigate("/")
     }
-    const onClientAddChange = (event) => {
+    const onMemberAddChange = (event) => {
         event.preventDefault();
 
         const fieldName = event.target.getAttribute("name");
         const fieldValue = event.target.value;
 
-        const NewClientData = { ...AddClientData }
+        const NewMemberData = { ...AddMemberData }
 
-        NewClientData[fieldName] = fieldValue;
-        setAddClientData(NewClientData);
+        NewMemberData[fieldName] = fieldValue;
+        setAddMemberData(NewMemberData);
 
     }
-    const onClientAddSubmit = (event) => {
+    const onMemberAddSubmit = (event) => {
         event.preventDefault();
-        navigate("/clients")
-        const newClient = {
+        navigate("/Members")
+        const newMember = {
             id: nanoid(),
-            ClientName: AddClientData.ClientName,
-            ClientType: AddClientData.ClientType,
-            ClientActivitySector: AddClientData.ClientActivitySector,
-            ClientTelephoneNumber: AddClientData.ClientTelephoneNumber,
-            ClientEmail: AddClientData.ClientEmail,
-            ClientWebsite: AddClientData.ClientWebsite,
-            ClientJoined: AddClientData.ClientJoined,
+            MemberName: AddMemberData.MemberName,
+            MemberId: AddMemberData.MemberId,
+            MemberTelephoneNumber: AddMemberData.MemberTelephoneNumber,
+            MemberEmail: AddMemberData.MemberEmail,
+            MemberAddress: AddMemberData.MemberAddress,
+            MemberAssociatedRoles: AddMemberData.MemberAssociatedRoles,
+            MemberAccumulatedExp: AddMemberData.MemberAccumulatedExp
         };
-        const NewClients = [...ClientsInfo, newClient];
-        setClientsInfo(NewClients)
+        const NewMembers = [...MembersInfo, newMember];
+        setMembersInfo(NewMembers)
 
 
-        fetch('http://localhost:3001/addClient', {
+        fetch('http://localhost:3001/addMember', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                ClientName: AddClientData.ClientName,
-                ClientType: AddClientData.ClientType,
-                ClientActivitySector: AddClientData.ClientActivitySector,
-                ClientTelephoneNumber: AddClientData.ClientTelephoneNumber,
-                ClientEmail: AddClientData.ClientEmail,
-                ClientWebsite: AddClientData.ClientWebsite,
-                ClientJoined: AddClientData.ClientJoined,
+                MemberName: AddMemberData.MemberName,
+                MemberId: AddMemberData.MemberId,
+                MemberTelephoneNumber: AddMemberData.MemberTelephoneNumber,
+                MemberEmail: AddMemberData.MemberEmail,
+                MemberAddress: AddMemberData.MemberAddress,
+                MemberAssociatedRoles: AddMemberData.MemberAssociatedRoles,
+                MemberAccumulatedExp: AddMemberData.MemberAccumulatedExp
 
             })
         })
@@ -72,7 +72,7 @@ function ClientAdd({ setClientsInfo, ClientsInfo }) {
         Name: '',
         Email: '',
         Password: '',
-        Role: 'Client'
+        Role: ''
     })
 
     const onAddUserChange = (event) => {
@@ -112,12 +112,12 @@ function ClientAdd({ setClientsInfo, ClientsInfo }) {
                     <div className="container-fluid">
                         <div className="row mb-2">
                             <div className="col-sm-6">
-                                <h1>Client Add</h1>
+                                <h1>Member Add</h1>
                             </div>
                             <div className="col-sm-6">
                                 <ol className="breadcrumb float-sm-right">
                                     <li className="breadcrumb-item"><a href="/#">Home</a></li>
-                                    <li className="breadcrumb-item active">Add Client</li>
+                                    <li className="breadcrumb-item active">Add Member</li>
                                 </ol>
                             </div>
                         </div>
@@ -129,7 +129,7 @@ function ClientAdd({ setClientsInfo, ClientsInfo }) {
                         <div className="col-md-6">
                             <div className="card card-primary">
                                 <div className="card-header">
-                                    <h3 className="card-title">Add Client To Clients List</h3>
+                                    <h3 className="card-title">Add Member To Members List</h3>
                                     <div className="card-tools">
                                         <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                             <i className="fas fa-minus" />
@@ -138,72 +138,89 @@ function ClientAdd({ setClientsInfo, ClientsInfo }) {
                                 </div>
                                 <div className="card-body">
                                     <div className="form-group">
-                                        <label htmlFor="inputName">Client Name</label>
+                                        <label htmlFor="MemberName">Name</label>
                                         <input
                                             type="text"
-                                            id="ClientName"
-                                            name="ClientName"
+                                            id="MemberName"
+                                            name="MemberName"
                                             className="form-control"
-                                            onChange={onClientAddChange}
+                                            onChange={onMemberAddChange}
                                         />
                                     </div>
 
                                     <div className="form-group">
-                                        <label htmlFor="ClientActivitySector">Activity Sector</label>
-                                        <textarea id="ClientActivitySector"
+                                        <label htmlFor="MemberId">ID</label>
+                                        <input id="MemberId"
                                             className="form-control"
                                             rows={4}
                                             defaultValue={""}
-                                            name="ClientActivitySector"
-                                            onChange={onClientAddChange} />
+                                            name="MemberId"
+                                            onChange={onMemberAddChange} />
+                                    </div>
+
+                                    <div className="form-group">
+                                        <label htmlFor="MemberEmail">Email</label>
+                                        <input
+                                            type="email"
+                                            id="MemberEmail"
+                                            className="form-control"
+                                            name="MemberEmail"
+                                            onChange={onMemberAddChange} />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="ClientType">Type</label>
+                                        <label htmlFor="MemberTelephoneNumber">Telephone Number</label>
+                                        <input
+                                            type="tel"
+                                            id="MemberTelephoneNumber"
+                                            className="form-control"
+                                            name="MemberTelephoneNumber"
+                                            onChange={onMemberAddChange} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="MemberAddress">Address</label>
+                                        <input
+                                            type="text"
+                                            id="MemberAddress"
+                                            className="form-control"
+                                            name="MemberAddress"
+                                            onChange={onMemberAddChange} />
+                                    </div>
+                                    {/* <div className="form-group">
+                                        <label htmlFor="MemberAssociatedRoles">Associated Roles</label>
+                                        <input
+                                            type="text"
+                                            id="MemberAssociatedRoles"
+                                            className="form-control"
+                                            name="MemberAssociatedRoles"
+                                            onChange={onMemberAddChange} />
+                                    </div> */}
+                                    <div className="form-group">
+                                        <label htmlFor="MemberAssociatedRoles">Associated Roles</label>
+
                                         <select
-                                            id="ClientType"
+                                            id="MemberAssociatedRoles"
                                             className="form-control custom-select"
-                                            onChange={onClientAddChange}
-                                            name="ClientType">
-                                            <option selected disabled>Select one</option>
-                                            <option>Corporate Client</option>
-                                            <option>Physical Client</option>
+                                            name="MemberAssociatedRoles"
+                                            onChange={onMemberAddChange} >
+
+                                            <option selected disabled> Select One </option>
+                                            <option>Admin</option>
+                                            <option>Project Manager</option>
+                                            <option>Team Member</option>
+                                            <option>Tester</option>
+                                            <option>Customer Relationship Manager</option>
+
 
                                         </select>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="ClientEmail">Email</label>
+                                        <label htmlFor="MemberAccumulatedExp">Accumulated Experience</label>
                                         <input
-                                            type="email"
-                                            id="ClientEmail"
+                                            type="type"
+                                            id="MemberAccumulatedExp"
                                             className="form-control"
-                                            name="ClientEmail"
-                                            onChange={onClientAddChange} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="ClientTelephoneNumber">Telephone Number</label>
-                                        <input
-                                            type="tel"
-                                            id="ClientTelephoneNumber"
-                                            className="form-control"
-                                            name="ClientTelephoneNumber"
-                                            onChange={onClientAddChange} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="ClientWebsite">Website</label>
-                                        <input
-                                            type="url"
-                                            id="ClientWebsite"
-                                            className="form-control"
-                                            name="ClientWebsite"
-                                            onChange={onClientAddChange} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="ClientJoined">Joined</label>
-                                        <input type="date"
-                                            id="ClientJoined"
-                                            className="form-control"
-                                            name="ClientJoined"
-                                            onChange={onClientAddChange} />
+                                            name="MemberAccumulatedExp"
+                                            onChange={onMemberAddChange} />
                                     </div>
 
 
@@ -215,7 +232,7 @@ function ClientAdd({ setClientsInfo, ClientsInfo }) {
                         <div className="col-md-6">
                             <div className="card card-secondary">
                                 <div className="card-header">
-                                    <h3 className="card-title">Register a New Client</h3>
+                                    <h3 className="card-title">Register a New Member</h3>
                                     <div className="card-tools">
                                         <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                             <i className="fas fa-minus" />
@@ -259,17 +276,24 @@ function ClientAdd({ setClientsInfo, ClientsInfo }) {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <div className="form-group">
-                                <label htmlFor="inputStatus">Role</label>
-                                <input
-                                    id="Role"
-                                    className="form-control custom-select"
-                                    name="Role"
-                                    onChange={onAddUserChange}>
-                                        value=
-                                    
-                                </input>
-                            </div> */}
+                                    <div className="form-group">
+                                        <label htmlFor="inputStatus">Main Role</label>
+                                        <select
+                                            id="Role"
+                                            className="form-control custom-select"
+                                            name="Role"
+                                            onChange={onAddUserChange}>
+                                            <option selected disabled>Select one</option>
+                                            <option>Admin</option>
+                                            <option>Project Manager</option>
+                                            <option>Team Member</option>
+                                            <option>Tester</option>
+                                            <option>Customer Relationship Manager</option>
+
+
+                                        </select>
+                                    </div>
+
                                     <div className="row">
                                         <div className="col-4">
                                             <button type="submit"
@@ -289,7 +313,7 @@ function ClientAdd({ setClientsInfo, ClientsInfo }) {
                             <button onClick={onCancelClick} className="btn btn-secondary">Cancel</button>
                             <button type="submit"
                                 className="btn btn-success float-right"
-                                onClick={onClientAddSubmit} > Add New Client </button>
+                                onClick={onMemberAddSubmit} > Add New Member </button>
                         </div>
                     </div>
                 </section>
@@ -301,4 +325,4 @@ function ClientAdd({ setClientsInfo, ClientsInfo }) {
     )
 }
 
-export default ClientAdd
+export default MemberAdd

@@ -189,15 +189,15 @@ function ProjectEdit({ ProjectsInfo, setProjectsInfo, EditProjectData, setEditPr
                                             value={EditProjectData.ProjectDescription} />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="inputStatus">Status</label>
+                                        <label htmlFor="Status">Status</label>
                                         <select
                                             id="Status"
                                             className="form-control custom-select"
                                             onChange={onProjectEditChange}
                                             name="Status"
-                                            value={EditProjectData.Status}>
-
-                                            <option selected disabled>Select one</option>
+                                            >
+                                            
+                                            <option selected disabled>Select</option>
                                             <option>On Hold</option>
                                             <option>Canceled</option>
                                             <option>Success</option>
