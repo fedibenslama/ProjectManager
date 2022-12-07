@@ -169,7 +169,7 @@ def predict():
     y_pred = ovr.predict(xtest_tfidf)
 
     if request.method == 'POST':
-        formData = request.json #request.form['formData']
+        formData = request.json #request.form['formData'] #request.get_json() works request.get_json(silent=True)
         #data = [message]
         text = clean_text(formData)
         text_vec = tfidf_vec.transform([text])
@@ -177,6 +177,7 @@ def predict():
         Prediction = mb.inverse_transform(y_pred)
     # return render_template('result.html', prediction=my_prediction)
     # return jsonify ({"prediction": my_prediction})
+    # return Prediction
         response = jsonify({
         "statusCode": 200,
         "status": "Prediction made",
