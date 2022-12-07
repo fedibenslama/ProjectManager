@@ -1,3 +1,4 @@
+
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import WhitespaceTokenizer
 from nltk import pos_tag
@@ -33,8 +34,7 @@ import string
 import nltk
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-from flask import Flask, render_template, url_for, request, jsonify
-from flask_cors import CORS
+from flask import Flask, render_template, url_for, request
 import pickle
 import csv
 import pandas as pd
@@ -47,7 +47,7 @@ sns.set_style('white')
 
 
 app = Flask(__name__)
-CORS(app)
+
 
 # Lemmatization process
 '''
@@ -84,6 +84,11 @@ def get_wordnet_pos(pos_tag):
     else:
         return wordnet.NOUN
 
+import string
+from nltk import pos_tag
+from nltk.corpus import stopwords
+from nltk.tokenize import WhitespaceTokenizer
+from nltk.stem import WordNetLemmatizer
 
 def clean_text(text):
     # lower text
@@ -164,28 +169,18 @@ def predict():
     # Optimized Linear SVC Model
     linear_svc = LinearSVC()
     Grid_linear_svc = LinearSVC(C=10, penalty='l2')
-    ovr = OneVsRestClassifier(Grid_linear_svc)
+    ovr = OneVsRestClassifier(linear_svc)
     ovr.fit(xtrain_tfidf, y_train)
     y_pred = ovr.predict(xtest_tfidf)
 
     if request.method == 'POST':
-        formData = request.json #request.form['formData']
+        message = request.form['message']
         #data = [message]
-        text = clean_text(formData)
+        text = clean_text(message)
         text_vec = tfidf_vec.transform([text])
         y_pred = ovr.predict(text_vec)
-        Prediction = mb.inverse_transform(y_pred)
-    # return render_template('result.html', prediction=my_prediction)
-    # return jsonify ({"prediction": my_prediction})
-        response = jsonify({
-        "statusCode": 200,
-        "status": "Prediction made",
-        "result": "Prediction: " + str(Prediction)
-        })
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
-        
- 
+        my_prediction = mb.inverse_transform(y_pred)
+    return render_template('result.html', prediction=my_prediction)
 
 
 if __name__ == '__main__':

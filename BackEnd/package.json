@@ -15,6 +15,7 @@
     "nodemon": "^2.0.19"
   },
   "dependencies": {
+    "@tensorflow/tfjs": "^4.1.0",
     "bcrypt": "^5.0.0",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.20.0",
@@ -29,6 +30,7 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pg": "^8.7.3",
-    "redis": "^3.1.2"
+    "redis": "^3.1.2",
+    "request": "^2.88.2"
   }
 }

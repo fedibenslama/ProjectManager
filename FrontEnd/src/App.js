@@ -29,7 +29,8 @@ import Tasks from './Componants/Tasks/Tasks';
 import TaskAdd from './Componants/Tasks/TaskAdd';
 import TaskEdit from './Componants/Tasks/TaskEdit';
 import TaskView from './Componants/Tasks/TaskView';
-
+import Classification from './Componants/Classification/Classification';
+import Result from './Componants/Classification/Result';
 
 
 function App() {
@@ -182,9 +183,16 @@ function App() {
     TaskCompletionTime: '',
     TaskMembInCharge: ''
   }])
+///////////////////////////////////
+const [Result, setResult] = useState()
+const [formData, setformData] = useState({
+  Message: '',
+})
 
-
-
+// Result={Result}
+// setResult={setResult}
+// formData={formData}
+// setformData={setformData}
 
   return (
 
@@ -195,6 +203,8 @@ function App() {
 
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        {/* <Route path='/result' element={<Result />} /> */}
+        <Route path='/Classification' element={<Classification />} />
 
         <Route element={<ProtectedRoutes />}>
           <Route path='/EditRequirement' element={<RequirementEdit RequirementsInfo={RequirementsInfo} setRequirementsInfo={setRequirementsInfo}
