@@ -44,7 +44,21 @@ import numpy as np
 # plotting
 import seaborn as sns
 sns.set_style('white')
-
+import cufflinks as cf
+cf.go_offline()
+cf.set_config_file(offline=False, world_readable=True)
+import plotly
+import plotly.express as px
+# stopwords
+from nltk.corpus import stopwords
+stop_words = set(stopwords.words('english'))
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+import re
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
 
 app = Flask(__name__)
 CORS(app)
@@ -55,6 +69,66 @@ Words in the third person are changed to first person and verbs in past and futu
 lemmatization process.
 '''
 lemmatizer = WordNetLemmatizer()
+STOPWORDS = set(stopwords.words('english'))
+MIN_WORDS = 4
+MAX_WORDS = 400
+PATTERN_S = re.compile("\'s")  # matches `'s` from text  
+PATTERN_RN = re.compile("\\r\\n") #matches `\r` and `\n`
+PATTERN_PUNC = re.compile(r"[^\w\s]") # matches all non 0-9 A-z whitespace 
+
+def clean_text3(text):
+    """
+    Series of cleaning. String to lower case, remove non words characters and numbers.
+        text (str): input text
+    return (str): modified initial text
+    """
+    text = text.lower()  # lowercase text
+    text = re.sub(PATTERN_S, ' ', text)
+    text = re.sub(PATTERN_RN, ' ', text)
+    text = re.sub(PATTERN_PUNC, ' ', text)
+    return text
+def tokenizer(sentence, min_words=MIN_WORDS, max_words=MAX_WORDS, stopwords=STOPWORDS, lemmatize=True):
+    """
+    Lemmatize, tokenize, crop and remove stop words.
+    """
+    if lemmatize:
+        stemmer = WordNetLemmatizer()
+        tokens = [stemmer.lemmatize(w) for w in word_tokenize(sentence)]
+    else:
+        tokens = [w for w in word_tokenize(sentence)]
+    token = [w for w in tokens if (len(w) > min_words and len(w) < max_words
+                                                        and w not in stopwords)]
+    return tokens
+def clean_sentences(df):
+    """
+    Remove irrelavant characters (in new column clean_sentence).
+    Lemmatize, tokenize words into list of words (in new column tok_lem_sentence).
+    """
+    print('Cleaning sentences...')
+    df['clean_sentence'] = df['sentence'].apply(clean_text3)
+    df['tok_lem_sentence'] = df['clean_sentence'].apply(
+        lambda x: tokenizer(x, min_words=MIN_WORDS, max_words=MAX_WORDS, stopwords=STOPWORDS, lemmatize=True))
+    return df
+def extract_best_indices(m, topk, mask=None):
+    """
+    Use sum of the cosine distance over all tokens.
+    m (np.array): cos matrix of shape (nb_in_tokens, nb_dict_tokens)
+    topk (int): number of indices to return (from high to lowest in order)
+    """
+    # return the sum on all tokens of cosinus for each sentence
+    if len(m.shape) > 1:
+        cos_sim = np.mean(m, axis=0) 
+    else: 
+        cos_sim = m
+    index = np.argsort(cos_sim)[::-1] # from highest idx to smallest score 
+    if mask is not None:
+        assert mask.shape == m.shape
+        mask = mask[index]
+    else:
+        mask = np.ones(len(cos_sim))
+    mask = np.logical_or(cos_sim[index] != 0, mask) #eliminate 0 cosine distance
+    best_index = index[mask][:topk]  
+    return best_index
 
 
 def tokenize_and_lemmatize(text):
@@ -107,7 +181,19 @@ def clean_text(text):
     # join all
     text = " ".join(text)
     return(text)
+    # Data Cleaning
+def clean_textt(text):
+    # remove everything except alphabets
+    text = re.sub("[^a-zA-Z]", " ", text)
+    # remove whitespaces
+    text = ' '.join(text.split())
+    text = text.lower()
+    
+    return text
 
+def remove_stopwords(text):
+    no_stopword_text = [w for w in text.split() if not w in stop_words]
+    return ' '.join(no_stopword_text)
 
 @app.route('/')
 def home():
@@ -185,9 +271,104 @@ def predict():
         })
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
-        
- 
+@app.route('/plot')
+def plot_test():
+    df = pd.DataFrame({
+        "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
+        "Amount": [4, 1, 2, 2, 4, 5],
+        "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]
+    })
+    fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
+    graphJSON = plotly.io.to_json(fig, pretty=True)
+    return graphJSON        
+@app.route('/classify', methods=['POST'])
+def classify():
+    skills_df =pd.read_csv('Skills.csv')
+    #Dropping irrelevent columns
+    columns_to_delete2 = ['O*NET-SOC Code','Commodity Code']
+    skills_df.drop(columns_to_delete2, inplace=True, axis=1)
+    #Removing software from last sentence
+    skills_df['Commodity Title']=skills_df['Commodity Title'].str.rsplit(' ',1).str[0]
+    # creating clean text feature
+    features = ['Title', 'Commodity Title','Example']
+    for feature in features:
+        skills_df['Clean_' + feature] = skills_df[feature].apply(clean_textt)
+    skills_df['soup'] = skills_df['Clean_Title'] + skills_df['Clean_Commodity Title'] + skills_df['Clean_Example']
+    skills_df['soup'] = skills_df['soup'].apply(lambda x: remove_stopwords(x))
+    # Defining a Count Vectorizer object
+    count_vec2 = CountVectorizer(stop_words='english', max_features=10000)
+    # Defining a TF-IDF Vectorizer
+    tfidf_vec2 = TfidfVectorizer(stop_words='english', ngram_range=(1, 2), tokenizer=tokenize_and_lemmatize, max_features=10000, use_idf=True)
+    mb2 = MultiLabelBinarizer()
+    y2=mb2.fit_transform(skills_df['Commodity Title'].dropna().str.split(', ')) 
+    print (y2)
+    print(mb2.classes_ )
+    # Basic validation: splitting the data 80-20 train/test
+    X_train2, X_test2, y_train2, y_test2 = train_test_split(skills_df['soup'], y2, test_size=0.2, random_state=55)
+    # Tf-Idf transformation 
+    xtrain_tfidf2 = tfidf_vec2.fit_transform(X_train2)
+    xtest_tfidf2 = tfidf_vec2.transform(X_test2)
+    xtrain_tfidf2.shape
+    # Count Vectorizer transformation
+    xtrain_cv2 = count_vec2.fit_transform(X_train2)
+    xtest_cv2 = count_vec2.transform(X_test2)
+    linear_svc2 = LinearSVC(C=10, penalty='l2')
+    oneVsRest_svc2 = OneVsRestClassifier(linear_svc2)
+    oneVsRest_svc2.fit(xtrain_tfidf2, y_train2)
+    y_pred2 = oneVsRest_svc2.predict(xtest_tfidf2)
+    # Inference funct to handle new data that will come in the future
+    if request.method == 'POST':
+        formData2 = request.json #request.form['formData'] #request.get_json() works request.get_json(silent=True)
+        #data = [message]
+        text2 = clean_text(formData2)
+        text_vec2 = tfidf_vec2.transform([text2])
+        y_pred2 = oneVsRest_svc2.predict(text_vec2)
+        Prediction2 = mb2.inverse_transform(y_pred2)
+    # return render_template('result.html', prediction=my_prediction)
+    # return jsonify ({"prediction": my_prediction})
+    # return Prediction
+        response2 = jsonify({
+        "statusCode": 200,
+        "status": "Prediction made",
+        "result2": "Prediction: " + str(Prediction2)
+        })
+    response2.headers.add('Access-Control-Allow-Origin', '*')
+    return response2
+@app.route('/recommend', methods=['POST'])
+def recommend():
+    recommender_df = pd.read_csv('Skills.csv')
+    #Removing software from last sentence
+    recommender_df['Commodity Title']=recommender_df['Commodity Title'].str.rsplit(' ',1).str[0]
+    #dropping irrelevant columns
+    columns_to_delete3 = ['O*NET-SOC Code','Commodity Code','Hot Technology']
+    recommender_df.drop(columns_to_delete3, inplace=True, axis=1)
+    recommender_df.rename(columns={'Commodity Title':'sentence'}, inplace=True)
+    recommender_df = clean_sentences(recommender_df)
+    if request.method == 'POST':
+        formData3 = request.json #request.form['formData'] #request.get_json() works request.get_json(silent=True)
+        # Adapt stop words
+        token_stop = tokenizer(' '.join(STOPWORDS), lemmatize=False)
 
+        # Fit TFIDF
+        vectorizer = TfidfVectorizer(stop_words=token_stop, tokenizer=tokenizer) 
+        tfidf_mat = vectorizer.fit_transform(recommender_df['sentence'].values) # -> (num_sentences, num_vocabulary)
+        tfidf_mat.shape
+        tokens = [str(tok) for tok in tokenizer(formData3)]
+        vec = vectorizer.transform(tokens)
+        # Create list with similarity between query and dataset
+        mat = cosine_similarity(vec, tfidf_mat)
+        # Best cosine distance for each token independantly
+        print(mat.shape)
+        best_index = extract_best_indices(mat, topk=10)
+        Prediction3 = recommender_df[['Title', 'Example', 'sentence']].iloc[best_index]
+        response3 = jsonify({
+        "statusCode": 200,
+        "status": "Prediction made",
+        "result": "Prediction: " + str(Prediction3)
+        })
+    response3.headers.add('Access-Control-Allow-Origin', '*')
+    return response3
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
