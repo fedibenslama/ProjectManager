@@ -8,10 +8,10 @@ import Navbar from "../../Layouts/Navbar";
 import Menu from "../../Layouts/Menu";
 import Plot from 'react-plotly.js';
 
-function Classification() {
-    const [isLoading, setIsloading] = useState(false);
-    const [formData, setFormData] = useState("");
-    const [result, setResult] = useState("");
+function MultiClassification() {
+    const [isLoading2, setIsloading2] = useState(false);
+    const [formData2, setFormData2] = useState("");
+    const [result2, setResult2] = useState("");
     ////////// Plot ////////
     const [plot, setPlot] = useState(0);
 
@@ -25,16 +25,16 @@ function Classification() {
         event.preventDefault();
         const value = event.target.value;
         // const name = event.target.name;
-        // let inputData = { ...formData };
+        // let inputData = { ...formData2 };
         // inputData[name] = value;
-        setFormData(value);
+        setFormData2(value);
     }
 
 
     const handlePredictClick = (event) => {
         //const proxyurl = "https://salty-reaches-05509.herokuapp.com/";
-        const url = "http://localhost:5000/predict";
-        setIsloading(true);
+        const url = "http://localhost:5000/classify";
+        setIsloading2(true);
         fetch(url,
             {
                 headers: {
@@ -42,17 +42,17 @@ function Classification() {
                     'Content-Type': 'application/json'
                 },
                 method: 'POST',
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData2)
             })  //https://salty-reaches-05509.herokuapp.com/http://127.0.0.1:5000/prediction
             .then(response => response.json())
             .then(response => {
-                setResult(response.result);
-                setIsloading(false);
+                setResult2(response.result2);
+                setIsloading2(false);
             });
     }
 
     const handleCancelClick = (event) => {
-        setResult("");
+        setResult2("");
     }
 
 
@@ -90,10 +90,10 @@ function Classification() {
                                 <input
                                     placeholder='Put The Client Feedback Here To Analyze '
                                     type="textarea"
-                                    id="formData"
-                                    value={formData}
+                                    id="formData2"
+                                    value={formData2}
                                     className="form-control"
-                                    name="formData"
+                                    name="formData2"
                                     onChange={handleChange} />
 
                             </Form.Group>
@@ -103,9 +103,9 @@ function Classification() {
                                 <Button
                                     block
                                     variant="success"
-                                    disabled={isLoading}
-                                    onClick={!isLoading ? handlePredictClick : null}>
-                                    {isLoading ? 'Making prediction' : 'Predict'}
+                                    disabled={isLoading2}
+                                    onClick={!isLoading2 ? handlePredictClick : null}>
+                                    {isLoading2 ? 'Making prediction' : 'Predict'}
                                 </Button>
                             </Col>
                             <Col>
@@ -113,17 +113,17 @@ function Classification() {
 
                                     block
                                     variant="danger"
-                                    disabled={isLoading}
+                                    disabled={isLoading2}
                                     onClick={handleCancelClick}>
                                     Reset prediction
                                 </Button>
                             </Col>
                         </Row>
                     </Form>
-                    {result === "" ? null :
+                    {result2 === "" ? null :
                         (<Row>
-                            <Col className="result-div">
-                                <h5 id="result">{result}</h5>
+                            <Col className="result2-div">
+                                <h5 id="result2">{result2}</h5>
                             </Col>
                         </Row>)
                     }
@@ -140,4 +140,4 @@ function Classification() {
 
 }
 
-export default Classification
+export default MultiClassification
