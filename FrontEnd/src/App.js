@@ -32,7 +32,9 @@ import TaskView from './Componants/Tasks/TaskView';
 import Classification from './Componants/Classification/Classification';
 import MultiClassification from './Componants/Classification/MultiClassification';
 import Recommender from './Componants/Classification/Recommender';
-
+import Dashboard from './Componants/Dashboard/Dashboard';
+import Kanban from './Componants/Dashboard/Kanban';
+import Calendar from './Componants/Dashboard/Calendar';
 
 function App() {
 
@@ -198,7 +200,17 @@ function App() {
         <Route path='/multiclassification' element={<MultiClassification />} />
         <Route path='/Classification' element={<Classification />} />
         <Route path='/recommend' element={<Recommender />} />
-
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/kanban/:id' element={<Kanban />} />
+        <Route path='/Calendar' element={<Calendar />} />
+        <Route path='/' element={<Projects ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo}
+            EditProjectId={EditProjectId} setEditProjectId={setEditProjectId} EditProjectData={EditProjectData}
+            setEditProjectData={setEditProjectData} />} />
+            <Route path='/MembersList' element={<MembersList MembersInfo={MembersInfo}
+            setMembersInfo={setMembersInfo}
+            EditMemberId={EditMemberId} setEditMemberId={setEditMemberId}
+            EditMemberData={EditMemberData}
+            setEditMemberData={setEditMemberData} />} />
         <Route element={<ProtectedRoutes />}>
           <Route path='/EditRequirement' element={<RequirementEdit RequirementsInfo={RequirementsInfo} setRequirementsInfo={setRequirementsInfo}
             EditRequirementId={EditRequirementId} setEditRequirementId={setEditRequirementId} EditRequirementData={EditRequirementData}
@@ -208,9 +220,7 @@ function App() {
           <Route path='/EditProject' element={<ProjectEdit ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo}
             EditProjectId={EditProjectId} setEditProjectId={setEditProjectId} EditProjectData={EditProjectData}
             setEditProjectData={setEditProjectData} />} />
-          <Route path='/' element={<Projects ProjectsInfo={ProjectsInfo} setProjectsInfo={setProjectsInfo}
-            EditProjectId={EditProjectId} setEditProjectId={setEditProjectId} EditProjectData={EditProjectData}
-            setEditProjectData={setEditProjectData} />} />
+
           <Route path='/profile' element={<Profile />} />
           <Route path='/clients' element={<Clients ClientsInfo={ClientsInfo} setClientsInfo={setClientsInfo}
             EditClientId={EditClientId} setEditClientId={setEditClientId} EditClientData={EditClientData}
@@ -242,11 +252,7 @@ function App() {
             EditMemberId={EditMemberId} setEditMemberId={setEditMemberId}
             EditMemberData={EditMemberData}
             setEditMemberData={setEditMemberData} />} />
-          <Route path='/MembersList' element={<MembersList MembersInfo={MembersInfo}
-            setMembersInfo={setMembersInfo}
-            EditMemberId={EditMemberId} setEditMemberId={setEditMemberId}
-            EditMemberData={EditMemberData}
-            setEditMemberData={setEditMemberData} />} />
+          
           <Route path='/addMember' element={<MemberAdd MembersInfo={MembersInfo}
             setMembersInfo={setMembersInfo} />} />
           <Route path='/EditMember' element={<MemberEdit MembersInfo={MembersInfo} setMembersInfo={setMembersInfo}

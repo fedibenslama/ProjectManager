@@ -7,7 +7,6 @@ import Button from 'react-bootstrap/Button';
 import Navbar from "../../Layouts/Navbar";
 import Menu from "../../Layouts/Menu";
 import Plot from 'react-plotly.js';
-import { Fragment } from 'react';
 
 function Recommender() {
     const [isLoading3, setIsloading3] = useState(false);
@@ -65,7 +64,12 @@ function Recommender() {
     }
 
     const handleCancelClick = (event) => {
-        setColumn0v1("");
+        setColumn0(null);
+        setColumn0v1(null)
+        setColumn0v2(null)
+        setColumn1(null)
+        setColumn1v1(null)
+        setColumn1v2(null)
     }
 
 
@@ -139,28 +143,25 @@ function Recommender() {
                                 <table id="example2" className="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Example</th>
+                                            <th>Jobs That Use This Skill</th>
                                             <th>Title</th>
-                                            <th>Sentence</th>
-                                            <th></th>
+                                            <th>Team Member</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
-
-
                                         <tr>
                                             <td>{Column0}</td>
-                                            <td>{Column0v1} </td>
-                                            <td>{Column0v2}</td>
+                                            <td>{Column1} </td>
                                         </tr>
                                         <tr>
-                                            <td>{Column1}</td>
+                                            <td>{Column0v1}</td>
                                             <td>{Column1v1} </td>
-                                            <td>{Column1v2}</td>
                                         </tr>
-
-
-
+                                        <tr>
+                                            <td>{Column0v2}</td>
+                                            <td>{Column1v2} </td>
+                                        </tr>
                                     </tbody>
 
                                 </table>

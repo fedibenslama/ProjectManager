@@ -5,7 +5,7 @@ const knex = require('knex');
 const bcrypt = require('bcrypt-nodejs');
 const { response } = require("express");
 const morgan = require("morgan")
-// const request = require('request'); 
+
 
 const register = require('./controllers/Authentification/register')
 const signin = require('./controllers/Authentification/signin')
@@ -94,14 +94,6 @@ app.put('/EditTask', (req, res) => { EditTask.handleEditTask(req, res, db) })
 app.get('/tasks', (req, res) => { tasks.handleTasks(req, res, db) })
 app.get('/ViewTask/:id', (req, res) => { ViewTask.handleViewTask(req, res, db) })
 
-// app.get('/flaskfeedback', function(req, res) {
-//     request('http://127.0.0.1:5000/flask', function (error, response, body) {
-//         console.error('error:', error); // Print the error
-//         console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-//         console.log('body:', body); // Print the data received
-//         res.send(body); //Display the response on the website
-//       });      
-// });
 
 app.listen(3001, () => {
     console.log('App Is Running On Port 3001')
