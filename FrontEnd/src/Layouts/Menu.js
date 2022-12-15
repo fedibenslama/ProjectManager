@@ -87,6 +87,10 @@ function Menu() {
   const onAddATaskClick = () => {
     Navigate('/addTask')
   }
+  const onCalendarClick = () => {
+    Navigate('/Calendar')
+    window.location.reload(false);
+  }
 
   return (
 
@@ -132,7 +136,8 @@ function Menu() {
             <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               {/* Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library */}
-              <li className="nav-item menu-open ">
+             
+              <li className="nav-item menu-close ">
                 
                 <a className="nav-link">
                   <i className="nav-icon fas fa-users" />
@@ -157,36 +162,151 @@ function Menu() {
                   <li className="nav-item">
                     <button onClick={onAddAMemberClick} className="nav-link btn btn-link text-left">
                       <i className="far fa-circle nav-icon" />
-                      <p>Add a New Member</p>
+                      <p>Add New Member</p>
                     </button>
                   </li>
                 </ul>
               </li>
 
-
-              {/* <li className="nav-item menu-open">
-                <button className="nav-link btn btn-link text-left">
-                  <i className="nav-icon fas fa-table" />
+{/* // Projects // */}
+<li className="nav-item menu-close ">
+                
+                <a className="nav-link">
+                  <i className="nav-icon fas fa-sitemap" />
                   <p>
                     Projects
-                    <i className="fas fa-angle-left right" />
+                    <i className="right fas fa-angle-left" />
                   </p>
-                </button>
+                </a>
                 <ul className="nav nav-treeview">
                   <li className="nav-item">
-                    <button onClick={onViewAllProjectsClick} className="nav-link btn btn-link text-left ">
-                      <i className="far fa-circle nav-icon" />
-                      <p>View Projects</p>
+                    <button onClick={onViewAllProjectsClick} className="nav-link btn btn-link text-left">
+                      <i className="far fas fa-list nav-icon" />
+                      <p>Projects List</p>
                     </button>
                   </li>
                   <li className="nav-item">
                     <button onClick={onAddAProjectClick} className="nav-link btn btn-link text-left">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Add a New Project</p>
+                      <i className="far fas fa-plus nav-icon" />
+                      <p>Add New Project</p>
                     </button>
                   </li>
                 </ul>
-              </li> */}
+              </li>
+{/* //Clients// */}
+<li className="nav-item menu-close ">
+                
+                <a className="nav-link">
+                  <i className="nav-icon fas fa-address-card" />
+                  <p>
+                    Clients
+                    <i className="right fas fa-angle-left" />
+                  </p>
+                </a>
+                <ul className="nav nav-treeview">
+                  <li className="nav-item">
+                    <button onClick={onViewAllClientsClick} className="nav-link btn btn-link text-left">
+                      <i className="far fas fa-list nav-icon" />
+                      <p>Clients List</p>
+                    </button>
+                  </li>
+                  <li className="nav-item">
+                    <button onClick={onAddAClientClick} className="nav-link btn btn-link text-left">
+                      <i className="far fas fa-plus  nav-icon" />
+                      <p>Add New Client</p>
+                    </button>
+                  </li>
+                </ul>
+              </li>
+{/* //Clients// */}
+{/* //Requirement// */}
+<li className="nav-item menu-close ">
+                
+                <a className="nav-link">
+                  <i className="nav-icon fas fa-business-time" />
+                  <p>
+                  Requirements
+                    <i className="right fas fa-angle-left" />
+                  </p>
+                </a>
+                <ul className="nav nav-treeview">
+                  <li className="nav-item">
+                    <button onClick={onViewAllRequirementsClick} className="nav-link btn btn-link text-left">
+                      <i className="far fas fa-list nav-icon" />
+                      <p>Requirements List</p>
+                    </button>
+                  </li>
+                  <li className="nav-item">
+                    <button onClick={onAddARequirementClick} className="nav-link btn btn-link text-left">
+                      <i className="far fas fa-plus  nav-icon" />
+                      <p>Add New Requirement</p>
+                    </button>
+                  </li>
+                </ul>
+              </li>
+{/* //Requirement// */}
+{/* //Functionalities// */}
+<li className="nav-item menu-close ">
+                
+                <a className="nav-link">
+                  <i className="nav-icon fas fa-project-diagram" />
+                  <p>
+                  Functionalities
+                    <i className="right fas fa-angle-left" />
+                  </p>
+                </a>
+                <ul className="nav nav-treeview">
+                  <li className="nav-item">
+                    <button onClick={onViewAllFunctionalitiesClick} className="nav-link btn btn-link text-left">
+                      <i className="far fas fa-list nav-icon" />
+                      <p>Functionalities List</p>
+                    </button>
+                  </li>
+                  <li className="nav-item">
+                    <button onClick={onAddAFunctionalityClick} className="nav-link btn btn-link text-left">
+                      <i className="far fas fa-plus  nav-icon" />
+                      <p>Add New Functionality</p>
+                    </button>
+                  </li>
+                </ul>
+              </li>
+{/* //Functionalities// */}
+{/* //Tasks// */}
+<li className="nav-item menu-close ">
+                
+                <a className="nav-link">
+                  <i className="nav-icon fas fa-tasks" />
+                  <p>
+                  Tasks
+                    <i className="right fas fa-angle-left" />
+                  </p>
+                </a>
+                <ul className="nav nav-treeview">
+                  <li className="nav-item">
+                    <button onClick={onViewAllTasksClick} className="nav-link btn btn-link text-left">
+                      <i className="far fas fa-list nav-icon" />
+                      <p>Tasks List</p>
+                    </button>
+                  </li>
+                  <li className="nav-item">
+                    <button onClick={onAddATaskClick} className="nav-link btn btn-link text-left">
+                      <i className="far fas fa-plus  nav-icon" />
+                      <p>Add a New Task</p>
+                    </button>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+            <button onClick={onCalendarClick} className="nav-link btn btn-link text-left">
+              <i className="nav-icon far fas fa-calendar-alt"></i>
+              <p>
+                Calendar
+              </p>
+            </button>
+          </li>
+{/* //Tasks// */}
+
+{/*             
               <li className="nav-header"><h4>Projects</h4></li>
               <li className="nav-item">
                 <button onClick={onViewAllProjectsClick} className="nav-link btn btn-link text-left ">
@@ -203,12 +323,12 @@ function Menu() {
                     Add a New Project
                   </b>
                 </button>
-              </li>
+              </li> */}
 
-              <li className="nav-header"><h4>Clients</h4></li>
+              {/* <li className="nav-header"><h4>Clients</h4></li>
               <li className="nav-item">
                 <button onClick={onViewAllClientsClick} className="nav-link btn btn-link text-left ">
-                  <i className="nav-icon fas fa-columns" />
+                  <i className="nav-icon fas fa-list" />
                   <b>
                     Clients List
                   </b>
@@ -216,26 +336,10 @@ function Menu() {
               </li>
               <li className="nav-item">
                 <button onClick={onAddAClientClick} className="nav-link btn btn-link text-left">
-                  <i className="nav-icon fas fa-book" />
+                  <i className="nav-icon fas fa-plus " />
                   <b>
                     Add a New Client
                   </b>
-                  {/* <li className="nav-item " >
-                    <div>
-                      <button className="nav-link btn btn-link text-left">
-                        <i className="nav-icon fas fa-plus" />
-                        <p>
-                          Corporate Client
-                        </p>
-                      </button>
-                      <button className="nav-link btn btn-link text-left">
-                        <i className="nav-icon fas fa-plus" />
-                        <p>
-                          Physical Client
-                        </p>
-                      </button>
-                    </div>
-                  </li> */}
                 </button>
 
               </li>
@@ -289,7 +393,7 @@ function Menu() {
                     Add a New Task
                   </b>
                 </button>
-              </li>
+              </li> */}
 
 
               

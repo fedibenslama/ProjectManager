@@ -7,7 +7,7 @@ import Menu from "../../Layouts/Menu";
 // import Footer from "../../Layouts/Footer";
 function Projects({ ProjectsInfo, setProjectsInfo, setEditProjectData, setEditProjectId }) {
 
-
+   
 
     // eslint-disable-next-line no-unused-vars
     const [ViewProjectId, setViewProjectId] = useState(null)

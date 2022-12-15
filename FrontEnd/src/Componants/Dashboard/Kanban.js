@@ -4,7 +4,6 @@ import Navbar from "../../Layouts/Navbar";
 import Menu from "../../Layouts/Menu";
 import { useState, useEffect } from "react";
 import { useNavigate,useParams } from "react-router-dom";
-import { Fragment } from "react";
 
 function Kanban() {
     const [ViewProjectData, setViewProjectData] = useState([{

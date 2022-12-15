@@ -4,7 +4,9 @@ import Navbar from "../../Layouts/Navbar";
 import Menu from "../../Layouts/Menu";
 
 
-function ProjectEdit({ ProjectsInfo, setProjectsInfo, EditProjectData, setEditProjectData, EditProjectId, setEditProjectId }) {
+function ProjectEdit({ ProjectsInfo, setProjectsInfo, EditProjectData, setEditProjectData, EditProjectId, setEditProjectId}) {
+
+
 
     //----------------------Project Edit---------------------------------
 
