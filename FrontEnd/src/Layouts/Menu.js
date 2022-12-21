@@ -87,6 +87,10 @@ function Menu() {
   const onAddATaskClick = () => {
     Navigate('/addTask')
   }
+  const onDashboardClick = () => {
+    Navigate('/dashboard')
+    window.location.reload(false);
+  }
   const onCalendarClick = () => {
     Navigate('/Calendar')
     window.location.reload(false);
@@ -136,9 +140,9 @@ function Menu() {
             <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               {/* Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library */}
-             
+
               <li className="nav-item menu-close ">
-                
+
                 <a className="nav-link">
                   <i className="nav-icon fas fa-users" />
                   <p>
@@ -168,9 +172,9 @@ function Menu() {
                 </ul>
               </li>
 
-{/* // Projects // */}
-<li className="nav-item menu-close ">
-                
+              {/* // Projects // */}
+              <li className="nav-item menu-close ">
+
                 <a className="nav-link">
                   <i className="nav-icon fas fa-sitemap" />
                   <p>
@@ -193,9 +197,9 @@ function Menu() {
                   </li>
                 </ul>
               </li>
-{/* //Clients// */}
-<li className="nav-item menu-close ">
-                
+              {/* //Clients// */}
+              <li className="nav-item menu-close ">
+
                 <a className="nav-link">
                   <i className="nav-icon fas fa-address-card" />
                   <p>
@@ -218,14 +222,14 @@ function Menu() {
                   </li>
                 </ul>
               </li>
-{/* //Clients// */}
-{/* //Requirement// */}
-<li className="nav-item menu-close ">
-                
+              {/* //Clients// */}
+              {/* //Requirement// */}
+              <li className="nav-item menu-close ">
+
                 <a className="nav-link">
                   <i className="nav-icon fas fa-business-time" />
                   <p>
-                  Requirements
+                    Requirements
                     <i className="right fas fa-angle-left" />
                   </p>
                 </a>
@@ -244,14 +248,14 @@ function Menu() {
                   </li>
                 </ul>
               </li>
-{/* //Requirement// */}
-{/* //Functionalities// */}
-<li className="nav-item menu-close ">
-                
+              {/* //Requirement// */}
+              {/* //Functionalities// */}
+              <li className="nav-item menu-close ">
+
                 <a className="nav-link">
                   <i className="nav-icon fas fa-project-diagram" />
                   <p>
-                  Functionalities
+                    Functionalities
                     <i className="right fas fa-angle-left" />
                   </p>
                 </a>
@@ -270,14 +274,14 @@ function Menu() {
                   </li>
                 </ul>
               </li>
-{/* //Functionalities// */}
-{/* //Tasks// */}
-<li className="nav-item menu-close ">
-                
+              {/* //Functionalities// */}
+              {/* //Tasks// */}
+              <li className="nav-item menu-close ">
+
                 <a className="nav-link">
                   <i className="nav-icon fas fa-tasks" />
                   <p>
-                  Tasks
+                    Tasks
                     <i className="right fas fa-angle-left" />
                   </p>
                 </a>
@@ -297,16 +301,25 @@ function Menu() {
                 </ul>
               </li>
               <li class="nav-item">
-            <button onClick={onCalendarClick} className="nav-link btn btn-link text-left">
-              <i className="nav-icon far fas fa-calendar-alt"></i>
-              <p>
-                Calendar
-              </p>
-            </button>
-          </li>
-{/* //Tasks// */}
+                <button onClick={onCalendarClick} className="nav-link btn btn-link text-left">
+                  <i className="nav-icon far fas fa-calendar-alt"></i>
+                  <p>
+                    Calendar
+                  </p>
+                </button>
+              </li>
+              <li class="nav-item">
+                <button onClick={onDashboardClick} className="nav-link btn btn-link text-left">
+                  <i className="nav-icon far fas fa-tachometer-alt"></i>
+                  <p>
+                    Dashboard
+                  </p>
+                </button>
+              </li>
 
-{/*             
+              {/* //Tasks// */}
+
+              {/*             
               <li className="nav-header"><h4>Projects</h4></li>
               <li className="nav-item">
                 <button onClick={onViewAllProjectsClick} className="nav-link btn btn-link text-left ">
@@ -396,7 +409,7 @@ function Menu() {
               </li> */}
 
 
-              
+
             </ul>
           </nav>
           {/* /.sidebar-menu */}

@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
-
+import Particle from "../../Layouts/Particle";
 function Login() {
 
 
   let navigate = useNavigate()
+  const [isLoading, setIsloading] = useState(false);
   const [LoginData, setLoginData] = useState({
 
     LoginEmail: '',
@@ -50,6 +50,7 @@ function Login() {
 
   const onLoginSubmit = (event) => {
     event.preventDefault()   //to prevent data from showing in query
+    setIsloading(true);
     fetch('http://localhost:3001/signin', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
@@ -63,7 +64,9 @@ function Login() {
         if (data && data.success === "true") {
           saveAuthTokenInSessions(data.token)
           loadUser(data)
-          navigate('/')
+          setIsloading(false);
+          navigate('/dashboard')
+          window.location.reload(false);
 
         }
 
@@ -73,10 +76,13 @@ function Login() {
   }
 
   return (
-    <div className="login-page ">
+    
+      
+      <div className="login-page ">
+         <Particle/>
       <div className="login-box ">
         <div className="login-logo">
-
+       
           <a href="/#"><b>Project</b> Manager</a>
 
         </div>
@@ -115,7 +121,9 @@ function Login() {
                 <div className="">
                   <button type="submit"
                     className="btn btn-primary btn-block text-center " style={{ width: "40%" }}
-                    onClick={onLoginSubmit}>Sign In</button>
+                    disabled={isLoading}
+                    onClick={!isLoading ? onLoginSubmit : null}>
+                    {isLoading ? 'Logging In' : 'Login'}</button>
                 </div>
               </div>
               <div className="row">
@@ -148,6 +156,8 @@ function Login() {
         </div>
       </div>
     </div>
+    
+   
 
   )
 }

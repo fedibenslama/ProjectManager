@@ -56,6 +56,10 @@ function Navbar() {
   const onMembersClick = () => {
     Navigate('/Members')
   }
+  const onDashboardClick = () => {
+    Navigate('/dashboard')
+    window.location.reload(false);
+  }
   const onSignOutClient = () => {
     Navigate('/login')
     window.sessionStorage.removeItem('token');
@@ -74,11 +78,11 @@ function Navbar() {
             <a className="nav-link" data-widget="pushmenu" href="/#" role="button"><i className="fas fa-bars" /></a>
           </li>
           <li className="nav-item d-none d-sm-inline-block">
-            <button onClick={onProjectsClick} className="nav-link btn btn-link">Home</button>
+            <button onClick={onDashboardClick} className="nav-link btn btn-link">Dashboard</button>
           </li>
          
           <li className="nav-item d-none d-sm-inline-block">
-            <button onClick={onMembersClick}  className="nav-link btn btn-link">Members</button>
+            <button onClick={onProjectsClick}  className="nav-link btn btn-link">Projects</button>
           </li>
         </ul>
         {/* Right navbar links */}

@@ -6,8 +6,63 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 
-function Dashboard() {
+function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) {
+    ///Tasks/////
+    const [ViewTaskId, setViewTaskId] = useState(null)
 
+    let navigatee = useNavigate()
+
+    useEffect(() => {
+        fetch('http://localhost:3001/Tasks')
+            .then(response => {
+                return response.json();
+            })
+            .then(Tasks => {
+
+                setTasksInfo(Tasks)
+            })
+
+    }, [setTasksInfo])
+
+    const onClientFeedbacksView = () => {
+        navigatee('/clientsfeedback')
+      }
+    const onViewAllTasksClick = () => {
+        navigatee('/tasks')
+      }
+
+    const onAddTaskClick = () => {
+        navigatee('/addTask')
+    }
+
+    const onTaskViewClick = (event, TaskInfo) => {
+        event.preventDefault();
+        setViewTaskId(TaskInfo.id)
+        navigatee(`/ViewTask/${TaskInfo.id}`)
+
+    }
+
+    const onTaskEditClick = (event, TaskInfo) => {
+        event.preventDefault();
+        setEditTaskId(TaskInfo.id)
+        navigatee("/EditTask")
+        const TaskValue = {
+            TaskTitle: TaskInfo.tasktitle,
+            TaskIdCode: TaskInfo.taskidcode,
+            TaskDescription: TaskInfo.taskdescription,
+            TaskMainTask: TaskInfo.taskmaintask,
+            TaskSpecification: TaskInfo.taskspecification,
+            TaskNature: TaskInfo.tasknature,
+            TaskStatus: TaskInfo.taskstatus,
+            TaskPriority: TaskInfo.taskpriority,
+            TaskExpectedDuration: TaskInfo.taskexpectedduration,
+            TaskCompletionTime: TaskInfo.taskcompletiontime,
+            TaskMembInCharge: TaskInfo.taskmembincharge
+        }
+
+        setEditTaskData(TaskValue)
+    }
+    /////////
 
     return (
 
@@ -18,6 +73,7 @@ function Dashboard() {
 
             {/* Content Wrapper. Contains page content */}
             <div className="content-wrapper">
+
                 {/* Content Header (Page header) */}
                 <div className="content-header">
                     <div className="container-fluid">
@@ -28,7 +84,7 @@ function Dashboard() {
                             <div className="col-sm-6">
                                 <ol className="breadcrumb float-sm-right">
                                     <li className="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li className="breadcrumb-item active">Dashboard v1</li>
+                                    <li className="breadcrumb-item active">Dashboard</li>
                                 </ol>
                             </div>{/* /.col */}
                         </div>{/* /.row */}
@@ -38,6 +94,7 @@ function Dashboard() {
                 {/* Main content */}
                 <section className="content">
                     <div className="container-fluid">
+
                         {/* Small boxes (Stat box) */}
                         <div className="row">
                             <div className="col-lg-3 col-6">
@@ -45,12 +102,12 @@ function Dashboard() {
                                 <div className="small-box bg-info">
                                     <div className="inner">
                                         <h3>150</h3>
-                                        <p>New Orders</p>
+                                        <p>Client's Feedbacks</p>
                                     </div>
                                     <div className="icon">
                                         <i className="ion ion-bag" />
                                     </div>
-                                    <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+                                    <a onClick={onClientFeedbacksView} className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
                                 </div>
                             </div>
                             {/* ./col */}
@@ -59,7 +116,7 @@ function Dashboard() {
                                 <div className="small-box bg-success">
                                     <div className="inner">
                                         <h3>53<sup style={{ fontSize: 20 }}>%</sup></h3>
-                                        <p>Bounce Rate</p>
+                                        <p>Number Of Projects</p>
                                     </div>
                                     <div className="icon">
                                         <i className="ion ion-stats-bars" />
@@ -73,7 +130,7 @@ function Dashboard() {
                                 <div className="small-box bg-warning">
                                     <div className="inner">
                                         <h3>44</h3>
-                                        <p>User Registrations</p>
+                                        <p>Number Of Users</p>
                                     </div>
                                     <div className="icon">
                                         <i className="ion ion-person-add" />
@@ -87,7 +144,7 @@ function Dashboard() {
                                 <div className="small-box bg-danger">
                                     <div className="inner">
                                         <h3>65</h3>
-                                        <p>Unique Visitors</p>
+                                        <p>Number Of Entries</p>
                                     </div>
                                     <div className="icon">
                                         <i className="ion ion-pie-graph" />
@@ -98,12 +155,111 @@ function Dashboard() {
                             {/* ./col */}
                         </div>
                         {/* /.row */}
+
                         {/* Main row */}
                         <div className="row">
                             {/* Left col */}
+
                             <section className="col-lg-7 connectedSortable">
                                 {/* Custom tabs (Charts with tabs)*/}
                                 <div className="card">
+                                    {/* ///////////////// */}
+                                    {/* TABLE: LATEST ORDERS */}
+                                    <div className="card">
+                                        <div className="card-header border-transparent">
+                                            <h3 className="card-title">Latest Tasks</h3>
+                                            <div className="card-tools">
+                                                <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                                                    <i className="fas fa-minus" />
+                                                </button>
+                                                <button type="button" className="btn btn-tool" data-card-widget="remove">
+                                                    <i className="fas fa-times" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {/* /.card-header */}
+                                        <div className="card-body p-0">
+                                            <div className="table-responsive">
+                                                <table className="table m-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Task ID</th>
+                                                            <th>Title</th>
+                                                            <th>Status</th>
+                                                            <th>Importance</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {TasksInfo.map((TaskInfo, i) => (
+                                                            <Fragment>
+                                                                <tr>
+                                                                    <td>{TaskInfo.taskidcode}</td>
+                                                                    <td>{TaskInfo.tasktitle}</td>
+                                                                    <td><span className="badge badge-warning">{TaskInfo.taskstatus}</span></td>
+                                                                    <td>
+                                                                    <small className="badge badge-danger"><i className="far fa-clock" /> {TaskInfo.taskpriority}</small>
+                                                                    </td>
+                                                                </tr>
+                                                            </Fragment>
+
+                                                        ))}
+                                                    </tbody>
+
+
+                                                </table>
+                                            </div>
+                                            {/* /.table-responsive */}
+                                        </div>
+                                        {/* /.card-body */}
+                                        <div className="card-footer clearfix">
+                                            <a onClick={onAddTaskClick}className="btn btn-sm btn-info float-left">Make A New Task</a>
+                                            <a onClick={onViewAllTasksClick} className="btn btn-sm btn-secondary float-right">View All Tasks</a>
+                                        </div>
+                                        {/* /.card-footer */}
+                                    </div>
+                                    {/* /.card */}
+
+                                    {/* /////////////// */}
+                                    {/* DIRECT CHAT */}
+                                    <div className="col-md-8">
+                                        <p className="text-center">
+                                            <strong>Goal Completion</strong>
+                                        </p>
+                                        <div className="progress-group">
+                                            Add Products to Cart
+                                            <span className="float-right"><b>160</b>/200</span>
+                                            <div className="progress progress-sm">
+                                                <div className="progress-bar bg-primary" style={{ width: '80%' }} />
+                                            </div>
+                                        </div>
+                                        {/* /.progress-group */}
+                                        <div className="progress-group">
+                                            Complete Purchase
+                                            <span className="float-right"><b>310</b>/400</span>
+                                            <div className="progress progress-sm">
+                                                <div className="progress-bar bg-danger" style={{ width: '75%' }} />
+                                            </div>
+                                        </div>
+                                        {/* /.progress-group */}
+                                        <div className="progress-group">
+                                            <span className="progress-text">Visit Premium Page</span>
+                                            <span className="float-right"><b>480</b>/800</span>
+                                            <div className="progress progress-sm">
+                                                <div className="progress-bar bg-success" style={{ width: '60%' }} />
+                                            </div>
+                                        </div>
+                                        {/* /.progress-group */}
+                                        <div className="progress-group">
+                                            Send Inquiries
+                                            <span className="float-right"><b>250</b>/500</span>
+                                            <div className="progress progress-sm">
+                                                <div className="progress-bar bg-warning" style={{ width: '50%' }} />
+                                            </div>
+                                        </div>
+                                        {/* /.progress-group */}
+                                    </div>
+
+                                    {/*/.direct-chat */}
                                     <div className="card-header">
                                         <h3 className="card-title">
                                             <i className="fas fa-chart-pie mr-1" />
@@ -133,195 +289,7 @@ function Dashboard() {
                                     </div>{/* /.card-body */}
                                 </div>
                                 {/* /.card */}
-                                {/* DIRECT CHAT */}
-                                <div className="card direct-chat direct-chat-primary">
-                                    <div className="card-header">
-                                        <h3 className="card-title">Direct Chat</h3>
-                                        <div className="card-tools">
-                                            <span title="3 New Messages" className="badge badge-primary">3</span>
-                                            <button type="button" className="btn btn-tool" data-card-widget="collapse">
-                                                <i className="fas fa-minus" />
-                                            </button>
-                                            <button type="button" className="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
-                                                <i className="fas fa-comments" />
-                                            </button>
-                                            <button type="button" className="btn btn-tool" data-card-widget="remove">
-                                                <i className="fas fa-times" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    {/* /.card-header */}
-                                    <div className="card-body">
-                                        {/* Conversations are loaded here */}
-                                        <div className="direct-chat-messages">
-                                            {/* Message. Default to the left */}
-                                            <div className="direct-chat-msg">
-                                                <div className="direct-chat-infos clearfix">
-                                                    <span className="direct-chat-name float-left">Alexander Pierce</span>
-                                                    <span className="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
-                                                </div>
-                                                {/* /.direct-chat-infos */}
-                                                <img className="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image" />
-                                                {/* /.direct-chat-img */}
-                                                <div className="direct-chat-text">
-                                                    Is this template really for free? That's unbelievable!
-                                                </div>
-                                                {/* /.direct-chat-text */}
-                                            </div>
-                                            {/* /.direct-chat-msg */}
-                                            {/* Message to the right */}
-                                            <div className="direct-chat-msg right">
-                                                <div className="direct-chat-infos clearfix">
-                                                    <span className="direct-chat-name float-right">Sarah Bullock</span>
-                                                    <span className="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
-                                                </div>
-                                                {/* /.direct-chat-infos */}
-                                                <img className="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image" />
-                                                {/* /.direct-chat-img */}
-                                                <div className="direct-chat-text">
-                                                    You better believe it!
-                                                </div>
-                                                {/* /.direct-chat-text */}
-                                            </div>
-                                            {/* /.direct-chat-msg */}
-                                            {/* Message. Default to the left */}
-                                            <div className="direct-chat-msg">
-                                                <div className="direct-chat-infos clearfix">
-                                                    <span className="direct-chat-name float-left">Alexander Pierce</span>
-                                                    <span className="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
-                                                </div>
-                                                {/* /.direct-chat-infos */}
-                                                <img className="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image" />
-                                                {/* /.direct-chat-img */}
-                                                <div className="direct-chat-text">
-                                                    Working with AdminLTE on a great new app! Wanna join?
-                                                </div>
-                                                {/* /.direct-chat-text */}
-                                            </div>
-                                            {/* /.direct-chat-msg */}
-                                            {/* Message to the right */}
-                                            <div className="direct-chat-msg right">
-                                                <div className="direct-chat-infos clearfix">
-                                                    <span className="direct-chat-name float-right">Sarah Bullock</span>
-                                                    <span className="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
-                                                </div>
-                                                {/* /.direct-chat-infos */}
-                                                <img className="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image" />
-                                                {/* /.direct-chat-img */}
-                                                <div className="direct-chat-text">
-                                                    I would love to.
-                                                </div>
-                                                {/* /.direct-chat-text */}
-                                            </div>
-                                            {/* /.direct-chat-msg */}
-                                        </div>
-                                        {/*/.direct-chat-messages*/}
-                                        {/* Contacts are loaded here */}
-                                        <div className="direct-chat-contacts">
-                                            <ul className="contacts-list">
-                                                <li>
-                                                    <a href="#">
-                                                        <img className="contacts-list-img" src="dist/img/user1-128x128.jpg" alt="User Avatar" />
-                                                        <div className="contacts-list-info">
-                                                            <span className="contacts-list-name">
-                                                                Count Dracula
-                                                                <small className="contacts-list-date float-right">2/28/2015</small>
-                                                            </span>
-                                                            <span className="contacts-list-msg">How have you been? I was...</span>
-                                                        </div>
-                                                        {/* /.contacts-list-info */}
-                                                    </a>
-                                                </li>
-                                                {/* End Contact Item */}
-                                                <li>
-                                                    <a href="#">
-                                                        <img className="contacts-list-img" src="dist/img/user7-128x128.jpg" alt="User Avatar" />
-                                                        <div className="contacts-list-info">
-                                                            <span className="contacts-list-name">
-                                                                Sarah Doe
-                                                                <small className="contacts-list-date float-right">2/23/2015</small>
-                                                            </span>
-                                                            <span className="contacts-list-msg">I will be waiting for...</span>
-                                                        </div>
-                                                        {/* /.contacts-list-info */}
-                                                    </a>
-                                                </li>
-                                                {/* End Contact Item */}
-                                                <li>
-                                                    <a href="#">
-                                                        <img className="contacts-list-img" src="dist/img/user3-128x128.jpg" alt="User Avatar" />
-                                                        <div className="contacts-list-info">
-                                                            <span className="contacts-list-name">
-                                                                Nadia Jolie
-                                                                <small className="contacts-list-date float-right">2/20/2015</small>
-                                                            </span>
-                                                            <span className="contacts-list-msg">I'll call you back at...</span>
-                                                        </div>
-                                                        {/* /.contacts-list-info */}
-                                                    </a>
-                                                </li>
-                                                {/* End Contact Item */}
-                                                <li>
-                                                    <a href="#">
-                                                        <img className="contacts-list-img" src="dist/img/user5-128x128.jpg" alt="User Avatar" />
-                                                        <div className="contacts-list-info">
-                                                            <span className="contacts-list-name">
-                                                                Nora S. Vans
-                                                                <small className="contacts-list-date float-right">2/10/2015</small>
-                                                            </span>
-                                                            <span className="contacts-list-msg">Where is your new...</span>
-                                                        </div>
-                                                        {/* /.contacts-list-info */}
-                                                    </a>
-                                                </li>
-                                                {/* End Contact Item */}
-                                                <li>
-                                                    <a href="#">
-                                                        <img className="contacts-list-img" src="dist/img/user6-128x128.jpg" alt="User Avatar" />
-                                                        <div className="contacts-list-info">
-                                                            <span className="contacts-list-name">
-                                                                John K.
-                                                                <small className="contacts-list-date float-right">1/27/2015</small>
-                                                            </span>
-                                                            <span className="contacts-list-msg">Can I take a look at...</span>
-                                                        </div>
-                                                        {/* /.contacts-list-info */}
-                                                    </a>
-                                                </li>
-                                                {/* End Contact Item */}
-                                                <li>
-                                                    <a href="#">
-                                                        <img className="contacts-list-img" src="dist/img/user8-128x128.jpg" alt="User Avatar" />
-                                                        <div className="contacts-list-info">
-                                                            <span className="contacts-list-name">
-                                                                Kenneth M.
-                                                                <small className="contacts-list-date float-right">1/4/2015</small>
-                                                            </span>
-                                                            <span className="contacts-list-msg">Never mind I found...</span>
-                                                        </div>
-                                                        {/* /.contacts-list-info */}
-                                                    </a>
-                                                </li>
-                                                {/* End Contact Item */}
-                                            </ul>
-                                            {/* /.contacts-list */}
-                                        </div>
-                                        {/* /.direct-chat-pane */}
-                                    </div>
-                                    {/* /.card-body */}
-                                    <div className="card-footer">
-                                        <form action="#" method="post">
-                                            <div className="input-group">
-                                                <input type="text" name="message" placeholder="Type Message ..." className="form-control" />
-                                                <span className="input-group-append">
-                                                    <button type="button" className="btn btn-primary">Send</button>
-                                                </span>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    {/* /.card-footer*/}
-                                </div>
-                                {/*/.direct-chat */}
+
                                 {/* TO DO List */}
                                 <div className="card">
                                     <div className="card-header">
@@ -580,6 +548,7 @@ function Dashboard() {
                                     {/* /.card-body */}
                                 </div>
                                 {/* /.card */}
+
                             </section>
                             {/* right col */}
                         </div>
