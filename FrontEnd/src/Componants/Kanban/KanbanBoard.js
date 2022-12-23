@@ -52,7 +52,7 @@ export default function KanbanBoard() {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-sm-6">
-                                <h1>Kanban Board of {ViewProjectData.name} </h1>
+                                <h1 className="display-4">Kanban Board of {ViewProjectData.name}</h1>
                             </div>
                             <div className="col-sm-6 d-none d-sm-block">
                                 <ol className="breadcrumb float-sm-right">
@@ -99,7 +99,8 @@ export default function KanbanBoard() {
                         }
                     }}
                 >
-                    <AddCard addCard={addNewCard} />
+                    <div className="mb-4 "><AddCard addCard={addNewCard} /></div>
+                    
                     <section className="content pb-3">
                         <div className="container-fluid h-100">
                             <div className="card card-row card-primary">

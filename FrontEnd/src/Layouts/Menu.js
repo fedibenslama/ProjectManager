@@ -87,6 +87,9 @@ function Menu() {
   const onAddATaskClick = () => {
     Navigate('/addTask')
   }
+  const onClientsFeedbacksClick = () => {
+    Navigate('/clientsfeedback')
+  }
   const onDashboardClick = () => {
     Navigate('/dashboard')
     window.location.reload(false);
@@ -313,6 +316,14 @@ function Menu() {
                   <i className="nav-icon far fas fa-tachometer-alt"></i>
                   <p>
                     Dashboard
+                  </p>
+                </button>
+              </li>
+              <li class="nav-item">
+                <button onClick={onClientsFeedbacksClick} className="nav-link btn btn-link text-left">
+                  <i className="nav-icon fas fa-edit"></i>
+                  <p>
+                    Client's Feedbacks
                   </p>
                 </button>
               </li>

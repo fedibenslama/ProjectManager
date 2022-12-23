@@ -20,18 +20,20 @@ const KanbanCard = ({
     };
     return (
         <Flex
-            padding="3"
-            backgroundColor="white"
-            margin="2"
-            borderRadius="8"
-            border="2px solid black"
+            // padding="3"
+            // backgroundColor="white"
+            // margin="2"
+            // borderRadius="8"
+            
+            border="2px solid "
             boxShadow="0px 0px 5px 2px #2121213b"
+            className="external-event bg-purple"
             transform={style.transform}
             {...listeners}
             {...attributes}
             ref={setNodeRef}
         >
-            <Text color="black ">{title}</Text>
+            <Text color="white ">{title}</Text>
         </Flex>
     );
 };

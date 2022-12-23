@@ -5,8 +5,18 @@ import Menu from "../../Layouts/Menu";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Fragment } from "react";
+import Plot from 'react-plotly.js';
 
 function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) {
+
+    ////////// Plot ////////
+    const [plot, setPlot] = useState(0);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/plot').then(res => res.json()).then(data => { setPlot(data); });
+    }, []);
+
+    ////////////////////
     ///Tasks/////
     const [ViewTaskId, setViewTaskId] = useState(null)
 
@@ -26,10 +36,10 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
 
     const onClientFeedbacksView = () => {
         navigatee('/clientsfeedback')
-      }
+    }
     const onViewAllTasksClick = () => {
         navigatee('/tasks')
-      }
+    }
 
     const onAddTaskClick = () => {
         navigatee('/addTask')
@@ -197,7 +207,7 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                                                     <td>{TaskInfo.tasktitle}</td>
                                                                     <td><span className="badge badge-warning">{TaskInfo.taskstatus}</span></td>
                                                                     <td>
-                                                                    <small className="badge badge-danger"><i className="far fa-clock" /> {TaskInfo.taskpriority}</small>
+                                                                        <small className="badge badge-danger"><i className="far fa-clock" /> {TaskInfo.taskpriority}</small>
                                                                     </td>
                                                                 </tr>
                                                             </Fragment>
@@ -212,7 +222,7 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                         </div>
                                         {/* /.card-body */}
                                         <div className="card-footer clearfix">
-                                            <a onClick={onAddTaskClick}className="btn btn-sm btn-info float-left">Make A New Task</a>
+                                            <a onClick={onAddTaskClick} className="btn btn-sm btn-info float-left">Make A New Task</a>
                                             <a onClick={onViewAllTasksClick} className="btn btn-sm btn-secondary float-right">View All Tasks</a>
                                         </div>
                                         {/* /.card-footer */}
@@ -221,72 +231,10 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
 
                                     {/* /////////////// */}
                                     {/* DIRECT CHAT */}
-                                    <div className="col-md-8">
-                                        <p className="text-center">
-                                            <strong>Goal Completion</strong>
-                                        </p>
-                                        <div className="progress-group">
-                                            Add Products to Cart
-                                            <span className="float-right"><b>160</b>/200</span>
-                                            <div className="progress progress-sm">
-                                                <div className="progress-bar bg-primary" style={{ width: '80%' }} />
-                                            </div>
-                                        </div>
-                                        {/* /.progress-group */}
-                                        <div className="progress-group">
-                                            Complete Purchase
-                                            <span className="float-right"><b>310</b>/400</span>
-                                            <div className="progress progress-sm">
-                                                <div className="progress-bar bg-danger" style={{ width: '75%' }} />
-                                            </div>
-                                        </div>
-                                        {/* /.progress-group */}
-                                        <div className="progress-group">
-                                            <span className="progress-text">Visit Premium Page</span>
-                                            <span className="float-right"><b>480</b>/800</span>
-                                            <div className="progress progress-sm">
-                                                <div className="progress-bar bg-success" style={{ width: '60%' }} />
-                                            </div>
-                                        </div>
-                                        {/* /.progress-group */}
-                                        <div className="progress-group">
-                                            Send Inquiries
-                                            <span className="float-right"><b>250</b>/500</span>
-                                            <div className="progress progress-sm">
-                                                <div className="progress-bar bg-warning" style={{ width: '50%' }} />
-                                            </div>
-                                        </div>
-                                        {/* /.progress-group */}
-                                    </div>
+
 
                                     {/*/.direct-chat */}
-                                    <div className="card-header">
-                                        <h3 className="card-title">
-                                            <i className="fas fa-chart-pie mr-1" />
-                                            Sales
-                                        </h3>
-                                        <div className="card-tools">
-                                            <ul className="nav nav-pills ml-auto">
-                                                <li className="nav-item">
-                                                    <a className="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <a className="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>{/* /.card-header */}
-                                    <div className="card-body">
-                                        <div className="tab-content p-0">
-                                            {/* Morris chart - Sales */}
-                                            <div className="chart tab-pane active" id="revenue-chart" style={{ position: 'relative', height: 300 }}>
-                                                <canvas id="revenue-chart-canvas" height={300} style={{ height: 300 }} />
-                                            </div>
-                                            <div className="chart tab-pane" id="sales-chart" style={{ position: 'relative', height: 300 }}>
-                                                <canvas id="sales-chart-canvas" height={300} style={{ height: 300 }} />
-                                            </div>
-                                        </div>
-                                    </div>{/* /.card-body */}
+
                                 </div>
                                 {/* /.card */}
 
@@ -420,137 +368,95 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                 </div>
                                 {/* /.card */}
                             </section>
-                            {/* /.Left col */}
-                            {/* right col (We are only adding the ID to make the widgets sortable)*/}
                             <section className="col-lg-5 connectedSortable">
                                 {/* Map card */}
-                                <div className="card bg-gradient-primary">
-                                    <div className="card-header border-0">
-                                        <h3 className="card-title">
-                                            <i className="fas fa-map-marker-alt mr-1" />
-                                            Visitors
-                                        </h3>
-                                        {/* card tools */}
-                                        <div className="card-tools">
-                                            <button type="button" className="btn btn-primary btn-sm daterange" title="Date range">
-                                                <i className="far fa-calendar-alt" />
-                                            </button>
-                                            <button type="button" className="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                                                <i className="fas fa-minus" />
-                                            </button>
-                                        </div>
-                                        {/* /.card-tools */}
-                                    </div>
-                                    <div className="card-body">
-                                        <div id="world-map" style={{ height: 250, width: '100%' }} />
-                                    </div>
-                                    {/* /.card-body*/}
-                                    <div className="card-footer bg-transparent">
-                                        <div className="row">
-                                            <div className="col-4 text-center">
-                                                <div id="sparkline-1" />
-                                                <div className="text-white">Visitors</div>
-                                            </div>
-                                            {/* ./col */}
-                                            <div className="col-4 text-center">
-                                                <div id="sparkline-2" />
-                                                <div className="text-white">Online</div>
-                                            </div>
-                                            {/* ./col */}
-                                            <div className="col-4 text-center">
-                                                <div id="sparkline-3" />
-                                                <div className="text-white">Sales</div>
-                                            </div>
-                                            {/* ./col */}
-                                        </div>
-                                        {/* /.row */}
-                                    </div>
+                                <div>
+
                                 </div>
-                                {/* /.card */}
-                                {/* solid sales graph */}
-                                <div className="card bg-gradient-info">
-                                    <div className="card-header border-0">
-                                        <h3 className="card-title">
-                                            <i className="fas fa-th mr-1" />
-                                            Sales Graph
-                                        </h3>
-                                        <div className="card-tools">
-                                            <button type="button" className="btn bg-info btn-sm" data-card-widget="collapse">
-                                                <i className="fas fa-minus" />
-                                            </button>
-                                            <button type="button" className="btn bg-info btn-sm" data-card-widget="remove">
-                                                <i className="fas fa-times" />
-                                            </button>
+                                <div className="card-header">
+                                    <p className="text-center">
+                                        <strong>Goal Completion</strong>
+                                    </p>
+                                    <div className="progress-group">
+                                        Complete Projects Successfully
+                                        <span className="float-right"><b>16</b>/100</span>
+                                        <div className="progress progress-sm">
+                                            <div className="progress-bar bg-primary" style={{ width: '16%' }} />
                                         </div>
                                     </div>
-                                    <div className="card-body">
-                                        <canvas className="chart" id="line-chart" style={{ minHeight: 250, height: 250, maxHeight: 250, maxWidth: '100%' }} />
-                                    </div>
-                                    {/* /.card-body */}
-                                    <div className="card-footer bg-transparent">
-                                        <div className="row">
-                                            <div className="col-4 text-center">
-                                                <input type="text" className="knob" data-readonly="true" defaultValue={20} data-width={60} data-height={60} data-fgcolor="#39CCCC" />
-                                                <div className="text-white">Mail-Orders</div>
-                                            </div>
-                                            {/* ./col */}
-                                            <div className="col-4 text-center">
-                                                <input type="text" className="knob" data-readonly="true" defaultValue={50} data-width={60} data-height={60} data-fgcolor="#39CCCC" />
-                                                <div className="text-white">Online</div>
-                                            </div>
-                                            {/* ./col */}
-                                            <div className="col-4 text-center">
-                                                <input type="text" className="knob" data-readonly="true" defaultValue={30} data-width={60} data-height={60} data-fgcolor="#39CCCC" />
-                                                <div className="text-white">In-Store</div>
-                                            </div>
-                                            {/* ./col */}
+                                    {/* /.progress-group */}
+                                    <div className="progress-group">
+                                        Obtain Clients
+                                        <span className="float-right"><b>50</b>/200</span>
+                                        <div className="progress progress-sm">
+                                            <div className="progress-bar bg-danger" style={{ width: '25%' }} />
                                         </div>
-                                        {/* /.row */}
                                     </div>
-                                    {/* /.card-footer */}
+                                    {/* /.progress-group */}
+                                    <div className="progress-group">
+                                        <span className="progress-text">Visit Premium Page</span>
+                                        <span className="float-right"><b>480</b>/800</span>
+                                        <div className="progress progress-sm">
+                                            <div className="progress-bar bg-success" style={{ width: '60%' }} />
+                                        </div>
+                                    </div>
+                                    {/* /.progress-group */}
+                                    <div className="progress-group">
+                                        Send Inquiries
+                                        <span className="float-right"><b>250</b>/500</span>
+                                        <div className="progress progress-sm">
+                                            <div className="progress-bar bg-warning" style={{ width: '50%' }} />
+                                        </div>
+                                    </div>
+                                    {/* /.progress-group */}
                                 </div>
-                                {/* /.card */}
-                                {/* Calendar */}
-                                <div className="card bg-gradient-success">
-                                    <div className="card-header border-0">
-                                        <h3 className="card-title">
-                                            <i className="far fa-calendar-alt" />
-                                            Calendar
-                                        </h3>
-                                        {/* tools card */}
-                                        <div className="card-tools">
-                                            {/* button with a dropdown */}
-                                            <div className="btn-group">
-                                                <button type="button" className="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset={-52}>
-                                                    <i className="fas fa-bars" />
-                                                </button>
-                                                <div className="dropdown-menu" role="menu">
-                                                    <a href="#" className="dropdown-item">Add new event</a>
-                                                    <a href="#" className="dropdown-item">Clear events</a>
-                                                    <div className="dropdown-divider" />
-                                                    <a href="#" className="dropdown-item">View calendar</a>
-                                                </div>
-                                            </div>
-                                            <button type="button" className="btn btn-success btn-sm" data-card-widget="collapse">
-                                                <i className="fas fa-minus" />
-                                            </button>
-                                            <button type="button" className="btn btn-success btn-sm" data-card-widget="remove">
-                                                <i className="fas fa-times" />
-                                            </button>
-                                        </div>
-                                        {/* /. tools */}
-                                    </div>
-                                    {/* /.card-header */}
-                                    <div className="card-body pt-0">
-                                        {/*The calendar */}
-                                        <div id="calendar" style={{ width: '100%' }} />
-                                    </div>
-                                    {/* /.card-body */}
+                                <div className="card-footer clearfix">
+                                    <a onClick={onAddTaskClick} className="btn btn-sm btn-info float-left">Add A New Goal</a>
+                                    <a onClick={onViewAllTasksClick} className="btn btn-sm btn-secondary float-right">Edit Goal's Progress</a>
                                 </div>
-                                {/* /.card */}
+                                <div className="card-header mt-3">
+                                    <div className="info-box mb-3 bg-warning">
+                                        <span className="info-box-icon"><i className="fas fa-tasks" /></span>
+                                        <div className="info-box-content">
+                                            <span className="info-box-text">Tasks</span>
+                                            <span className="info-box-number">5,200</span>
+                                        </div>
+                                        {/* /.info-box-content */}
+                                    </div>
+                                    {/* /.info-box */}
+                                    <div className="info-box mb-3 bg-success">
+                                        <span className="info-box-icon"><i className="fas fa-project-diagram" /></span>
+                                        <div className="info-box-content">
+                                            <span className="info-box-text">Functionalities</span>
+                                            <span className="info-box-number">92,050</span>
+                                        </div>
+                                        {/* /.info-box-content */}
+                                    </div>
+                                    {/* /.info-box */}
+                                    <div className="info-box mb-3 bg-danger">
+                                        <span className="info-box-icon"><i className="fas fa-business-time" /></span>
+                                        <div className="info-box-content">
+                                            <span className="info-box-text">Requirements</span>
+                                            <span className="info-box-number">114,381</span>
+                                        </div>
+                                        {/* /.info-box-content */}
+                                    </div>
+                                    {/* /.info-box */}
+                                    <div className="info-box mb-3 bg-info">
+                                        <span className="info-box-icon"><i className="fas fa-address-card" /></span>
+                                        <div className="info-box-content">
+                                            <span className="info-box-text">Clients</span>
+                                            <span className="info-box-number">163,921</span>
+                                        </div>
+                                        {/* /.info-box-content */}
+                                    </div>
+                                    {/* /.info-box */}
+                                </div>
+
+
+
 
                             </section>
-                            {/* right col */}
                         </div>
                         {/* /.row (main row) */}
                     </div>{/* /.container-fluid */}

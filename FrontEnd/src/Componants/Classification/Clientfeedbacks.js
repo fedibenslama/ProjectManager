@@ -7,8 +7,8 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import Plot from 'react-plotly.js';
-// import Footer from "../../Layouts/Footer";
+
+
 function Clientfeedbacks() {
     const [isLoading, setIsloading] = useState(false);
     const [formData, setFormData] = useState("");
@@ -19,7 +19,7 @@ function Clientfeedbacks() {
     useEffect(() => {
         fetch('http://localhost:5000/plot').then(res => res.json()).then(data => { setPlot(data); });
     }, []);
-    
+
     ////////////////////
 
     const handleChange = (event) => {
@@ -95,12 +95,6 @@ function Clientfeedbacks() {
                                     </div>
                                     {/* /.card-header */}
                                     <div className="card-body">
-                                        <div className="dt-buttons btn-group flex-wrap">
-                                            <button type="button"
-                                                className="btn btn-block btn-outline-dark mb-3 " //mr,ml,mt,mb
-                                                
-                                                tabindex="0">Add a New Project</button>
-                                        </div>
                                         <table id="example2" className="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
@@ -131,7 +125,7 @@ function Clientfeedbacks() {
 
                                         </table>
                                     </div>
-  
+
                                     {/* /.card-body */}
                                 </div>
                                 {/* /.card */}
@@ -146,65 +140,66 @@ function Clientfeedbacks() {
 
             </div>
             <div>
-            <div className="content-wrapper">
-                {/* Content Header (Page header) */}
-                <div>
-                    <h1 className="title text-center">Feedbacks Classifier</h1>
-                </div>
-                <div className="content">
-                    <Form>
-                        <Form.Row>
-                            <Form.Group as={Col}>
-                                <Form.Label>Client Feedback</Form.Label>
-                                <input
-                                    placeholder='Put The Client Feedback Here To Analyze Using Machine Learning '
-                                    type="textarea"
-                                    id="formData"
-                                    value={formData}
-                                    className="form-control"
-                                    name="formData"
-                                    onChange={handleChange} />
+                <div className="content-wrapper">
+                    {/* Content Header (Page header) */}
+                    <div>
+                        <h1 className="title text-center">Feedbacks Classifier</h1>
+                    </div>
+                    <div className="content">
+                        <Form>
+                            <Form.Row>
+                                <Form.Group as={Col}>
+                                    <Form.Label>Client Feedback</Form.Label>
+                                    <input
+                                        placeholder='Put The Client Feedback Here To Analyze Using Machine Learning '
+                                        type="textarea"
+                                        id="formData"
+                                        value={formData}
+                                        className="form-control"
+                                        name="formData"
+                                        onChange={handleChange} />
 
-                            </Form.Group>
-                        </Form.Row>
-                        <Row>
-                            <Col>
-                                <Button
-                                    block
-                                    variant="success"
-                                    disabled={isLoading}
-                                    onClick={!isLoading ? handlePredictClick : null}>
-                                    {isLoading ? 'Making prediction' : 'Predict'}
-                                </Button>
-                            </Col>
-                            <Col>
-                                <Button
-
-                                    block
-                                    variant="danger"
-                                    disabled={isLoading}
-                                    onClick={handleCancelClick}>
-                                    Reset prediction
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Form>
-                    {result === "" ? null :
-                        (<Row>
-                            <Col className="result-div">
-                                <h5 id="result">{result}</h5>
-                            </Col>
-                        </Row>)
-                    }
-                </div>
-                {/* //////////////////// */}
-                <div className='content'>
+                                </Form.Group>
+                            </Form.Row>
+                            <Row>
+                                <Col>
+                                    <Button
+                                        block
+                                        variant="success"
+                                        // className="mb-3"
+                                        disabled={isLoading}
+                                        onClick={!isLoading ? handlePredictClick : null}>
+                                        {isLoading ? 'Making prediction' : 'Predict'}
+                                    </Button>
+                                </Col>
+                                <Col>
+                                    <Button
+                                        // className="mb-3"
+                                        block
+                                        variant="danger"
+                                        disabled={isLoading}
+                                        onClick={handleCancelClick}>
+                                        Reset prediction
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Form>
+                        {result === "" ? null :
+                            (<Row>
+                                <Col className="result-div">
+                                    <h5 id="result">{result}</h5>
+                                </Col>
+                            </Row>)
+                        }
+                    </div>
+                    {/* //////////////////// */}
+                    {/* <div className='content'>
                     <h1>Current Fund</h1>
                     <Plot data={plot.data} layout={plot.layout} />
+                </div> */}
+                    {/* //////////////////// */}
                 </div>
-                {/* //////////////////// */}
             </div>
-        </div>
         </div>
 
 

@@ -7,12 +7,13 @@ export default function AddCard({
   const [title, setTitle] = useState("");
 
   return (
+    
     <Flex w="60%" p="5" alignItems="center">
       
       <Input
         type="text"
         flex="4"
-        
+        className="form-control form-control-lg"
         placeholder="Task Title"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
@@ -20,8 +21,8 @@ export default function AddCard({
       <Button
         flex="1"
         marginX="3"
-        bgColor="#2E8B57"
-        color="white"
+        className="btn btn-lg btn-danger"
+      
         onClick={() => {
           setTitle("");
           addCard(title);
