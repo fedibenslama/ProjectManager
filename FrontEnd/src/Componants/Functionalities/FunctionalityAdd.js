@@ -38,7 +38,7 @@ function FunctionalityAdd({ setFunctionalitiesInfo, FunctionalitiesInfo }) {
     }
     const onFunctionalityAddSubmit = (event) => {
         event.preventDefault();
-        navigate("/Functionalities")
+
         const newFunctionality = {
             id: nanoid(),
             FuncTitle: AddFunctionalityData.FuncTitle,
@@ -75,6 +75,7 @@ function FunctionalityAdd({ setFunctionalitiesInfo, FunctionalitiesInfo }) {
             })
         })
             .then(response => response.json())
+        navigate("/Functionalities")
 
     }
     return (

@@ -94,142 +94,96 @@ function Clients ({ ClientsInfo, setClientsInfo, setEditClientData, setEditClien
                 </div>{/* /.container-fluid */}
             </section>
             <section className="content">
-                <div className="container-fluid">
-                    <div className="row mb-2">
-                        <div className="col-md-12">
-                            <div className="card">
-                                <div className="card-header">
-                                    <h3 className="card-title">Clients</h3>
-                                    
-                                    <div className="card-tools">
-                                        <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                            <i className="fas fa-minus" />
-                                        </button>
-                                    </div>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-13">
+                                <div className="card">
+
+
                                 </div>
-                                <div className="card-body">
-                                    <div className="dt-buttons btn-group flex-wrap">
-                                        <button type="button"
-                                        className="btn btn-block btn-outline-warning "
-                                        onClick={onAddClientClick}
-                                        tabindex="0">Add a Client</button>
+                                {/* /.card */}
+                                <div className="card">
+
+                                    <div className="card-header">
+                                        <h3 className="card-title">List Of Clients</h3>
                                     </div>
-                                    <table className="table table-striped clients">
-                                        <thead>
-                                            <tr>
-                                                <th style={{ width: '1%' }}>
-                                                    #
-                                                </th>
-                                                <th style={{ width: '8%' }} className="text-center" >
-                                                    Client Name
-                                                </th>
-                                                <th style={{ width: '8%' }} className="text-center">
-                                                    Type
-                                                </th>
-                                                <th style={{ width: '8%' }} className="text-center">
-                                                    Activity Sector
-                                                </th>
-                                                <th style={{ width: '8%' }} className="text-center">
-                                                    Telephone Number
-                                                </th>
-                                                <th style={{ width: '8%' }} className="text-center" >
-                                                    Email
-                                                </th>
-                                                <th style={{ width: '8%' }} className="text-center" >
-                                                    Website
-                                                </th>
-                                                <th style={{ width: '8%' }} className="text-center">
-                                                    Joined
-                                                </th>
-                                                
-                                                <th style={{ width: '20%' }}>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {ClientsInfo.map((ClientInfo, i) => (
-                                                <Fragment>
-                                                    <tr>
-                                                        <td>
-                                                            #
-                                                        </td>
-                                                        <td style={{ width: '8%' }}>
-                                                            <a>
-                                                                {ClientInfo.clientname}
-                                                            </a>
-                                                            <br />
+                                    {/* /.card-header */}
+                                    <div className="card-body">
+                                        <div className="dt-buttons btn-group flex-wrap">
+                                            <button type="button"
+                                                className="btn btn-block btn-outline-dark mb-3 " //mr,ml,mt,mb
+                                                onClick={onAddClientClick}
+                                                tabindex="0">Add a Client</button>
+                                        </div>
+                                        <table id="example2" className="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Client Name</th>
+                                                    <th>Type</th>
+                                                    <th>Activity Sector</th>
+                                                    <th>Telephone Number</th>
+                                                    <th>Email</th>
+                                                    <th>Website</th>
+                                                    <th>Joined</th>
+                                                    <th></th>
 
-                                                        </td>
 
-                                                        <td style={{ width: '8%' }} className="Type">
-                                                            <a>
-                                                                {ClientInfo.type}
-                                                            </a>
-                                                        </td>
-                                                        <td style={{ width: '8%' }} className="Activity Sector">
-                                                            <a>
-                                                                {ClientInfo.activitysector}
-                                                            </a>
-                                                        </td>
-                                                        <td style={{ width: '8%' }} className="Telephone Number">
-                                                            <a>
-                                                                {ClientInfo.telephonenumber}
-                                                            </a>
-                                                        </td>
-                                                        <td className="Email text-center" style={{ width: '8%' }}>
-                                                            <a>
-                                                                {ClientInfo.email}
-                                                            </a>
-                                                        </td>
-                                                       
-                                                        <td style={{ width: '8%' }} className="Website">
-                                                            <a>
-                                                                {ClientInfo.website}
-                                                            </a>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {ClientsInfo.map((ClientInfo, i) => (
+                                                    <Fragment>
+                                                        <tr>
+                                                            <td>{ClientInfo.clientname}</td>
+                                                            <td>{ClientInfo.type} </td>
+                                                            <td>{ClientInfo.activitysector}</td>
+                                                            <td>{ClientInfo.telephonenumber}</td>
+                                                            <td>{ClientInfo.email}</td>
+                                                            <td>{ClientInfo.website}</td>
+                                                            <td>{ClientInfo.joined}</td>
+                                                            <td className="project-actions text-left btn-group " >
+                                                                <button className="btn btn-primary btn-sm mr-1"
+                                                                    onClick={(event) => onClientViewClick(event, ClientInfo)}
+                                                                >
+                                                                    <i className="fas fa-folder">
+                                                                    </i>
+                                                                    View
+                                                                </button>
+                                                                <button className="btn btn-info btn-sm ml-1"
+                                                                    onClick={(event) => onClientEditClick(event, ClientInfo)}
+                                                                >
+                                                                    <i className="fas fa-pencil-alt">
+                                                                    </i>
+                                                                    Edit
+                                                                </button>
+                                                                <button
+                                                                    className="btn btn-danger btn-sm ml-1"
 
-                                                        </td>
-                                                        <td style={{ width: '8%' }} className="Joined">
-                                                            <a>
-                                                                {ClientInfo.joined}
-                                                            </a>
-                                                        </td>
-                                                        
-                                                        <td className="Client-actions text-right">
-                                                            <a className="btn btn-primary btn-sm mr-1"
-                                                                onClick={(event) => onClientViewClick(event, ClientInfo)}
-                                                            >
-                                                                <i className="fas fa-folder">
-                                                                </i>
-                                                                View
-                                                            </a>
-                                                            <a className="btn btn-info btn-sm mr-1"
-                                                                onClick={(event) => onClientEditClick(event, ClientInfo)}>
-                                                                <i className="fas fa-pencil-alt">
-                                                                </i>
-                                                                Edit
-                                                            </a>
-                                                            <a
-                                                                className="btn btn-danger btn-sm mr-1"
+                                                                    onClick={() => onClientDeleteClick(ClientInfo.id)}
+                                                                >
+                                                                    <i className="fas fa-trash">
+                                                                    </i>
+                                                                    Delete
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </Fragment>
 
-                                                                onClick={() => onClientDeleteClick(ClientInfo.id)}
-                                                            >
-                                                                <i className="fas fa-trash">
-                                                                </i>
-                                                                Delete
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                </Fragment>
-                                            ))}
-                                        </tbody>
-                                    </table>
+                                                ))}
+                                            </tbody>
+                                  
+                                        </table>
+                                    </div>
+                                    {/* /.card-body */}
                                 </div>
-
+                                {/* /.card */}
                             </div>
+                            {/* /.col */}
                         </div>
+                        {/* /.row */}
                     </div>
-                </div>
-            </section>
+                    {/* /.container-fluid */}
+                </section>
 
 
         </div >

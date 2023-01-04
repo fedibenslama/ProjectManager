@@ -35,7 +35,6 @@ function ClientAdd({ setClientsInfo, ClientsInfo }) {
     }
     const onClientAddSubmit = (event) => {
         event.preventDefault();
-        navigate("/clients")
         const newClient = {
             id: nanoid(),
             ClientName: AddClientData.ClientName,
@@ -65,6 +64,8 @@ function ClientAdd({ setClientsInfo, ClientsInfo }) {
             })
         })
             .then(response => response.json())
+        navigate("/clients")
+        
 
     }
     /////////////////////REGISTER////////////////////////////
@@ -98,6 +99,7 @@ function ClientAdd({ setClientsInfo, ClientsInfo }) {
         })
             .then(response => response.json())
             .catch(console.log)
+
 
     }
     //////////////////////////////////////////////////////

@@ -292,20 +292,17 @@ def plot_test():
 
 @app.route('/classify', methods=['POST'])
 def classify():
-    skills_df = pd.read_csv('Skills.csv')
+    skills_df = pd.read_csv('Skills_Classifier.csv')
+    skills_df = skills_df[skills_df["Period Table Group"].str.contains("needs input") == False]
     # Dropping irrelevent columns
-    columns_to_delete2 = ['O*NET-SOC Code', 'Commodity Code']
-    skills_df.drop(columns_to_delete2, inplace=True, axis=1)
-    # Removing software from last sentence
-    skills_df['Commodity Title'] = skills_df['Commodity Title'].str.rsplit(
-        ' ', 1).str[0]
+    columns_to_delete = ['skill','count','skill_group']
+    skills_df.drop(columns_to_delete, inplace=True, axis=1)
+    skills_df.rename(columns={'clean_skill':'skill'}, inplace=True)
     # creating clean text feature
-    features = ['Title', 'Commodity Title', 'Example']
+    features = ['skill','Period Table Group']
     for feature in features:
-        skills_df['Clean_' + feature] = skills_df[feature].apply(clean_textt)
-    skills_df['soup'] = skills_df['Clean_Title'] + \
-        skills_df['Clean_Commodity Title'] + skills_df['Clean_Example']
-    skills_df['soup'] = skills_df['soup'].apply(lambda x: remove_stopwords(x))
+        skills_df['Clean_' + feature] = skills_df[feature].apply(clean_text)
+    skills_df['Clean_skill'] = skills_df['Clean_skill'].apply(lambda x: remove_stopwords(x))
     # Defining a Count Vectorizer object
     count_vec2 = CountVectorizer(stop_words='english', max_features=10000)
     # Defining a TF-IDF Vectorizer
@@ -313,22 +310,25 @@ def classify():
         1, 2), tokenizer=tokenize_and_lemmatize, max_features=10000, use_idf=True)
     mb2 = MultiLabelBinarizer()
     y2 = mb2.fit_transform(
-        skills_df['Commodity Title'].dropna().str.split(', '))
+        skills_df['Period Table Group'].dropna().str.split(', '))
     print(y2)
     print(mb2.classes_)
     # Basic validation: splitting the data 80-20 train/test
     X_train2, X_test2, y_train2, y_test2 = train_test_split(
-        skills_df['soup'], y2, test_size=0.2, random_state=55)
+        skills_df['Clean_skill'], y2, test_size=0.2, random_state=55)
     # Tf-Idf transformation
     xtrain_tfidf2 = tfidf_vec2.fit_transform(X_train2)
     xtest_tfidf2 = tfidf_vec2.transform(X_test2)
     # Count Vectorizer transformation
     xtrain_cv2 = count_vec2.fit_transform(X_train2)
     xtest_cv2 = count_vec2.transform(X_test2)
-    linear_svc2 = LinearSVC(C=10, penalty='l2')
-    oneVsRest_svc2 = OneVsRestClassifier(linear_svc2)
-    oneVsRest_svc2.fit(xtrain_tfidf2, y_train2)
-    y_pred2 = oneVsRest_svc2.predict(xtest_tfidf2)
+    rforest = RandomForestClassifier(n_estimators=100)
+    oneVsRest = OneVsRestClassifier(rforest)
+    oneVsRest.fit(xtrain_tfidf2, y_train2)
+    # linear_svc2 = LinearSVC(C=10, penalty='l2')
+    # oneVsRest = OneVsRestClassifier(linear_svc2)
+    # oneVsRest.fit(xtrain_tfidf2, y_train2)
+    y_pred2 = oneVsRest.predict(xtest_tfidf2)
     # Inference funct to handle new data that will come in the future
     if request.method == 'POST':
         # request.form['formData'] #request.get_json() works request.get_json(silent=True)
@@ -336,7 +336,7 @@ def classify():
         #data = [message]
         text2 = clean_text(formData2)
         text_vec2 = tfidf_vec2.transform([text2])
-        y_pred2 = oneVsRest_svc2.predict(text_vec2)
+        y_pred2 = oneVsRest.predict(text_vec2)
         Prediction2 = mb2.inverse_transform(y_pred2)
     # return render_template('result.html', prediction=my_prediction)
     # return jsonify ({"prediction": my_prediction})

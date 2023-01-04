@@ -37,6 +37,12 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
     const onClientFeedbacksView = () => {
         navigatee('/clientsfeedback')
     }
+    const onProjectsView = () => {
+        navigatee('/')
+    }
+    const onUsersView = () => {
+        navigatee('/Members')
+    }
     const onViewAllTasksClick = () => {
         navigatee('/tasks')
     }
@@ -111,11 +117,11 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                 {/* small box */}
                                 <div className="small-box bg-info">
                                     <div className="inner">
-                                        <h3>150</h3>
-                                        <p>Client's Feedbacks</p>
+                                        <h3>4</h3>
+                                        <p>Client's Feedback</p>
                                     </div>
                                     <div className="icon">
-                                        <i className="ion ion-bag" />
+                                        <i className="fas fa-comments" />
                                     </div>
                                     <a onClick={onClientFeedbacksView} className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
                                 </div>
@@ -125,13 +131,13 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                 {/* small box */}
                                 <div className="small-box bg-success">
                                     <div className="inner">
-                                        <h3>53<sup style={{ fontSize: 20 }}>%</sup></h3>
+                                        <h3>4</h3>
                                         <p>Number Of Projects</p>
                                     </div>
                                     <div className="icon">
                                         <i className="ion ion-stats-bars" />
                                     </div>
-                                    <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+                                    <a onClick={onProjectsView} className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
                                 </div>
                             </div>
                             {/* ./col */}
@@ -139,13 +145,13 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                 {/* small box */}
                                 <div className="small-box bg-warning">
                                     <div className="inner">
-                                        <h3>44</h3>
+                                        <h3>10</h3>
                                         <p>Number Of Users</p>
                                     </div>
                                     <div className="icon">
                                         <i className="ion ion-person-add" />
                                     </div>
-                                    <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+                                    <a onClick={onUsersView} className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
                                 </div>
                             </div>
                             {/* ./col */}
@@ -154,12 +160,13 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                 <div className="small-box bg-danger">
                                     <div className="inner">
                                         <h3>65</h3>
-                                        <p>Number Of Entries</p>
+                                        <p>Your Entries</p>
                                     </div>
+                                    
                                     <div className="icon">
-                                        <i className="ion ion-pie-graph" />
+                                        <i className="fa fa-database" />
                                     </div>
-                                    <a href="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></a>
+                                   
                                 </div>
                             </div>
                             {/* ./col */}
@@ -249,8 +256,8 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                             <ul className="pagination pagination-sm">
                                                 <li className="page-item"><a href="#" className="page-link">«</a></li>
                                                 <li className="page-item"><a href="#" className="page-link">1</a></li>
-                                                <li className="page-item"><a href="#" className="page-link">2</a></li>
-                                                <li className="page-item"><a href="#" className="page-link">3</a></li>
+                                                {/* <li className="page-item"><a href="#" className="page-link">2</a></li>
+                                                <li className="page-item"><a href="#" className="page-link">3</a></li> */}
                                                 <li className="page-item"><a href="#" className="page-link">»</a></li>
                                             </ul>
                                         </div>
@@ -270,9 +277,9 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                                     <label htmlFor="todoCheck1" />
                                                 </div>
                                                 {/* todo text */}
-                                                <span className="text">Design a nice theme</span>
+                                                <span className="text">Design a nice interface for the Classification System</span>
                                                 {/* Emphasis label */}
-                                                <small className="badge badge-danger"><i className="far fa-clock" /> 2 mins</small>
+                                                <small className="badge badge-danger"><i className="far fa-clock" /> 1 Week</small>
                                                 {/* General tools such as edit or delete*/}
                                                 <div className="tools">
                                                     <i className="fas fa-edit" />
@@ -304,8 +311,8 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                                     <input type="checkbox" defaultValue name="todo3" id="todoCheck3" />
                                                     <label htmlFor="todoCheck3" />
                                                 </div>
-                                                <span className="text">Let theme shine like a star</span>
-                                                <small className="badge badge-warning"><i className="far fa-clock" /> 1 day</small>
+                                                <span className="text">Make the application faster</span>
+                                                <small className="badge badge-warning"><i className="far fa-clock" /> 2 days</small>
                                                 <div className="tools">
                                                     <i className="fas fa-edit" />
                                                     <i className="fas fa-trash-o" />
@@ -320,7 +327,7 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                                     <input type="checkbox" defaultValue name="todo4" id="todoCheck4" />
                                                     <label htmlFor="todoCheck4" />
                                                 </div>
-                                                <span className="text">Let theme shine like a star</span>
+                                                <span className="text">Fix the clients interface</span>
                                                 <small className="badge badge-success"><i className="far fa-clock" /> 3 days</small>
                                                 <div className="tools">
                                                     <i className="fas fa-edit" />
@@ -336,8 +343,8 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                                     <input type="checkbox" defaultValue name="todo5" id="todoCheck5" />
                                                     <label htmlFor="todoCheck5" />
                                                 </div>
-                                                <span className="text">Check your messages and notifications</span>
-                                                <small className="badge badge-primary"><i className="far fa-clock" /> 1 week</small>
+                                                <span className="text">Check Emails</span>
+                                                <small className="badge badge-primary"><i className="far fa-clock" /> 1 hour</small>
                                                 <div className="tools">
                                                     <i className="fas fa-edit" />
                                                     <i className="fas fa-trash-o" />
@@ -352,8 +359,8 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                                     <input type="checkbox" defaultValue name="todo6" id="todoCheck6" />
                                                     <label htmlFor="todoCheck6" />
                                                 </div>
-                                                <span className="text">Let theme shine like a star</span>
-                                                <small className="badge badge-secondary"><i className="far fa-clock" /> 1 month</small>
+                                                <span className="text">Complete End of Study Project</span>
+                                                <small className="badge badge-secondary"><i className="far fa-clock" /> 7 months</small>
                                                 <div className="tools">
                                                     <i className="fas fa-edit" />
                                                     <i className="fas fa-trash-o" />
@@ -379,33 +386,33 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                     </p>
                                     <div className="progress-group">
                                         Complete Projects Successfully
-                                        <span className="float-right"><b>16</b>/100</span>
+                                        <span className="float-right"><b>4</b>/100</span>
                                         <div className="progress progress-sm">
-                                            <div className="progress-bar bg-primary" style={{ width: '16%' }} />
+                                            <div className="progress-bar bg-primary" style={{ width: '4%' }} />
                                         </div>
                                     </div>
                                     {/* /.progress-group */}
                                     <div className="progress-group">
                                         Obtain Clients
-                                        <span className="float-right"><b>50</b>/200</span>
+                                        <span className="float-right"><b>4</b>/200</span>
                                         <div className="progress progress-sm">
-                                            <div className="progress-bar bg-danger" style={{ width: '25%' }} />
+                                            <div className="progress-bar bg-info" style={{ width: '2%' }} />
                                         </div>
                                     </div>
                                     {/* /.progress-group */}
                                     <div className="progress-group">
-                                        <span className="progress-text">Visit Premium Page</span>
-                                        <span className="float-right"><b>480</b>/800</span>
+                                        <span className="progress-text">Complete Tasks</span>
+                                        <span className="float-right"><b>6</b>/400</span>
                                         <div className="progress progress-sm">
-                                            <div className="progress-bar bg-success" style={{ width: '60%' }} />
+                                            <div className="progress-bar bg-warning" style={{ width: '1.5%' }} />
                                         </div>
                                     </div>
                                     {/* /.progress-group */}
                                     <div className="progress-group">
-                                        Send Inquiries
-                                        <span className="float-right"><b>250</b>/500</span>
+                                        Complete Requirements
+                                        <span className="float-right"><b>5</b>/50</span>
                                         <div className="progress progress-sm">
-                                            <div className="progress-bar bg-warning" style={{ width: '50%' }} />
+                                            <div className="progress-bar bg-danger" style={{ width: '10%' }} />
                                         </div>
                                     </div>
                                     {/* /.progress-group */}
@@ -419,7 +426,7 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                         <span className="info-box-icon"><i className="fas fa-tasks" /></span>
                                         <div className="info-box-content">
                                             <span className="info-box-text">Tasks</span>
-                                            <span className="info-box-number">5,200</span>
+                                            <span className="info-box-number">6</span>
                                         </div>
                                         {/* /.info-box-content */}
                                     </div>
@@ -428,7 +435,7 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                         <span className="info-box-icon"><i className="fas fa-project-diagram" /></span>
                                         <div className="info-box-content">
                                             <span className="info-box-text">Functionalities</span>
-                                            <span className="info-box-number">92,050</span>
+                                            <span className="info-box-number">3</span>
                                         </div>
                                         {/* /.info-box-content */}
                                     </div>
@@ -437,7 +444,7 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                         <span className="info-box-icon"><i className="fas fa-business-time" /></span>
                                         <div className="info-box-content">
                                             <span className="info-box-text">Requirements</span>
-                                            <span className="info-box-number">114,381</span>
+                                            <span className="info-box-number">5</span>
                                         </div>
                                         {/* /.info-box-content */}
                                     </div>
@@ -446,7 +453,7 @@ function Dashboard({ TasksInfo, setTasksInfo, setEditTaskData, setEditTaskId }) 
                                         <span className="info-box-icon"><i className="fas fa-address-card" /></span>
                                         <div className="info-box-content">
                                             <span className="info-box-text">Clients</span>
-                                            <span className="info-box-number">163,921</span>
+                                            <span className="info-box-number">4</span>
                                         </div>
                                         {/* /.info-box-content */}
                                     </div>

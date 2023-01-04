@@ -201,6 +201,7 @@ function ProjectEdit({ ProjectsInfo, setProjectsInfo, EditProjectData, setEditPr
                                             
                                             <option selected disabled>Select</option>
                                             <option>On Hold</option>
+                                            <option>Active</option>
                                             <option>Canceled</option>
                                             <option>Success</option>
 

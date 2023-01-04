@@ -87,7 +87,7 @@ function MemberView() {
                                     <div className="card card-primary card-outline">
                                         <div className="card-body box-profile">
                                             <div className="text-center">
-                                                <img className="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile" />
+                                                <img src={ViewMemberData.memberid} alt="user-avatar" className="profile-user-img img-circle img-fluid"  />
                                             </div>
                                             <h3 className="profile-username text-center">{ViewMemberData.membername}</h3>
                                             <h5 className="text-muted text-center">{ViewMemberData.memberassociatedroles}</h5>

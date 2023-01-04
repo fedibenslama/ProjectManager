@@ -39,7 +39,6 @@ function TaskAdd({ setTasksInfo, TasksInfo }) {
     }
     const onTaskAddSubmit = (event) => {
         event.preventDefault();
-        navigate("/Tasks")
         const newTask = {
             id: nanoid(),
             TaskTitle: AddTaskData.TaskTitle,
@@ -78,6 +77,8 @@ function TaskAdd({ setTasksInfo, TasksInfo }) {
             })
         })
             .then(response => response.json())
+            navigate("/Tasks")
+            
 
     }
     return (
@@ -154,14 +155,14 @@ function TaskAdd({ setTasksInfo, TasksInfo }) {
                                             name="TaskMainTask"
                                             onChange={onTaskAddChange} />
                                     </div>
-                                    <div className="form-group">
+                                    {/* <div className="form-group">
                                         <label htmlFor="TaskSpecification">Task Specification</label>
                                         <input type="text"
                                             id="TaskSpecification"
                                             className="form-control"
                                             name="TaskSpecification"
                                             onChange={onTaskAddChange} />
-                                    </div>
+                                    </div> */}
                                     <div className="form-group">
                                         <label htmlFor="TaskNature">Nature</label>
                                         <input type="text"

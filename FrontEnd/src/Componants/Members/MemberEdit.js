@@ -141,55 +141,67 @@ function MemberEdit({ MembersInfo, setMembersInfo, EditMemberData, setEditMember
                                     </div>
                                 </div>
                                 <div className="card-body">
+                                <div className="form-group">
+                                        <label>Name</label>
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"><i className="fas fa-user" /></span>
+                                            </div>
+                                            <input type="text" className="form-control"
+                                                name="MemberName"
+                                                onChange={onMemberEditChange}
+                                                value={EditMemberData.MemberName} />
+                                        </div>
+                                    </div>
+                                    
                                     <div className="form-group">
-                                        <label htmlFor="MemberName">Name</label>
-                                        <input
-                                            type="text"
-                                            id="MemberName"
-                                            name="MemberName"
-                                            className="form-control"
-                                            onChange={onMemberEditChange}
-                                            value={EditMemberData.MemberName}
-                                        />
+                                        <label>Telephone Number</label>
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"><i className="fas fa-phone" /></span>
+                                            </div>
+                                            <input type="tel" className="form-control"
+                                                name="MemberTelephoneNumber"
+                                                onChange={onMemberEditChange}
+                                                value={EditMemberData.MemberTelephoneNumber} />
+                                        </div>
+                                        {/* /.input group */}
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="MemberId">ID</label>
-                                        <input
-                                            type="text"
-                                            id="MemberId"
-                                            className="form-control"
-                                            name="MemberId"
-                                            onChange={onMemberEditChange}
-                                            value={EditMemberData.MemberId} />
-                                    </div>
-                                  
-                                    <div className="form-group">
-                                        <label htmlFor="MemberTelephoneNumber">Telephone Number</label>
-                                        <input
-                                            type="text"
-                                            id="MemberTelephoneNumber"
-                                            className="form-control"
-                                            name="MemberTelephoneNumber"
-                                            onChange={onMemberEditChange}
-                                            value={EditMemberData.MemberTelephoneNumber} />
+                                        <label>Email</label>
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"><i className="fa fa-envelope" /></span>
+                                            </div>
+                                            <input type="text" className="form-control"
+                                                name="MemberEmail"
+                                                onChange={onMemberEditChange}
+                                                value={EditMemberData.MemberEmail} />
+                                        </div>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="MemberEmail">Email</label>
-                                        <input type="text"
-                                            id="MemberEmail"
-                                            className="form-control"
-                                            name="MemberEmail"
-                                            onChange={onMemberEditChange}
-                                            value={EditMemberData.MemberEmail} />
+                                        <label>Address</label>
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"><i className="fas fa-map-marker-alt" /></span>
+                                            </div>
+                                            <input type="text" className="form-control"
+                                                name="MemberAddress"
+                                                onChange={onMemberEditChange} 
+                                                value={EditMemberData.MemberAddress}/>
+                                        </div>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="MemberAddress">Address</label>
-                                        <input type="text"
-                                            id="MemberAddress"
-                                            className="form-control"
-                                            name="MemberAddress"
-                                            onChange={onMemberEditChange}
-                                            value={EditMemberData.MemberAddress} />
+                                        <label>Profile Picture</label>
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"><i className="fas fa-hashtag" /></span>
+                                            </div>
+                                            <input type="text" className="form-control" placeholder="Put URL here"
+                                                name="MemberId"
+                                                onChange={onMemberEditChange} 
+                                                value={EditMemberData.MemberId}/>
+                                        </div>
                                     </div>
 
 
@@ -209,7 +221,7 @@ function MemberEdit({ MembersInfo, setMembersInfo, EditMemberData, setEditMember
                                     </div>
                                 </div>
                                 <div className="card-body">
-                                <div className="form-group">
+                                    <div className="form-group">
                                         <label htmlFor="MemberAssociatedRoles">Associated Roles</label>
 
                                         <select
@@ -237,7 +249,7 @@ function MemberEdit({ MembersInfo, setMembersInfo, EditMemberData, setEditMember
                                             onChange={onMemberEditChange}
                                             value={EditMemberData.MemberAccumulatedExp} />
                                     </div>
-                                    
+
                                     <button type="submit"
                                         defaultValue="Create new Member"
                                         className="btn btn-info "

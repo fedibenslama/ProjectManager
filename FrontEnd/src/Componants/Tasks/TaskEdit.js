@@ -203,7 +203,7 @@ function TaskEdit({ TasksInfo, setTasksInfo, EditTaskData, setEditTaskData, Edit
                                             onChange={onTaskEditChange}
                                             value={EditTaskData.TaskMainTask} />
                                     </div>
-                                    <div className="form-group">
+                                    {/* <div className="form-group">
                                         <label htmlFor="TaskSpecification">Task Specification</label>
                                         <input type="text"
                                             id="TaskSpecification"
@@ -211,7 +211,7 @@ function TaskEdit({ TasksInfo, setTasksInfo, EditTaskData, setEditTaskData, Edit
                                             name="TaskSpecification"
                                             onChange={onTaskEditChange}
                                             value={EditTaskData.TaskSpecification} />
-                                    </div>
+                                    </div> */}
                                     <div className="form-group">
                                         <label htmlFor="TaskNature">Nature</label>
                                         <input type="text"

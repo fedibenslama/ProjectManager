@@ -35,7 +35,6 @@ function RequirementAdd({ setRequirementsInfo, RequirementsInfo }) {
     }
     const onRequirementAddSubmit = (event) => {
         event.preventDefault();
-        navigate("/requirements")
         const newRequirement = {
             id: nanoid(),
             RequirementTitle: AddRequirementData.RequirementTitle,
@@ -66,6 +65,7 @@ function RequirementAdd({ setRequirementsInfo, RequirementsInfo }) {
             })
         })
             .then(response => response.json())
+        navigate("/requirements")
 
     }
     return (

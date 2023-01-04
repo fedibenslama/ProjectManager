@@ -48,9 +48,9 @@ function Calendar() {
                                             <div id="external-events">
                                                 <div className="external-event bg-success">Lunch</div>
                                                 <div className="external-event bg-warning">Go home</div>
-                                                <div className="external-event bg-info">Do homework</div>
+                                                <div className="external-event bg-info">Work on the Recommender System</div>
                                                 <div className="external-event bg-primary">Work on UI design</div>
-                                                <div className="external-event bg-danger">Sleep tight</div>
+                                                <div className="external-event bg-danger">End of Study Presentation</div>
                                                 <div className="checkbox">
                                                     <label htmlFor="drop-remove">
                                                         <input type="checkbox" id="drop-remove" />

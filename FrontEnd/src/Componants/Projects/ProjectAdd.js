@@ -200,13 +200,7 @@ function ProjectAdd({ setProjectsInfo, ProjectsInfo }) {
     })
       .then(response => response.json())
     navigate("/")
-    window.location.reload(false);
-    // .then(Project => {
-    //   if (Project) {
-    //     // this.props.loadProject(Project)
-    //     console.log(response)
-    //   }
-    // })
+    
 
   }
   return (
@@ -282,6 +276,7 @@ function ProjectAdd({ setProjectsInfo, ProjectsInfo }) {
                       name="Status">
                       <option selected disabled>Select one</option>
                       <option>On Hold</option>
+                      <option>Active</option>
                       <option>Canceled</option>
                       <option>Success</option>
 
@@ -496,7 +491,7 @@ function ProjectAdd({ setProjectsInfo, ProjectsInfo }) {
                 <table id="example2" className="table table-bordered table-striped">
                   <thead>
                     <tr>
-                      <th>Jobs That Use This Skill</th>
+                      {/* <th>Jobs That Use This Skill</th> */}
                       <th>Title</th>
                       <th>Team Member</th>
 
@@ -504,17 +499,17 @@ function ProjectAdd({ setProjectsInfo, ProjectsInfo }) {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{Column0}</td>
+                      {/* <td>{Column0}</td> */}
                       <td>{Column1} </td>
                       <td>Fedi Ben Slama </td>
                     </tr>
                     <tr>
-                      <td>{Column0v1}</td>
+                      {/* <td>{Column0v1}</td> */}
                       <td>{Column1v1} </td>
                       <td>Nada</td>
                     </tr>
                     <tr>
-                      <td>{Column0v2}</td>
+                      {/* <td>{Column0v2}</td> */}
                       <td>{Column1v2} </td>
                       <td>Marie</td>
                     </tr>

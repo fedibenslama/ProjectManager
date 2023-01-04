@@ -107,16 +107,28 @@ function Clientfeedbacks() {
                                             <tbody>
 
                                                 <tr>
-                                                    <td>Even though Fedi is a senior associate, she turns in work product that consistently seems like it's come from a first-year associate. She makes careless mistakes and never checks her spelling or grammar. She is hesitant and shy about speaking with clients even though that should be a key part of her role at this level. It frequently takes her hours to complete an assignment that should take 20 minutes or less. Moreover, Fedi never listens to my feedback or takes it seriously so I cannot imagine that her future at this company will last for much longer.</td>
-                                                    <td>Nicolas</td>
+                                                    <td>Even though Fedi is a senior associate, he turns in work product that consistently seems like it's come from a first-year associate. He makes careless mistakes and never checks his spelling or grammar. She is hesitant and shy about speaking with clients even though that should be a key part of her role at this level. It frequently takes her hours to complete an assignment that should take 20 minutes or less. Moreover, Fedi never listens to my feedback or takes it seriously so I cannot imagine that his future at this company will last for much longer.</td>
+                                                    <td>Daniel Stroman</td>
                                                     <td>Fedi Ben Slama</td>
-                                                    <td>Web Development Project</td>
+                                                    <td>Text Classification</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Marie is an excellent employee. She performs well in all the responsibilities of her position. She can be counted on to meet expectations. Marie shows great potential for future advancement within the company.</td>
-                                                    <td>Adel</td>
-                                                    <td>Marie</td>
-                                                    <td>Text Classification with Machine Learning</td>
+                                                    <td>Mariem is an excellent employee. She performs well in all the responsibilities of her position. She can be counted on to meet expectations. Mariem shows great potential for future advancement</td>
+                                                    <td>Billy M. Rodriguez</td>
+                                                    <td>Mariem Ahmed</td>
+                                                    <td>Spam Detection</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Isabella is an excellent worker. She is organized, detail-oriented, and efficient. Isabella consistently seeks feedback and takes constructive criticism well. When something does not come easily to her, she perseveres until she is an expert.</td>
+                                                    <td>Jacqueline Roy</td>
+                                                    <td>Isabella James</td>
+                                                    <td>Visualising and forecasting stocks</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nada has had a slow start at our project, her output is less than standard.  Nada may benefit from additional training and/or goal setting.  Nada will need to pick up her pace if she would like to continue to progress at the project.  Suggest review in 3 months to see if any improvements have occurred.</td>
+                                                    <td>Coastal Collaboratives</td>
+                                                    <td>Nada Mohamed</td>
+                                                    <td>Project Management Platform</td>
                                                 </tr>
 
 
@@ -149,7 +161,6 @@ function Clientfeedbacks() {
                         <Form>
                             <Form.Row>
                                 <Form.Group as={Col}>
-                                    <Form.Label>Client Feedback</Form.Label>
                                     <input
                                         placeholder='Put The Client Feedback Here To Analyze Using Machine Learning '
                                         type="textarea"

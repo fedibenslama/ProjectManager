@@ -125,7 +125,7 @@ function MembersList({ MembersInfo, setMembersInfo, setEditMemberData, setEditMe
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
-                                                    <th>ID</th>
+                                                    {/* <th>ID</th> */}
                                                     <th>Telephone Number</th>
                                                     <th>Email</th>
                                                     <th>Address</th>
@@ -141,7 +141,12 @@ function MembersList({ MembersInfo, setMembersInfo, setEditMemberData, setEditMe
                                                     <Fragment>
                                                         <tr>
                                                             <td>{MemberInfo.membername}</td>
-                                                            <td>{MemberInfo.memberid} </td>
+                                                            {/* <td>
+                                                                <li className="list-inline-item text-center">
+                                                                    <img alt="Avatar" className=" img-circle img-fluid w-50 p-3" src={MemberInfo.memberid} />
+                                                                </li>
+
+                                                            </td> */}
                                                             <td>{MemberInfo.membertelephonenumber}</td>
                                                             <td>{MemberInfo.memberemail}</td>
                                                             <td>{MemberInfo.memberaddress}</td>
@@ -180,7 +185,7 @@ function MembersList({ MembersInfo, setMembersInfo, setEditMemberData, setEditMe
 
                                                 ))}
                                             </tbody>
-                                      
+
                                         </table>
                                     </div>
                                     {/* /.card-body */}

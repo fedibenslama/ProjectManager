@@ -4,9 +4,20 @@ import { nanoid } from 'nanoid';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../Layouts/Navbar";
 import Menu from "../../Layouts/Menu";
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 
 function MemberAdd({ setMembersInfo, MembersInfo }) {
+    //////////////////////////////
 
+    const animatedComponents = makeAnimated();
+    const options = [
+        { value: 'Admin', label: 'Admin' },
+        { value: 'Project Manager', label: 'Project Manager' },
+        { value: 'Team Member', label: 'Team Member' },
+        { value: 'Tester', label: 'Tester' },
+        { value: 'Customer Relationship Manager', label: 'Customer Relationship Manager' }
+    ]
     let navigate = useNavigate()
 
     const [AddMemberData, setAddMemberData] = useState({
@@ -35,7 +46,7 @@ function MemberAdd({ setMembersInfo, MembersInfo }) {
     }
     const onMemberAddSubmit = (event) => {
         event.preventDefault();
-        navigate("/Members")
+
         const newMember = {
             id: nanoid(),
             MemberName: AddMemberData.MemberName,
@@ -65,6 +76,8 @@ function MemberAdd({ setMembersInfo, MembersInfo }) {
             })
         })
             .then(response => response.json())
+        navigate("/Members")
+
 
     }
     /////////////////////REGISTER////////////////////////////
@@ -138,70 +151,64 @@ function MemberAdd({ setMembersInfo, MembersInfo }) {
                                 </div>
                                 <div className="card-body">
                                     <div className="form-group">
-                                        <label htmlFor="MemberName">Name</label>
-                                        <input
-                                            type="text"
-                                            id="MemberName"
-                                            name="MemberName"
-                                            className="form-control"
-                                            onChange={onMemberAddChange}
-                                        />
+                                        <label>Name</label>
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"><i className="fas fa-user" /></span>
+                                            </div>
+                                            <input type="text" className="form-control"
+                                                name="MemberName"
+                                                onChange={onMemberAddChange} />
+                                        </div>
+                                    </div>
+
+
+
+                                    <div className="form-group">
+                                        <label>Email</label>
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"><i className="fa fa-envelope" /></span>
+                                            </div>
+                                            <input type="text" className="form-control"
+                                                name="MemberEmail"
+                                                onChange={onMemberAddChange} />
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Telephone Number</label>
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"><i className="fas fa-phone" /></span>
+                                            </div>
+                                            <input type="tel" className="form-control"
+                                                name="MemberTelephoneNumber"
+                                                onChange={onMemberAddChange} />
+                                        </div>
+                                        {/* /.input group */}
                                     </div>
 
                                     <div className="form-group">
-                                        <label htmlFor="MemberId">ID</label>
-                                        <input id="MemberId"
-                                            className="form-control"
-                                            rows={4}
-                                            defaultValue={""}
-                                            name="MemberId"
-                                            onChange={onMemberAddChange} />
+                                        <label>Address</label>
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"><i className="fas fa-map-marker-alt" /></span>
+                                            </div>
+                                            <input type="text" className="form-control"
+                                                name="MemberAddress"
+                                                onChange={onMemberAddChange} />
+                                        </div>
                                     </div>
 
                                     <div className="form-group">
-                                        <label htmlFor="MemberEmail">Email</label>
-                                        <input
-                                            type="email"
-                                            id="MemberEmail"
-                                            className="form-control"
-                                            name="MemberEmail"
-                                            onChange={onMemberAddChange} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="MemberTelephoneNumber">Telephone Number</label>
-                                        <input
-                                            type="tel"
-                                            id="MemberTelephoneNumber"
-                                            className="form-control"
-                                            name="MemberTelephoneNumber"
-                                            onChange={onMemberAddChange} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="MemberAddress">Address</label>
-                                        <input
-                                            type="text"
-                                            id="MemberAddress"
-                                            className="form-control"
-                                            name="MemberAddress"
-                                            onChange={onMemberAddChange} />
-                                    </div>
-                                    {/* <div className="form-group">
-                                        <label htmlFor="MemberAssociatedRoles">Associated Roles</label>
-                                        <input
-                                            type="text"
-                                            id="MemberAssociatedRoles"
-                                            className="form-control"
-                                            name="MemberAssociatedRoles"
-                                            onChange={onMemberAddChange} />
-                                    </div> */}
-                                    <div className="form-group">
-                                        <label htmlFor="MemberAssociatedRoles">Associated Roles</label>
+                                        <label htmlFor="MemberAssociatedRoles">Role</label>
 
                                         <select
                                             id="MemberAssociatedRoles"
-                                            className="form-control custom-select"
+                                            className="form-control custom-select "
                                             name="MemberAssociatedRoles"
-                                            onChange={onMemberAddChange} >
+                                            onChange={onMemberAddChange}
+                                        >
 
                                             <option selected disabled> Select One </option>
                                             <option>Admin</option>
@@ -213,16 +220,48 @@ function MemberAdd({ setMembersInfo, MembersInfo }) {
 
                                         </select>
                                     </div>
-                                    <div className="form-group">
-                                        <label htmlFor="MemberAccumulatedExp">Accumulated Experience</label>
-                                        <input
-                                            type="type"
-                                            id="MemberAccumulatedExp"
-                                            className="form-control"
-                                            name="MemberAccumulatedExp"
-                                            onChange={onMemberAddChange} />
-                                    </div>
 
+                                    {/* <div className="form-group">
+                                        <label>Associated Roles</label>
+                                        <div className="select2-purple"
+                                         name="MemberAssociatedRoles"
+                                         onChange={onMemberAddChange}
+                                        >
+
+                                            <Select
+                                            
+                                               
+                                                closeMenuOnSelect={false}
+                                                components={animatedComponents}
+                                                options={options}
+                                                
+                                                isMulti
+
+                                            />
+                                        </div>
+                                    </div> */}
+                                    <div className="form-group">
+                                        <label>Accumulated Experience</label>
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"><i className="fas fa-address-card" /></span>
+                                            </div>
+                                            <input type="text" className="form-control"
+                                                name="MemberAccumulatedExp"
+                                                onChange={onMemberAddChange} />
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Profile Picture</label>
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"><i className="fas fa-hashtag" /></span>
+                                            </div>
+                                            <input type="text" className="form-control" placeholder="Put URL here"
+                                                name="MemberId"
+                                                onChange={onMemberAddChange} />
+                                        </div>
+                                    </div>
 
                                 </div>
                                 {/* /.card-body */}
@@ -312,7 +351,7 @@ function MemberAdd({ setMembersInfo, MembersInfo }) {
                         <div className="col-12">
                             <button onClick={onCancelClick} className="btn btn-secondary">Cancel</button>
                             <button type="submit"
-                                className="btn btn-success float-right"
+                                className="btn btn-success float-righ ml-3"
                                 onClick={onMemberAddSubmit} > Add New Member </button>
                         </div>
                     </div>

@@ -2,7 +2,7 @@ BEGIN TRANSACTION;
 CREATE TABLE members (
     id serial PRIMARY KEY,
     membername VARCHAR(100) NOT NULL,
-    memberid VARCHAR(100),
+    memberid VARCHAR(1000),
     membertelephonenumber INT,
     memberemail TEXT,
     memberaddress VARCHAR(100),

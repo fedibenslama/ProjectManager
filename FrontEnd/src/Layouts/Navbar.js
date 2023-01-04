@@ -112,13 +112,13 @@ function Navbar() {
           {/* -----------------Profile----------------------- */}
           <li className="nav-item dropdown user-menu">
             <a href="/#" className="nav-link dropdown-toggle" data-toggle="dropdown">
-              <img src="../../dist/img/user2-160x160.jpg" className="user-image img-circle elevation-2" alt="User" />
+              <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" className="user-image img-circle elevation-2" alt="User" />
               <span className="d-none d-md-inline">{User.name}</span>
             </a>
             <ul className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               {/* User image */}
               <li className="user-header bg-dark">
-                <img src="../../dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User" />
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" className="img-circle elevation-2" alt="User" />
                 <p>
                 {User.name}
                   <small>{User.role}</small>
